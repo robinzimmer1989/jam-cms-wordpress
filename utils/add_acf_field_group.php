@@ -63,13 +63,19 @@ function gcms_add_acf_field_group($module){
 
       // Map through different fields types and convert JS to ACF schema
 
-      if($field->type == 'image' || $field->type == 'text'){
+      if($field->type == 'image'){
         $args['type'] = $field->type;
 
-        acf_update_field($args);
-      }
+      }elseif($field->type == 'number'){
+        $args['type'] = $field->type;
 
-      if($field->type == 'select'){
+      }elseif($field->type == 'text'){
+        $args['type'] = $field->type;
+
+      }elseif($field->type == 'wysiwyg'){
+        $args['type'] = $field->type;
+
+      }elseif($field->type == 'select'){
         $args['type'] = 'select';
 
         $choices = [];
@@ -78,9 +84,52 @@ function gcms_add_acf_field_group($module){
         }
         $args['choices'] = $choices;
 
-        acf_update_field($args);
+      }elseif($field->type == 'image'){
+        
+
+      }elseif($field->type == 'email'){
+        
+
+      }elseif($field->type == 'url'){
+        
+
+      }elseif($field->type == 'file'){
+        
+
+      }elseif($field->type == 'oEmbed'){
+        
+
+      }elseif($field->type == 'checkbox'){
+        
+
+      }elseif($field->type == 'radio'){
+        
+
+      }elseif($field->type == 'postObject'){
+        
+
+      }elseif($field->type == 'link'){
+        
+
+      }elseif($field->type == 'map'){
+        
+
+      }elseif($field->type == 'colorPicker'){
+        
+
+      }elseif($field->type == 'repeater'){
+        
+
+      }elseif($field->type == 'accordion'){
+        
+
+      }else {
+        $args['type'] = null;
       }
 
+      if($args['type']){
+        acf_update_field($args);
+      }
     }
   }
 

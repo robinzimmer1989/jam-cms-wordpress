@@ -1,15 +1,15 @@
 <?php
 
-function gcms_resolver_getPostByID($siteID, $postID){
+function gcms_get_post_by_id($site_id, $post_id){
 
-  $post = get_post($postID);
+  $post = get_post($post_id);
 
   if($post){
-    $formattedPost = gcms_formatPost($siteID, $post);
+    $formatted_post = gcms_format_post($site_id, $post);
 
     // Get flexible content fields and format
-    $content = get_fields($postID);
-    $formattedModules = [];
+    $content = get_fields($post_id);
+    $formatted_modules = [];
 
     if($content && $content['modules']){
       foreach($content['modules'] as $module){
@@ -24,16 +24,16 @@ function gcms_resolver_getPostByID($siteID, $postID){
           }
         }
 
-        array_push($formattedModules, [
+        array_push($formatted_modules, [
           'fields' => $fields,
           'name' => $module['acf_fc_layout']
         ]);
       }
     }
 
-    $formattedPost['content'] = $formattedModules;
+    $formatted_post['content'] = $formatted_modules;
 
-    return $formattedPost;
+    return $formatted_post;
   }
 
   return 'Post not found';

@@ -1,48 +1,47 @@
 <?php
 
-function gcms_resolver_getSiteByID($siteID){
+function gcms_get_site_by_id($site_id){
  
-  $site = get_blog_details($siteID);
+  $site = get_blog_details($site_id);
 
   if($site){
-    $blogID = $site->blog_id;
-    switch_to_blog($blogID);
+    switch_to_blog($site->blog_id);
 
-    $settings = get_blog_option($blogID, 'gcms_custom_plugin_options');
+    $settings = get_blog_option($site->blog_id, 'gcms_custom_plugin_options');
 
     // Get 'real' post types and add posts
-    $allPostTypes = get_post_types([], 'objects');
+    $all_post_types = get_post_types([], 'objects');
 
     $items = [];
 
-    foreach ( $allPostTypes as $postType ) {
-      if ($postType->publicly_queryable && $postType->name != 'attachment') {
+    foreach ( $all_post_types as $post_type ) {
+      if ($post_type->publicly_queryable && $post_type->name != 'attachment') {
 
           $posts = get_posts(array(
             'numberposts' => -1,
-            'post_type' => $postType->name,
+            'post_type' => $post_type->name,
             'post_status' => ['publish', 'draft', 'trash']
           ));
 
-          $formattedPosts = [];
+          $formatted_posts = [];
           foreach($posts as $post){
-            array_push($formattedPosts, gcms_formatPost($siteID, $post));
+            array_push($formatted_posts, gcms_format_post($site_id, $post));
           }
 
           array_push($items, [
-            'id' => $postType->name,
-            'slug' => $postType->name,
-            'title' => $postType->label,
+            'id' => $post_type->name,
+            'slug' => $post_type->name,
+            'title' => $post_type->label,
             'template' => null,
             'posts' => [
-              'items' => $formattedPosts
+              'items' => $formatted_posts
             ]
           ]);
       }
   }
 
     $data = array(
-      'id' => $siteID,
+      'id' => $site_id,
       'title' => $site->blogname,
       'netlifyID' =>  $settings['netlify_id'],
       'netlifyUrl' => $settings['netlify_url'],

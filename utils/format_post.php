@@ -1,10 +1,10 @@
 <?php
 
-function gcms_formatPost($siteID, $post) {
+function gcms_format_post($site_id, $post) {
 
-  $formattedPost = [
+  $formatted_post = [
     'id' => $post->ID,
-    'siteID' => $siteID,
+    'siteID' => $site_id,
     'title' => $post->post_title,
     'slug' => $post->post_name,
     'postTypeID' => $post->post_type,
@@ -12,10 +12,11 @@ function gcms_formatPost($siteID, $post) {
     'status' => $post->post_status,
     'featuredImage' => null,
     'content' => [],
+    'template' => [],
     'createdAt' => $post->post_date,
   ];
 
-  return $formattedPost;
+  return $formatted_post;
   
 }
 

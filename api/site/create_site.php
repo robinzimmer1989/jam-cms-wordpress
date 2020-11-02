@@ -1,23 +1,23 @@
 <?php
 
-add_action( 'rest_api_init', 'gcms_actions_createSite' ); 
-function gcms_actions_createSite() {
-    register_rest_route( 'wp/v2', '/createSite', array(
+add_action( 'rest_api_init', 'gcms_api_create_site' ); 
+function gcms_api_create_site() {
+    register_rest_route( 'gcms/v1', '/createSite', array(
         'methods' => 'GET',
-        'callback' => 'gcms_actions_createSite_callback'
+        'callback' => 'gcms_api_create_site_callback'
     ));
 }
 
-function gcms_actions_createSite_callback($data) {
+function gcms_api_create_site_callback($data) {
     $title = $data->get_param('title');
-    $userID = $data->get_param('userID');
+    $user_id = $data->get_param('userID');
     $email = $data->get_param('email');
 
-    if($title && $userID && $email){
+    if($title && $user_id && $email){
 
       # Create a new user
       $password = wp_generate_password( 12, false );
-      $wpUserID = wpmu_create_user( $userID, $password, $email );
+      $wp_user_id = wpmu_create_user( $user_id, $password, $email );
     
       # Get site url + path
       $protocols = array('http://', 'http://www.', 'www.');
@@ -25,21 +25,21 @@ function gcms_actions_createSite_callback($data) {
       $path = wp_generate_uuid4();
 
       # Create site
-      $siteID = wpmu_create_blog( $url, $path, $title, $wpUserID , array( 'public' => 0 ) );
+      $site_id = wpmu_create_blog( $url, $path, $title, $wp_user_id , array( 'public' => 0 ) );
 
       // If wpUserID is false, it means the email address is already taken
       // Therefore, we have to assign the existing user to the blog manually
-      if(!$wpUserID){
+      if(!$wp_user_id){
         $user = get_user_by('email', $email);
 
         if($user){
-            add_user_to_blog( $siteID, $user->ID, get_site_option( 'default_user_role', 'administrator' ) );
+            add_user_to_blog( $site_id, $user->ID, get_site_option( 'default_user_role', 'administrator' ) );
         }
       }
 
       # TODO: Create site on Netlify
 
-      update_blog_option( $siteID, 'gcms_custom_plugin_options', array(
+      update_blog_option( $site_id, 'gcms_custom_plugin_options', array(
         'site_id' => $path,
         'api_key' => wp_generate_uuid4(),
         'netlify_id' => '',
