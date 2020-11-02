@@ -10,13 +10,16 @@ function gcms_api_delete_media_item() {
 
 function gcms_api_delete_media_item_callback($data) {
     $site_id = $data->get_param('siteID');
-    $media_item_id = $data->get_param('id');
+    $attachment_id = $data->get_param('id');
 
     $site = get_blog_details($site_id);
 
     if($site){
       switch_to_blog($site->blog_id);
 
+      wp_delete_attachment($attachment_id, true);
+
+      return $attachment_id;
     }
 
     return null;
