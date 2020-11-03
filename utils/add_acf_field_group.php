@@ -1,28 +1,16 @@
 <?php
 
-function gcms_get_acf_group_id($field_group_name){
+function gcms_get_acf_id($field_type, $field_name){
   global $wpdb;
 
   return $wpdb->get_var("
       SELECT ID
       FROM $wpdb->posts
-      WHERE post_type='acf-field-group' AND post_excerpt='$field_group_name';
+      WHERE post_type='$field_type' AND post_excerpt='$field_name';
   ");
 }
 
-function gcms_get_field_key_by_name($field_group_id, $name){
-  $fields = acf_get_fields($field_group_id);
-
-  foreach ( $fields as $field ) {
-    if($field['name'] == $name){
-      return $field['key'];
-    }
-  }
-  
-  return false;
-}
-
-function gcms_add_acf_field_group($module){
+function gcms_add_acf_field_group($module, $options_page = false){
 
   $name = $module->name;
 
@@ -30,27 +18,79 @@ function gcms_add_acf_field_group($module){
   $module_title = str_replace('Module: ', '', $name);
   $module_name = strtolower(preg_replace('/[^\w-]+/','-', $module_title));
 
-  $field_group_id = gcms_get_acf_group_id($name);
+  $field_group_id = gcms_get_acf_id('acf-field-group', $name);
 
   if(!$field_group_id){
     $field_group_args = array(
       'post_title'     => 'Module: ' . $name,
-      'post_excerpt'   => sanitize_title( $name ),
-      'post_name'      => 'group_' . $module_name,
+      'post_excerpt'   => $name,
+      'post_name'      => $name,
       'post_date'      => date( 'Y-m-d H:i:s' ),
       'comment_status' => 'closed',
       'post_status'    => 'publish',
       'post_type'      => 'acf-field-group',
     );
+
+    if($options_page){
+      $field_group_args['post_content'] = serialize([
+        'style' => 'seamless',
+        'location' => [
+          [
+            [
+              'param' => 'options_page',
+              'operator' => '==',
+              'value' => $options_page
+            ]
+          ]
+        ]
+      ]);
+    }else{
+      $field_group_args['post_content'] = serialize([
+        'style' => 'seamless',
+        'location' => [
+          [
+            [
+              'param' => 'post_type',
+              'operator' => '==',
+              'value' => 'post',
+            ],
+            [
+              'param' => 'post_type',
+              'operator' => '!=',
+              'value' => 'post',
+            ]
+          ]
+        ]
+      ]);
+    }
   
     $field_group_id  = wp_insert_post( $field_group_args );
+  }
+
+
+  if($options_page){
+
+    $field_options_group_id = gcms_get_acf_id('acf-field', $options_page);
+
+    if(!$field_options_group_id){
+      $args = [
+        'key' => $options_page,
+        'label' => $options_page,
+        'name' => $options_page,
+        'parent' => $field_group_id,
+        'type' => 'group'
+      ];
+
+      $field_group = acf_update_field($args);
+      $field_group_id = $field_group['ID'];
+    }
   }
 
   $fields = $module->fields;
 
   foreach($fields as $field){
 
-    $field_key = gcms_get_field_key_by_name($field_group_id, $field->id);
+    $field_key = gcms_get_acf_id('acf-field', $field->id);
 
     if(!$field_key){
 
@@ -133,7 +173,7 @@ function gcms_add_acf_field_group($module){
     }
   }
 
-  return $field_group_id;
+  return $test;
 }
 
 ?>

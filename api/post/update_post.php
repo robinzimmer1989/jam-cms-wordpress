@@ -58,14 +58,13 @@ function gcms_api_update_post_callback($data) {
 
       // Generate and update acf flexible content modules on the fly
       if($modules && count($modules) > 0){
-        foreach($modules as $module){
-          gcms_add_acf_field_group($module);
-        }
 
         $fc_rows = [];
 
         // Update acf fields in post
         foreach($modules as $module){
+          gcms_add_acf_field_group($module);
+
           $name = $module->name;
           $fields = $module->fields;
 

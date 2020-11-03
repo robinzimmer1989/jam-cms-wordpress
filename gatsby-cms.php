@@ -11,6 +11,7 @@ function load_gatsby_cms() {
     require_once __DIR__ . '/utils/format_post.php';
     require_once __DIR__ . '/utils/format_media_item.php';
     require_once __DIR__ . '/utils/add_acf_field_group.php';
+    require_once __DIR__ . '/utils/add_acf_options_page.php';
     require_once __DIR__ . '/utils/cors.php';
     require_once __DIR__ . '/utils/fix_page_query.php';
     require_once __DIR__ . '/utils/create_post_action.php';

@@ -13,7 +13,6 @@ function gcms_get_site_by_id($site_id){
     $all_post_types = get_post_types([], 'objects');
 
     $items = [];
-
     foreach ( $all_post_types as $post_type ) {
       if ($post_type->publicly_queryable && $post_type->name != 'attachment') {
 
@@ -35,17 +34,33 @@ function gcms_get_site_by_id($site_id){
             'template' => null,
             'posts' => [
               'items' => $formatted_posts
-            ]
+            ],
           ]);
       }
-  }
+    }
+
+    $header_fields = get_field('theme-header', 'option');
+    $formatted_header_fields = [];
+    foreach($header_fields as $key => $value){
+      array_push($formatted_header_fields, [
+        'id' => $key,
+        'value' => $value
+      ]);
+    }
+
+    $footer = get_field('theme-footer', 'option');
 
     $data = array(
       'id' => $site_id,
       'title' => $site->blogname,
       'netlifyID' =>  $settings['netlify_id'],
       'netlifyUrl' => $settings['netlify_url'],
-      'settings' => null,
+      'settings' => [
+        'header' => [
+          'name' => 'header',
+          'fields' => $formatted_header_fields
+        ]
+      ],
       'postTypes' => [
         'items' => $items
       ],
