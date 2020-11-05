@@ -16,8 +16,11 @@ function gcms_api_update_post_callback($data) {
     $status = $data->get_param('status');
     $parent_id = $data->get_param('parentID');
     $featured_image = $data->get_param('featuredImage');
+    $featured_image = $featured_image ? json_decode($featured_image) : null;
+
     $content = $data->get_param('content');
     $modules = $content ? json_decode($content) : [];
+
     $seo_title = $data->get_param('seoTitle');
     $seo_description = $data->get_param('seoDescription');
 
@@ -30,30 +33,34 @@ function gcms_api_update_post_callback($data) {
         'ID' => $post_id
       );
 
-      if($title){
+      if(isset($title)){
         $post_data['post_title'] = $title;
       }
 
-      if($slug){
+      if(isset($slug)){
         $post_data['post_name'] = $slug;
       }
 
-      if($status){
+      if(isset($status)){
         $post_data['post_status'] = $status;
       }
 
-      if($parent_id){
+      if(isset($parent_id)){
         $post_data['post_parent'] = $parent_id;
       }
 
       wp_update_post($post_data);
 
-      if($seo_title){
+      if(isset($seo_title)){
         update_post_meta($post_id, '_yoast_wpseo_title', $seo_title);
       }
 
-      if($seo_description){
+      if(isset($seo_description)){
         update_post_meta($post_id, '_yoast_wpseo_metadesc', $seo_description);
+      }
+
+      if(isset($featured_image)){
+        set_post_thumbnail($post_id, $featured_image->id);
       }
 
       // Generate and update acf flexible content modules on the fly
