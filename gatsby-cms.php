@@ -9,6 +9,7 @@ add_action( 'plugins_loaded', 'load_gatsby_cms' );
 function load_gatsby_cms() {
      // Utils
     require_once __DIR__ . '/utils/format_post.php';
+    require_once __DIR__ . '/utils/format_post_type.php';
     require_once __DIR__ . '/utils/format_media_item.php';
     require_once __DIR__ . '/utils/add_acf_field_group.php';
     require_once __DIR__ . '/utils/add_acf_options_page.php';
@@ -17,12 +18,14 @@ function load_gatsby_cms() {
     require_once __DIR__ . '/utils/create_post_action.php';
     require_once __DIR__ . '/utils/flexible_content.php';
     require_once __DIR__ . '/utils/whitelist_apis.php';
+    require_once __DIR__ . '/utils/generate_id.php';
     
     // Resolver
     require_once __DIR__ . '/resolvers/get_site_by_id.php';
     require_once __DIR__ . '/resolvers/get_sites_by_user_id.php';
     require_once __DIR__ . '/resolvers/get_post_by_id.php';
     require_once __DIR__ . '/resolvers/get_media_items.php';
+    require_once __DIR__ . '/resolvers/get_post_type_by_name.php';
 
     // APIs
     require_once __DIR__ . '/api/site/create_site.php';

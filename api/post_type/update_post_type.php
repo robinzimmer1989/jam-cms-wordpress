@@ -14,6 +14,7 @@ function gcms_api_update_post_type_callback($data) {
     $title = $data->get_param('title');
     $slug = $data->get_param('slug');
     $template = $data->get_param('template');
+    $template = $template ? json_decode($template) : [];
 
     $site = get_blog_details($site_id);
 

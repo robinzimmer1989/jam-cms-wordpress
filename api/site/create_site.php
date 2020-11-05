@@ -39,6 +39,9 @@ function gcms_api_create_site_callback($data) {
 
       # TODO: Create site on Netlify
 
+      # TODO: Delete sample page and hello world posts
+      // $homepage = get_page_by_title( 'Sample Page' );
+
       update_blog_option( $site_id, 'gcms_custom_plugin_options', array(
         'site_id' => $path,
         'api_key' => wp_generate_uuid4(),

@@ -10,6 +10,11 @@ function gcms_api_update_site() {
 
 function gcms_api_update_site_callback($data) {
     $site_id = $data->get_param('id');
+    $title = $data->get_param('title');
+    $front_page = $data->get_param('frontPage');
+    $webhook_url = $data->get_param('netlifyBuildHook');
+    $deployment_badge_url = $data->get_param('netlifyBadgeImage');
+    $deployment_badge_link_url = $data->get_param('netlifyBadgeLink');
     $settings = $data->get_param('settings');
     $settings = $settings ? json_decode($settings) : [];
     
@@ -17,20 +22,65 @@ function gcms_api_update_site_callback($data) {
 
     if($site){
         switch_to_blog($site->blog_id);
-        
-        // Update header
-        gcms_add_acf_field_group($settings->header, 'theme-header');
 
-        $header_fields = [];
-        foreach($settings->header->fields as $field){
-            if($field->type == 'image'){
-                $header_fields[$field->id] = $field->value->id;
-            }else {
-                $header_fields[$field->id] = $field->value;
+        if(isset($title)){
+            update_option('blogname', $title);
+        }
+
+        if(isset($front_page)){
+            update_blog_option( $site->blog_id, 'page_on_front', $front_page );
+        }
+        
+         // Update header
+        if($settings->header){
+            gcms_add_acf_field_group($settings->header, 'theme-header');
+
+            $header_fields = [];
+            foreach($settings->header->fields as $field){
+                if($field->type == 'image'){
+                    $header_fields[$field->id] = $field->value->id;
+                }else {
+                    $header_fields[$field->id] = $field->value;
+                }
             }
         }
 
-        $data = update_field('theme-header', $header_fields, 'option');
+        // Update footer
+        if($settings->footer){
+            gcms_add_acf_field_group($settings->footer, 'theme-footer');
+
+            $footer_fields = [];
+            foreach($settings->footer->fields as $field){
+                if($field->type == 'image'){
+                    $footer_fields[$field->id] = $field->value->id;
+                }else {
+                    $footer_fields[$field->id] = $field->value;
+                }
+            }
+
+            update_field('theme-footer', $footer_fields, 'option');
+        }
+
+        // Update Netlify settings
+        if(isset($webhook_url) || isset($deployment_badge_url) || isset($deployment_badge_link_url)){
+            $jamstack_deployment_settings = unserialize(get_option('wp_jamstack_deployments'));
+
+            if(isset($webhook_url)){
+                $jamstack_deployment_settings['webhook_url'] = $webhook_url;
+            }
+
+            if(isset($deployment_badge_url)){
+                $jamstack_deployment_settings['deployment_badge_url'] = $deployment_badge_url;
+            }
+
+            if(isset($deployment_badge_link_url)){
+                $jamstack_deployment_settings['deployment_badge_link_url'] = $deployment_badge_link_url;
+            }
+
+            update_option('wp_jamstack_deployments', $jamstack_deployment_settings);
+        }
+
+        $data = gcms_get_site_by_id($site_id);
 
         return $data;
     }

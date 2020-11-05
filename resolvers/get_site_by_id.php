@@ -9,33 +9,18 @@ function gcms_get_site_by_id($site_id){
 
     $settings = get_blog_option($site->blog_id, 'gcms_custom_plugin_options');
 
-    // Get 'real' post types and add posts
-    $all_post_types = get_post_types([], 'objects');
+    // Get generic and custom post types
+    $post_types = get_post_types([], 'objects');
+    $custom_post_types = get_option('cptui_post_types') ? get_option('cptui_post_types') : [];
+    $all_post_types = array_merge($post_types, $custom_post_types);
 
     $items = [];
     foreach ( $all_post_types as $post_type ) {
+      // Custom post types are constructed as an array so we have to convert them
+      $post_type = (object) $post_type;
+
       if ($post_type->publicly_queryable && $post_type->name != 'attachment') {
-
-          $posts = get_posts(array(
-            'numberposts' => -1,
-            'post_type' => $post_type->name,
-            'post_status' => ['publish', 'draft', 'trash']
-          ));
-
-          $formatted_posts = [];
-          foreach($posts as $post){
-            array_push($formatted_posts, gcms_format_post($site_id, $post));
-          }
-
-          array_push($items, [
-            'id' => $post_type->name,
-            'slug' => $post_type->name,
-            'title' => $post_type->label,
-            'template' => null,
-            'posts' => [
-              'items' => $formatted_posts
-            ],
-          ]);
+          array_push($items, gcms_format_post_type($site_id, $post_type));
       }
     }
 
@@ -48,19 +33,34 @@ function gcms_get_site_by_id($site_id){
       ]);
     }
 
-    $footer = get_field('theme-footer', 'option');
+    $footer_fields = get_field('theme-footer', 'option');
+    $formatted_footer_fields = [];
+    foreach($footer_fields as $key => $value){
+      array_push($formatted_footer_fields, [
+        'id' => $key,
+        'value' => $value
+      ]);
+    }
+
+    $jamstack_deployment_settings = get_option('wp_jamstack_deployments');
 
     $data = array(
       'id' => $site_id,
       'title' => $site->blogname,
-      'netlifyID' =>  $settings['netlify_id'],
-      'netlifyUrl' => $settings['netlify_url'],
+      'netlifyBuildHook' =>  $jamstack_deployment_settings['webhook_url'],
+      'netlifyBadgeImage' => $jamstack_deployment_settings['deployment_badge_url'],
+      'netlifyBadgeLink' => $jamstack_deployment_settings['deployment_badge_link_url'],
       'settings' => [
         'header' => [
           'name' => 'header',
           'fields' => $formatted_header_fields
+        ],
+        'footer' => [
+          'name' => 'footer',
+          'fields' => $formatted_footer_fields
         ]
       ],
+      'frontPage' => intval(get_option( 'page_on_front' )),
       'postTypes' => [
         'items' => $items
       ],

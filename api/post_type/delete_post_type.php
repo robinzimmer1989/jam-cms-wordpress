@@ -17,7 +17,28 @@ function gcms_api_delete_post_type_callback($data) {
     if($site){
       switch_to_blog($site->blog_id);
 
-      
+      $cpt_ui = get_option('cptui_post_types');
+
+      if($cpt_ui){
+        $post_types = unserialize($cpt_ui);
+
+        unset($post_types[$post_type_id]);
+
+        update_option('cptui_post_types', $post_types);
+
+        $post_type = [
+          'siteID' => $site_id,
+          'id' => $post_type_id,
+          'slug' => '',
+          'title' => '',
+          'template' => [],
+          'posts' => [
+            'items' => []
+          ],
+        ];
+
+        return $post_type;
+      }
     }
 
     return null;
