@@ -11,14 +11,19 @@ function load_gatsby_cms() {
     require_once __DIR__ . '/utils/format_post.php';
     require_once __DIR__ . '/utils/format_post_type.php';
     require_once __DIR__ . '/utils/format_media_item.php';
-    require_once __DIR__ . '/utils/add_acf_field_group.php';
-    require_once __DIR__ . '/utils/add_acf_options_page.php';
     require_once __DIR__ . '/utils/cors.php';
     require_once __DIR__ . '/utils/fix_page_query.php';
     require_once __DIR__ . '/utils/create_post_action.php';
-    require_once __DIR__ . '/utils/flexible_content.php';
     require_once __DIR__ . '/utils/whitelist_apis.php';
     require_once __DIR__ . '/utils/generate_id.php';
+    require_once __DIR__ . '/utils/remove_default_post_type.php';
+
+    // ACF
+    require_once __DIR__ . '/acf/get_acf_field_id.php';
+    require_once __DIR__ . '/acf/add_acf_field_group.php';
+    require_once __DIR__ . '/acf/add_acf_options_page.php';
+    require_once __DIR__ . '/acf/format_acf_field.php'; 
+    require_once __DIR__ . '/acf/create_default_acf_fields.php';
     
     // Resolver
     require_once __DIR__ . '/resolvers/get_site_by_id.php';
@@ -28,6 +33,8 @@ function load_gatsby_cms() {
     require_once __DIR__ . '/resolvers/get_post_type_by_name.php';
 
     // APIs
+    require_once __DIR__ . '/api/test.php';
+
     require_once __DIR__ . '/api/site/create_site.php';
     require_once __DIR__ . '/api/site/update_site.php';
     require_once __DIR__ . '/api/site/get_site.php';
@@ -47,7 +54,6 @@ function load_gatsby_cms() {
     require_once __DIR__ . '/api/media_item/update_media_item.php';
     require_once __DIR__ . '/api/media_item/delete_media_item.php';
     require_once __DIR__ . '/api/media_item/get_media_items.php';
-
 }
 
 ?>

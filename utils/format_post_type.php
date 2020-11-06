@@ -15,12 +15,10 @@ function gcms_format_post_type($site_id, $post_type) {
     array_push($formatted_posts, gcms_format_post($site_id, $post));
   }
 
-  $slug = '/' . $post_type->rewrite_slug;
-
   $formatted_post_type = [
     'siteID' => $site_id,
     'id' => $post_type->name,
-    'slug' => $slug,
+    'slug' => property_exists($post_type, 'rewrite_slug') ? $post_type->rewrite_slug : '',
     'title' => $post_type->label,
     'template' => [],
     'posts' => [

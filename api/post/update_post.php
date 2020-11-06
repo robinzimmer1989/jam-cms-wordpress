@@ -65,28 +65,37 @@ function gcms_api_update_post_callback($data) {
 
       // Generate and update acf flexible content modules on the fly
       if($modules && count($modules) > 0){
+        // Updating ACF flexible content field via native function didn't work,
+        // so we take care of the update process manually.
 
-        $fc_rows = [];
+        // Update flexible content fields with collection of blocks
+        $flexible_content_blocks = [];
+        foreach($modules as $module){
+          array_push($flexible_content_blocks, 'group_' . $module->name);
+        }
+        update_post_meta( $post_id, 'flexible_content', $flexible_content_blocks );
+
+        // Add field key reference for flexible content. This is defined in 'add_flexible_content.php'
+        update_post_meta( $post_id, '_flexible_content', "field_5fa4b6444156f" );
+
+        $i = 0;
 
         // Update acf fields in post
         foreach($modules as $module){
+
+          // Add / Update ACF field group if doesn't exist yet or has changed
           gcms_add_acf_field_group($module);
 
-          $name = $module->name;
+          // Loop through fields and update value and ACF internal group / field reference
           $fields = $module->fields;
-
-          // This must be consistent with automatic flexible content 'modules' function
-          $module_slug = strtolower(preg_replace('/[^\w-]+/','-', $name));
-
-          $fc_row = ['acf_fc_layout' => $module_slug];
           foreach($fields as $field){
-            $fc_row[$field->id] = $field->value;
+            $meta_key =  'flexible_content_' . $i . '_' . $field->id;
+            update_post_meta( $post_id, $meta_key, $field->value );
+            update_post_meta( $post_id, '_' . $meta_key, 'field_group_' . $module->name . '_field_' . $field->id . '_group_' . $module->name);
           }
 
-          array_push($fc_rows, $fc_row);
+          $i++;
         }
-
-        update_field('modules', $fc_rows, $post_id);
       }
 
       $data = gcms_get_post_by_id($site_id, $post_id);

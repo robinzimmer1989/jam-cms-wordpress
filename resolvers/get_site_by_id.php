@@ -24,23 +24,23 @@ function gcms_get_site_by_id($site_id){
       }
     }
 
-    $header_fields = get_field('theme-header', 'option');
+    // $header_fields = get_field('theme-header', 'option');
     $formatted_header_fields = [];
-    foreach($header_fields as $key => $value){
-      array_push($formatted_header_fields, [
-        'id' => $key,
-        'value' => $value
-      ]);
-    }
+    // foreach($header_fields as $key => $value){
+    //   array_push($formatted_header_fields, [
+    //     'id' => $key,
+    //     'value' => $value
+    //   ]);
+    // }
 
-    $footer_fields = get_field('theme-footer', 'option');
+    // $footer_fields = get_field('theme-footer', 'option');
     $formatted_footer_fields = [];
-    foreach($footer_fields as $key => $value){
-      array_push($formatted_footer_fields, [
-        'id' => $key,
-        'value' => $value
-      ]);
-    }
+    // foreach($footer_fields as $key => $value){
+    //   array_push($formatted_footer_fields, [
+    //     'id' => $key,
+    //     'value' => $value
+    //   ]);
+    // }
 
     $jamstack_deployment_settings = get_option('wp_jamstack_deployments');
 

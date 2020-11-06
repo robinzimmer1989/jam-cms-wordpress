@@ -32,34 +32,40 @@ function gcms_api_update_site_callback($data) {
         }
         
          // Update header
-        if($settings->header){
-            gcms_add_acf_field_group($settings->header, 'theme-header');
+        // if($settings->header){
+        //     gcms_add_acf_field_group($settings->header, array(
+        //         'label'     => 'Header',
+        //         'name'      => 'theme-header'
+        //     ));
 
-            $header_fields = [];
-            foreach($settings->header->fields as $field){
-                if($field->type == 'image'){
-                    $header_fields[$field->id] = $field->value->id;
-                }else {
-                    $header_fields[$field->id] = $field->value;
-                }
-            }
-        }
+        //     $header_fields = [];
+        //     foreach($settings->header->fields as $field){
+        //         if($field->type == 'image'){
+        //             $header_fields[$field->id] = $field->value->id;
+        //         }else {
+        //             $header_fields[$field->id] = $field->value;
+        //         }
+        //     }
+        // }
 
-        // Update footer
-        if($settings->footer){
-            gcms_add_acf_field_group($settings->footer, 'theme-footer');
+        // // Update footer
+        // if($settings->footer){
+        //     gcms_add_acf_field_group($settings->footer, array(
+        //         'label'     => 'Footer',
+        //         'name'      => 'theme-footer'
+        //     ));
 
-            $footer_fields = [];
-            foreach($settings->footer->fields as $field){
-                if($field->type == 'image'){
-                    $footer_fields[$field->id] = $field->value->id;
-                }else {
-                    $footer_fields[$field->id] = $field->value;
-                }
-            }
+        //     $footer_fields = [];
+        //     foreach($settings->footer->fields as $field){
+        //         if($field->type == 'image'){
+        //             $footer_fields[$field->id] = $field->value->id;
+        //         }else {
+        //             $footer_fields[$field->id] = $field->value;
+        //         }
+        //     }
 
-            update_field('theme-footer', $footer_fields, 'option');
-        }
+        //     update_field('theme-footer', $footer_fields, 'option');
+        // }
 
         // Update Netlify settings
         if(isset($webhook_url) || isset($deployment_badge_url) || isset($deployment_badge_link_url)){

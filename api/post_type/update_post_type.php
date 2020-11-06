@@ -10,7 +10,7 @@ function gcms_api_update_post_type() {
 
 function gcms_api_update_post_type_callback($data) {
     $site_id = $data->get_param('siteID');
-    $post_type_id = $data->get_param('id');
+    $post_type_name = $data->get_param('id');
     $title = $data->get_param('title');
     $slug = $data->get_param('slug');
     $template = $data->get_param('template');
@@ -21,7 +21,21 @@ function gcms_api_update_post_type_callback($data) {
     if($site){
       switch_to_blog($site->blog_id);
 
+      if($post_type_name['id'] == 'page'){
+        return false;
+      }
 
+      $post_types = get_option('cptui_post_types');
+
+      if($post_types){
+          $post_types[$post_type_name]['label'] = $title;
+          $post_types[$post_type_name]['singular_label'] = $title;
+          $post_types[$post_type_name]['rewrite_slug'] = $slug;
+
+          update_option('cptui_post_types', $post_types);
+
+          return gcms_format_post_type($site_id, $post_types[$post_type_name]);
+      }
     }
 
     return null;

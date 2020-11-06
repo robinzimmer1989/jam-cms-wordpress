@@ -17,16 +17,11 @@ function gcms_api_create_post_type_callback($data) {
 
     if($site && $title && $slug){
         switch_to_blog($site->blog_id);
-        
-        $post_types = [];
 
         $cpt_ui = get_option('cptui_post_types');
+        $post_types = $cpt_ui ? $cpt_ui : [];
 
-        if($cpt_ui){
-            $post_types = unserialize($cpt_ui);
-        }
-
-        if($title !== 'Posts' && $slug !== 'post' && $title !== 'Pages' && $slug !== 'page' && !$post_types[$slug]){
+        if($title !== 'Pages' && $slug !== 'page' && !$post_types[$slug]){
 
             $name = gcms_generate_id();
 
