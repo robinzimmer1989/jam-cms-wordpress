@@ -24,23 +24,8 @@ function gcms_get_site_by_id($site_id){
       }
     }
 
-    // $header_fields = get_field('theme-header', 'option');
-    $formatted_header_fields = [];
-    // foreach($header_fields as $key => $value){
-    //   array_push($formatted_header_fields, [
-    //     'id' => $key,
-    //     'value' => $value
-    //   ]);
-    // }
-
-    // $footer_fields = get_field('theme-footer', 'option');
-    $formatted_footer_fields = [];
-    // foreach($footer_fields as $key => $value){
-    //   array_push($formatted_footer_fields, [
-    //     'id' => $key,
-    //     'value' => $value
-    //   ]);
-    // }
+    $header_fields = gcms_get_option_group_fields('header');
+    $footer_fields = gcms_get_option_group_fields('footer');
 
     $jamstack_deployment_settings = get_option('wp_jamstack_deployments');
 
@@ -53,11 +38,11 @@ function gcms_get_site_by_id($site_id){
       'settings' => [
         'header' => [
           'name' => 'header',
-          'fields' => $formatted_header_fields
+          'fields' => $header_fields
         ],
         'footer' => [
           'name' => 'footer',
-          'fields' => $formatted_footer_fields
+          'fields' => $footer_fields
         ]
       ],
       'frontPage' => intval(get_option( 'page_on_front' )),

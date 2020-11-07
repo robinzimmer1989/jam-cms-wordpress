@@ -1,6 +1,8 @@
 <?php
 
   function gcms_create_default_acf_fields(){
+
+    // Create flexible content element
     $field_group = array(
       'key' => 'group_blocks',
       'title' => 'Blocks',

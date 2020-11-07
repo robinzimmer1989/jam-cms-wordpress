@@ -24,6 +24,7 @@ function load_gatsby_cms() {
     require_once __DIR__ . '/acf/add_acf_options_page.php';
     require_once __DIR__ . '/acf/format_acf_field.php'; 
     require_once __DIR__ . '/acf/create_default_acf_fields.php';
+    require_once __DIR__ . '/acf/get_option_group_fields.php';
     
     // Resolver
     require_once __DIR__ . '/resolvers/get_site_by_id.php';

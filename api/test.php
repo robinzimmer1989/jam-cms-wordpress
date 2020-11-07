@@ -15,10 +15,7 @@ function gcms_api_test_callback($data) {
   $site = get_blog_details($site_id);
   switch_to_blog($site->blog_id);
     
-  $test = get_fields(2);
-  return $test;
-
-  // gcms_create_default_acf_fields();
+  
 }
 
 ?>

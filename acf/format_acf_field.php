@@ -1,6 +1,16 @@
 <?php
 
-function gcms_format_acf_field($field){
+function gcms_format_acf_field_value($field){
+  if($field->type == 'image'){
+    $value = $field->value->id;
+  }else {
+    $value = $field->value;
+  }
+
+  return $value;
+}
+
+function gcms_format_acf_field_type($field){
 
   $args = [];
 
@@ -62,6 +72,8 @@ function gcms_format_acf_field($field){
 
   }elseif($field->type == 'accordion'){
     
+  }else{
+    return null;
   }
 
   return $args;

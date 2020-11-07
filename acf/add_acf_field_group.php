@@ -4,26 +4,47 @@ function gcms_add_acf_field_group($module, $options_page = false){
   
   // Loop through fields and create ACF subfields
   $fields = [];
-
   foreach($module->fields as $field){
+
+    if(!is_object($field)){ 
+      return;
+    }
 
     $base_args = [
       'key' => 'field_' . $field->id . '_group_' . $module->name,
-      'name' => $field->id,
-      'label' => $field->label
+      'name' => $options_page ? $module->name . '_' . $field->id : $field->id,
+      'label' => property_exists($field, 'label') ? $field->label : $field->id
     ];
 
-    // Convert JS to ACF type arguments
-    $type_args = gcms_format_acf_field($field);
+    // Convert JS to ACF type arguments and prevent non supported field types from being added
+    $type_args = gcms_format_acf_field_type($field);
 
-    $args = array_merge($base_args, $type_args);
-    array_push($fields, $args);
+    if($type_args){
+      $args = array_merge($base_args, $type_args);
+      array_push($fields, $args);
+    }
   }
 
   // Upsert module
   $group_key = 'group_' . $module->name;
   $group_id = gcms_get_acf_field_id('acf-field-group', $group_key);
-  $group_label = 'Block: ' . $module->label;
+
+  if( property_exists($module, 'label')){
+    $group_label = $options_page ? $module->label : 'Block: ' . $module->label;
+  }else {
+    $group_label = $options_page ? $module->name : 'Block: ' . $module->name;
+  }
+
+  if($options_page){
+    $location_rule = array(
+			'rule_0' => array('param' => 'options_page', 'operator' => '==', 'value' => 'theme_' . $module->name)
+		);
+  }else {
+    $location_rule = array(
+      'rule_0' => array('param' => 'post_type', 'operator' => '==', 'value' => 'page'),
+      'rule_1' => array('param' => 'post_type', 'operator' => '!=', 'value' => 'page')
+    );
+  }
 
   $field_group = array(
     'ID' => $group_id ? $group_id : 0,
@@ -31,18 +52,7 @@ function gcms_add_acf_field_group($module, $options_page = false){
     'title' => $group_label,
     'fields' => $fields,
     'location' => array(
-      'group_0' => array(
-        'rule_0' => array(
-          'param' => 'post_type',
-          'operator' => '==',
-          'value' => 'page'
-        ),
-        'rule_1' => array(
-          'param' => 'post_type',
-          'operator' => '!=',
-          'value' => 'page'
-        )
-      )
+      'group_0' => $location_rule
     ),
     'active' => true,
     'style' => 'seamless',
@@ -53,6 +63,10 @@ function gcms_add_acf_field_group($module, $options_page = false){
 
   acf_import_field_group($field_group);
 
+  // We don't want to add flexible content fields for option blocks
+  if($options_page){
+    return;
+  }
   
   // Add ACF clone field of module. This will be used for flexible content element
   $flexible_content_field_id = gcms_get_acf_field_id('acf-field', 'field_5fa4b6444156f');

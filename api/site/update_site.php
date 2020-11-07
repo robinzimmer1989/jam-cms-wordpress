@@ -31,41 +31,28 @@ function gcms_api_update_site_callback($data) {
             update_blog_option( $site->blog_id, 'page_on_front', $front_page );
         }
         
-         // Update header
-        // if($settings->header){
-        //     gcms_add_acf_field_group($settings->header, array(
-        //         'label'     => 'Header',
-        //         'name'      => 'theme-header'
-        //     ));
+        // Update header
+        if(isset($settings) && property_exists($settings, 'header')){
+            gcms_add_acf_field_group($settings->header, true);
 
-        //     $header_fields = [];
-        //     foreach($settings->header->fields as $field){
-        //         if($field->type == 'image'){
-        //             $header_fields[$field->id] = $field->value->id;
-        //         }else {
-        //             $header_fields[$field->id] = $field->value;
-        //         }
-        //     }
-        // }
+            foreach($settings->header->fields as $field){
+                $meta = 'options_header_' . $field->id;
+                update_option($meta, gcms_format_acf_field_value($field));
+                update_option('_' . $meta, 'field_' . $field->id . '_group_header');
+            }
+        }
 
-        // // Update footer
-        // if($settings->footer){
-        //     gcms_add_acf_field_group($settings->footer, array(
-        //         'label'     => 'Footer',
-        //         'name'      => 'theme-footer'
-        //     ));
+        // Update footer
+        if($settings->footer){
+            // $settings->footer->label = 'Footer';
+            // gcms_add_acf_field_group($settings->footer, true);
 
-        //     $footer_fields = [];
-        //     foreach($settings->footer->fields as $field){
-        //         if($field->type == 'image'){
-        //             $footer_fields[$field->id] = $field->value->id;
-        //         }else {
-        //             $footer_fields[$field->id] = $field->value;
-        //         }
-        //     }
-
-        //     update_field('theme-footer', $footer_fields, 'option');
-        // }
+            // foreach($settings->footer->fields as $field){
+            //     $meta = 'options_' . $field->id;
+            //     update_option($meta, gcms_format_acf_field_value($field));
+            //     update_option('_' . $meta, 'field_' . $field->id . '_group_footer');
+            // }
+        }
 
         // Update Netlify settings
         if(isset($webhook_url) || isset($deployment_badge_url) || isset($deployment_badge_link_url)){

@@ -17,26 +17,26 @@ function gcms_get_post_by_id($site_id, $post_id){
 
         foreach($module as $key => $value ){
           if($key != 'acf_fc_layout'){
-            // The acf field structure looks like i.e. 'group_banner_field_headline'.
-            // So we have to transform it back to the React shape which is just 'headline'
+
             $array = explode('_', $key);
             $id = end($array);
 
             array_push($fields, array(
-              'id' => $id,
+              'id'    => $id,
               'value' => $value
             ));
           }
         }
 
-        // The acf field group structure looks like i.e. 'group_banner'.
-        // So we have to transform it back to the React shape which is just 'banner'
         $array = explode('_', $module['acf_fc_layout']);
         $name = end($array);
 
+        $field_group_id = gcms_get_acf_field_id('acf-field-group', $module['acf_fc_layout']);
+
         array_push($formatted_modules, [
           'fields' => $fields,
-          'name' => $name
+          'name' => $name,
+          'label' => str_replace('Block: ', '', get_the_title($field_group_id))
         ]);
       }
     }
