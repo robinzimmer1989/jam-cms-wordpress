@@ -37,21 +37,20 @@ function gcms_api_update_site_callback($data) {
 
             foreach($settings->header->fields as $field){
                 $meta = 'options_header_' . $field->id;
-                update_option($meta, gcms_format_acf_field_value($field));
+                update_option($meta, gcms_format_acf_field_value_for_db($field));
                 update_option('_' . $meta, 'field_' . $field->id . '_group_header');
             }
         }
 
         // Update footer
-        if($settings->footer){
-            // $settings->footer->label = 'Footer';
-            // gcms_add_acf_field_group($settings->footer, true);
+        if(isset($settings) && property_exists($settings, 'footer')){
+            gcms_add_acf_field_group($settings->footer, true);
 
-            // foreach($settings->footer->fields as $field){
-            //     $meta = 'options_' . $field->id;
-            //     update_option($meta, gcms_format_acf_field_value($field));
-            //     update_option('_' . $meta, 'field_' . $field->id . '_group_footer');
-            // }
+            foreach($settings->footer->fields as $field){
+                $meta = 'options_footer_' . $field->id;
+                update_option($meta, gcms_format_acf_field_value_for_db($field));
+                update_option('_' . $meta, 'field_' . $field->id . '_group_footer');
+            }
         }
 
         // Update Netlify settings

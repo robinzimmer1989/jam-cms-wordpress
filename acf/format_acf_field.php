@@ -1,8 +1,17 @@
 <?php
 
-function gcms_format_acf_field_value($field){
+function gcms_format_acf_field_value_for_db($field){
   if($field->type == 'image'){
     $value = $field->value->id;
+
+  }elseif($field->type == 'menu'){
+    $menu_slug = $field->id;
+    $menu_items = $field->value;
+
+    $menu_id = gcms_update_menu($menu_slug, $menu_items);
+    
+    $value = $menu_id;
+  
   }else {
     $value = $field->value;
   }
@@ -37,6 +46,9 @@ function gcms_format_acf_field_type($field){
     }
     $args['choices'] = $choices;
 
+  }elseif($field->type == 'menu'){
+    $args['type'] = $field->type;
+
   }elseif($field->type == 'email'){
     
 
@@ -70,13 +82,26 @@ function gcms_format_acf_field_type($field){
   }elseif($field->type == 'repeater'){
     
 
-  }elseif($field->type == 'accordion'){
-    
   }else{
     return null;
   }
 
   return $args;
 }
+
+
+function gcms_format_acf_field_value_for_frontend($field, $options_page = ''){
+  
+  if($field['type'] == 'menu'){
+    $menu_id = get_field($field['key'], $options_page);
+    $value = gcms_get_menu_by_id(2);
+
+  }else {
+    $value = get_field($field['key'], $options_page);
+  }
+
+  return $value;
+}
+
 
 ?>

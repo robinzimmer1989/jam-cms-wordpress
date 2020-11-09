@@ -48,7 +48,8 @@ function gcms_api_create_post_type_callback($data) {
                 'rewrite_withfront'     => false,
                 'rewrite_slug'          => $slug,
                 'supports'              => ['title', 'thumbnail'],
-                'taxonomies'            => []
+                'taxonomies'            => [],
+                'query_var'             => true
             ];
 
             update_option('cptui_post_types', $post_types);

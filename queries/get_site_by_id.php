@@ -7,8 +7,6 @@ function gcms_get_site_by_id($site_id){
   if($site){
     switch_to_blog($site->blog_id);
 
-    $settings = get_blog_option($site->blog_id, 'gcms_custom_plugin_options');
-
     // Get generic and custom post types
     $post_types = get_post_types([], 'objects');
     $custom_post_types = get_option('cptui_post_types') ? get_option('cptui_post_types') : [];
@@ -27,30 +25,41 @@ function gcms_get_site_by_id($site_id){
     $header_fields = gcms_get_option_group_fields('header');
     $footer_fields = gcms_get_option_group_fields('footer');
 
+    $netlify_build_hook = '';
+    $netlify_badge_image = '';
+    $netlify_badge_link = '';
+
     $jamstack_deployment_settings = get_option('wp_jamstack_deployments');
 
+    if($jamstack_deployment_settings){
+      $netlify_build_hook = $jamstack_deployment_settings['webhook_url'];
+      $netlify_badge_image = $jamstack_deployment_settings['deployment_badge_url'];
+      $netlify_badge_link = $jamstack_deployment_settings['deployment_badge_link_url'];
+    }
+
     $data = array(
-      'id' => $site_id,
-      'title' => $site->blogname,
-      'netlifyBuildHook' =>  $jamstack_deployment_settings['webhook_url'],
-      'netlifyBadgeImage' => $jamstack_deployment_settings['deployment_badge_url'],
-      'netlifyBadgeLink' => $jamstack_deployment_settings['deployment_badge_link_url'],
-      'settings' => [
+      'id'                => $site_id,
+      'title'             => $site->blogname,
+      'netlifyBuildHook'  => $netlify_build_hook,
+      'netlifyBadgeImage' => $netlify_badge_image,
+      'netlifyBadgeLink'  => $netlify_badge_link,
+      'multisite'         => is_multisite(),
+      'settings'          => [
         'header' => [
-          'name' => 'header',
-          'fields' => $header_fields
+          'name'          => 'header',
+          'fields'        => $header_fields
         ],
         'footer' => [
-          'name' => 'footer',
-          'fields' => $footer_fields
+        'name'            => 'footer',
+          'fields'        => $footer_fields
         ]
       ],
-      'frontPage' => intval(get_option( 'page_on_front' )),
+      'frontPage'         => intval(get_option( 'page_on_front' )),
       'postTypes' => [
-        'items' => $items
+                  'items' => $items
       ],
       'forms' => [
-        'items' => []
+                  'items' => []
       ]
     );
 
