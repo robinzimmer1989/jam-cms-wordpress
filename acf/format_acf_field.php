@@ -9,7 +9,6 @@ function gcms_format_acf_field_value_for_db($field){
     $menu_items = $field->value;
 
     $menu_id = gcms_update_menu($menu_slug, $menu_items);
-    
     $value = $menu_id;
   
   }else {
@@ -22,8 +21,6 @@ function gcms_format_acf_field_value_for_db($field){
 function gcms_format_acf_field_type($field){
 
   $args = [];
-
-  // Map through different fields types and convert JS to ACF schema
 
   if($field->type == 'image'){
     $args['type'] = $field->type;
@@ -90,14 +87,61 @@ function gcms_format_acf_field_type($field){
 }
 
 
-function gcms_format_acf_field_value_for_frontend($field, $options_page = ''){
-  
-  if($field['type'] == 'menu'){
-    $menu_id = get_field($field['key'], $options_page);
-    $value = gcms_get_menu_by_id(2);
+function gcms_format_acf_field_value_for_frontend($type, $value){
 
-  }else {
-    $value = get_field($field['key'], $options_page);
+  if(!$value){
+    return null;
+  }
+  
+  if($type == 'menu'){
+    $value = gcms_get_menu_by_id($value);
+
+  }elseif($type == 'image'){
+
+    $src_set = [];
+    if($value['sizes']['thumbnail']){
+      array_push($src_set, $value['sizes']['thumbnail'] . ' ' . $value['sizes']['thumbnail-width'] . 'w');
+    }
+
+    if($value['sizes']['medium']){
+      array_push($src_set, $value['sizes']['medium'] . ' ' . $value['sizes']['medium-width'] . 'w');
+    }
+
+    if($value['sizes']['medium_large']){
+      array_push($src_set, $value['sizes']['medium_large'] . ' ' . $value['sizes']['medium_large-width'] . 'w');
+    }
+
+    if($value['sizes']['large']){
+      array_push($src_set, $value['sizes']['large'] . ' ' . $value['sizes']['large-width'] . 'w');
+    }
+
+    $value['childImageSharp'] = [
+      'fluid' => [
+        'aspectRatio' => $value['height'] / $value['width'],
+        'base64'      => '',
+        'sizes'       => '(max-width: '. $value['width'] .'px) 100vw, '. $value['width'] .'px',
+        'src'         => $value['url'],
+        'srcSet'      => implode(',',$src_set)
+      ]
+    ];
+
+    // Remove unnecessary data
+    unset($value['ID']);
+    unset($value['sizes']);
+    unset($value['link']);
+    unset($value['author']);
+    unset($value['description']);
+    unset($value['caption']);
+    unset($value['title']);
+    unset($value['name']);
+    unset($value['status']);
+    unset($value['uploaded_to']);
+    unset($value['date']);
+    unset($value['modified']);
+    unset($value['menu_order']);
+    unset($value['mime_type']);
+    unset($value['icon']);
+    unset($value['image_meta']);
   }
 
   return $value;

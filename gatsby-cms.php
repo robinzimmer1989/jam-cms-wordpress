@@ -20,6 +20,7 @@ function load_gatsby_cms() {
     require_once __DIR__ . '/utils/remove_default_post_type.php';
     require_once __DIR__ . '/utils/array_flatten.php';
     require_once __DIR__ . '/utils/build_menu_tree.php';
+    require_once __DIR__ . '/utils/generate_slug.php';
 
     // ACF
     require_once __DIR__ . '/acf/get_acf_field_id.php';
@@ -49,8 +50,8 @@ function load_gatsby_cms() {
     require_once __DIR__ . '/api/site/update_site.php';
     require_once __DIR__ . '/api/site/get_site.php';
     require_once __DIR__ . '/api/site/get_site_for_build.php';
-    require_once __DIR__ . '/api/site/delete_site.php'; // multisite only
-    require_once __DIR__ . '/api/site/get_sites.php';   // multisite only
+    require_once __DIR__ . '/api/site/delete_site.php';         // multisite only
+    require_once __DIR__ . '/api/site/get_sites.php';           // multisite only
 
     require_once __DIR__ . '/api/post/create_post.php';
     require_once __DIR__ . '/api/post/update_post.php';

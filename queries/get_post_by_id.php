@@ -17,17 +17,19 @@ function gcms_get_post_by_id($site_id, $post_id){
 
         foreach($module as $key => $value ){
           if($key != 'acf_fc_layout'){
-
-            $array = explode('_', $key);
-            $id = end($array);
+            
+            // Get field information to get type
+            $field = get_field_object('field_' . $key . '_' . $module['acf_fc_layout']);
 
             array_push($fields, array(
-              'id'    => $id,
-              'value' => $value
+              'id'    => $key,
+              'type'  => $field['type'],
+              'value' => gcms_format_acf_field_value_for_frontend($field['type'], $value)
             ));
           }
         }
 
+        // The module name is something like 'group_hero' so we want to remove the 'group_' part in the next step
         $array = explode('_', $module['acf_fc_layout']);
         $name = end($array);
 

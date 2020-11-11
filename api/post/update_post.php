@@ -90,7 +90,11 @@ function gcms_api_update_post_callback($data) {
           $fields = $module->fields;
           foreach($fields as $field){
             $meta_key =  'flexible_content_' . $i . '_' . $field->id;
-            update_post_meta( $post_id, $meta_key, $field->value );
+            
+            // Value needs to be formatted before storing into db
+            $value = gcms_format_acf_field_value_for_db($field);
+
+            update_post_meta( $post_id, $meta_key, $value );
             update_post_meta( $post_id, '_' . $meta_key, 'field_group_' . $module->name . '_field_' . $field->id . '_group_' . $module->name);
           }
 

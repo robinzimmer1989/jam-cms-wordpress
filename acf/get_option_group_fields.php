@@ -9,10 +9,12 @@ function gcms_get_option_group_fields($option_name){
   if($fields){  
     foreach($fields as $field){
 
+      $value = get_field($field['key'], 'option');
+
       array_push($formatted_fields, [
         'id'      => str_replace($option_name . '_', '', $field['name']),
         'type'    => $field['type'],
-        'value'   => gcms_format_acf_field_value_for_frontend($field, 'option')
+        'value'   => gcms_format_acf_field_value_for_frontend($field['type'], $value)
       ]);
     }
   }
