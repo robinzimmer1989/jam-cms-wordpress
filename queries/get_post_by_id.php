@@ -17,15 +17,24 @@ function gcms_get_post_by_id($site_id, $post_id){
 
         foreach($module as $key => $value ){
           if($key != 'acf_fc_layout'){
-            
-            // Get field information to get type
-            $field = get_field_object('field_' . $key . '_' . $module['acf_fc_layout']);
 
-            array_push($fields, array(
-              'id'    => $key,
-              'type'  => $field['type'],
-              'value' => gcms_format_acf_field_value_for_frontend($field['type'], $value)
-            ));
+            // Get field information to get type
+            $field = (object) get_field_object('field_' . $key . '_' . $module['acf_fc_layout']);
+
+            if($field){
+
+              $base_args = [
+                'id'    => $key,
+                'type'  => $field->type,
+                'value' => gcms_format_acf_field_value_for_frontend($field->type, $value)
+              ];
+
+              $type_args = gcms_format_acf_field_type_for_frontend($field);
+              
+              $args = array_merge($base_args, $type_args);
+
+              array_push($fields, $args);
+            }
           }
         }
 

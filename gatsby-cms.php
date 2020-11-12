@@ -12,9 +12,7 @@ function load_gatsby_cms() {
     require_once __DIR__ . '/utils/format_post_type.php';
     require_once __DIR__ . '/utils/format_media_item.php';
     require_once __DIR__ . '/utils/format_menu_item.php';
-    require_once __DIR__ . '/utils/cors.php';
     require_once __DIR__ . '/utils/fix_page_query.php';
-    require_once __DIR__ . '/utils/create_post_action.php';
     require_once __DIR__ . '/utils/whitelist_apis.php';
     require_once __DIR__ . '/utils/generate_id.php';
     require_once __DIR__ . '/utils/remove_default_post_type.php';
@@ -26,10 +24,16 @@ function load_gatsby_cms() {
     require_once __DIR__ . '/acf/get_acf_field_id.php';
     require_once __DIR__ . '/acf/add_acf_field_group.php';
     require_once __DIR__ . '/acf/add_acf_options_page.php';
-    require_once __DIR__ . '/acf/format_acf_field.php'; 
+    require_once __DIR__ . '/acf/generate_sub_fields_recursively.php';
+    require_once __DIR__ . '/acf/format_acf_field_type_for_frontend.php';
+    require_once __DIR__ . '/acf/format_acf_field_type_for_db.php';
+    require_once __DIR__ . '/acf/format_acf_field_value_for_frontend.php';
+    require_once __DIR__ . '/acf/format_acf_field_value_for_db.php';
+    require_once __DIR__ . '/acf/get_repeater_items_recursively.php';
     require_once __DIR__ . '/acf/create_default_acf_fields.php';
     require_once __DIR__ . '/acf/get_option_group_fields.php';
     require_once __DIR__ . '/acf/add_menu_picker_field.php';
+    require_once __DIR__ . '/acf/update_sub_fields_recursively.php';
     
     // Queries
     require_once __DIR__ . '/queries/get_site_by_id.php';

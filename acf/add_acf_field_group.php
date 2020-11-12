@@ -10,14 +10,19 @@ function gcms_add_acf_field_group($module, $options_page = false){
       return;
     }
 
+    $field_key = 'field_' . $field->id . '_group_' . $module->name;
+    // There are multiple option pages which are basically one page. To avoid double naming a field
+    // We have to prefix it with the module name (i.e. header_image).
+    $field_name = $options_page ? $module->name . '_' . $field->id : $field->id;
+
     $base_args = [
-      'key' => 'field_' . $field->id . '_group_' . $module->name,
-      'name' => $options_page ? $module->name . '_' . $field->id : $field->id,
+      'key'   => $field_key,
+      'name'  => $field_name,
       'label' => property_exists($field, 'label') ? $field->label : $field->id
     ];
 
     // Convert JS to ACF type arguments and prevent non supported field types from being added
-    $type_args = gcms_format_acf_field_type($field);
+    $type_args = gcms_format_acf_field_type_for_db($field, $field_key);
 
     if($type_args){
       $args = array_merge($base_args, $type_args);
@@ -30,7 +35,7 @@ function gcms_add_acf_field_group($module, $options_page = false){
   $group_id = gcms_get_acf_field_id('acf-field-group', $group_key);
 
   // We want to add the 'Block: ' string to flexible content modules, but not option page modules
-  // And since the label should be required, we'll check for it too and use the name instead if not exist.
+  // And since the label isn't required, we'll check for it too and use the name instead if it doesn't exist.
   if(property_exists($module, 'label')){
     $group_label = $options_page ? $module->label : 'Block: ' . $module->label;
   }else {
@@ -50,7 +55,7 @@ function gcms_add_acf_field_group($module, $options_page = false){
   }
 
   // Create field group
-  $field_group = array(
+  $field_group = [
     'ID'                    => $group_id ? $group_id : 0,
     'key'                   => $group_key,
     'title'                 => $group_label,
@@ -63,7 +68,7 @@ function gcms_add_acf_field_group($module, $options_page = false){
     'position'              => 'normal',
     'label_placement'       => 'top',
     'instruction_placement' => 'label',
-  );
+  ];
 
   acf_import_field_group($field_group);
 
@@ -80,7 +85,7 @@ function gcms_add_acf_field_group($module, $options_page = false){
   if(!$clone_field_id){
     $args = [
       'key'           =>  $clone_field_key,
-      'name'          =>  $module->name, 
+      'name'          =>  $clone_field_key, 
       'label'         =>  $group_label,
       'parent'        =>  $flexible_content_field_id,
       'type'          => 'clone',
