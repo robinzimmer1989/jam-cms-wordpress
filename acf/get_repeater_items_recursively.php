@@ -5,7 +5,7 @@ function gcms_get_repeater_items_recursively($field){
   // Get repeater sub fields
   $id = gcms_get_acf_field_id('acf-field', $field->key);
 
-  // We need to check for the id here, because if none if found it'll get all field groups
+  // We need to check for the id here, because if none is found it'll get all field groups
   if(!$id){
     return [];
   }
