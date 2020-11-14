@@ -25,7 +25,11 @@ function gcms_api_create_site_callback($data) {
         $site = get_blog_details($site_id);
         switch_to_blog($site->blog_id);
 
-        gcms_create_default_acf_fields();
+        // Create flexible content element
+        gcms_add_acf_flexible_content();
+
+        // Create template and assign flexible content as default
+        gcms_add_acf_template('Page', 'page');
 
         # TODO: Delete sample page and hello world posts
         // $homepage = get_page_by_title( 'Sample Page' );

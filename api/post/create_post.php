@@ -21,10 +21,10 @@ function gcms_api_create_post_callback($data) {
       switch_to_blog($site->blog_id);
 
       $post_data = array(
-        'post_title' => $title,
-        'post_name' => $slug,
+        'post_title'  => $title,
+        'post_name'   => $slug,
         'post_status' => 'draft',
-        'post_type' => $post_type,
+        'post_type'   => $post_type,
         'post_parent' => $parent_id || 0
       );
 

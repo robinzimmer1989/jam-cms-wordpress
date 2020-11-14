@@ -15,13 +15,13 @@ function gcms_api_create_post_type_callback($data) {
 
     $site = get_blog_details($site_id);
 
-    if($site && $title && $slug){
+    if($site && $title){
         switch_to_blog($site->blog_id);
 
         $cpt_ui = get_option('cptui_post_types');
         $post_types = $cpt_ui ? $cpt_ui : [];
 
-        if($title !== 'Pages' && $slug !== 'page' && !$post_types[$slug]){
+        if($title !== 'Pages' && $slug !== 'page' && !array_key_exists($slug, $post_types)){
 
             $name = gcms_generate_id();
 
@@ -53,6 +53,9 @@ function gcms_api_create_post_type_callback($data) {
             ];
 
             update_option('cptui_post_types', $post_types);
+
+            // Create template and assign flexible content as default
+            gcms_add_acf_template($title, $name);
 
             return gcms_format_post_type($site_id, $post_types[$name]);
         }

@@ -22,18 +22,27 @@ function load_gatsby_cms() {
 
     // ACF
     require_once __DIR__ . '/acf/get_acf_field_id.php';
+    require_once __DIR__ . '/acf/add_acf_field.php';
     require_once __DIR__ . '/acf/add_acf_field_group.php';
     require_once __DIR__ . '/acf/add_acf_options_page.php';
+    require_once __DIR__ . '/acf/add_acf_template.php';
+    require_once __DIR__ . '/acf/add_acf_flexible_content.php';
+    require_once __DIR__ . '/acf/add_acf_field_group_to_template.php';
     require_once __DIR__ . '/acf/generate_sub_fields_recursively.php';
     require_once __DIR__ . '/acf/format_acf_field_type_for_frontend.php';
     require_once __DIR__ . '/acf/format_acf_field_type_for_db.php';
     require_once __DIR__ . '/acf/format_acf_field_value_for_frontend.php';
     require_once __DIR__ . '/acf/format_acf_field_value_for_db.php';
     require_once __DIR__ . '/acf/get_repeater_items_recursively.php';
-    require_once __DIR__ . '/acf/create_default_acf_fields.php';
     require_once __DIR__ . '/acf/get_option_group_fields.php';
     require_once __DIR__ . '/acf/add_menu_picker_field.php';
     require_once __DIR__ . '/acf/update_sub_fields_recursively.php';
+    require_once __DIR__ . '/acf/add_acf_field_group_to_flexible_content.php';
+    require_once __DIR__ . '/acf/get_template_by_post_id.php';
+    require_once __DIR__ . '/acf/get_template_by_post_type_name.php';
+    require_once __DIR__ . '/acf/get_template_field_groups_by_post_type_name.php';
+    require_once __DIR__ . '/acf/update_flexible_content_field_values.php';
+    require_once __DIR__ . '/acf/update_template_field_values.php';
     
     // Queries
     require_once __DIR__ . '/queries/get_site_by_id.php';

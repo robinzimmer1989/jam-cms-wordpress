@@ -16,9 +16,18 @@ function gcms_api_test_callback($data) {
   switch_to_blog($site->blog_id);
 
 
-  $post = gcms_get_post_by_id($site_id, 556);
-  return $post;
+  $post_id = 671;
+  $post_type = get_post_type($post_id);
 
+  $id = gcms_get_acf_field_id('acf-field-group', 'group_template_' . $post_type);
+  $template_fields = acf_get_fields_by_id($id);
+
+  // Check for flexible content
+  if(count($template_fields) > 0 && $template_fields[0]['type'] == 'flexible_content'){
+    // return true;
+  }
+
+  return $template_fields;
 }
 
 ?>

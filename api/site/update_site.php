@@ -33,7 +33,9 @@ function gcms_api_update_site_callback($data) {
         
         // Update header
         if(isset($settings) && property_exists($settings, 'header')){
-            gcms_add_acf_field_group($settings->header, true);
+            gcms_add_acf_field_group($settings->header, '', 'header_', [
+                'rule_0' => ['param' => 'options_page', 'operator' => '==', 'value' => 'theme_header']
+            ]);
 
             foreach($settings->header->fields as $field){
                 $meta = 'options_header_' . $field->id;
@@ -44,7 +46,9 @@ function gcms_api_update_site_callback($data) {
 
         // Update footer
         if(isset($settings) && property_exists($settings, 'footer')){
-            gcms_add_acf_field_group($settings->footer, true);
+            gcms_add_acf_field_group($settings->footer, '', 'footer_', [
+                'rule_0' => ['param' => 'options_page', 'operator' => '==', 'value' => 'theme_footer']
+            ]);
 
             foreach($settings->footer->fields as $field){
                 $meta = 'options_footer_' . $field->id;

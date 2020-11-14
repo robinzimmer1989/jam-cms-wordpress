@@ -56,10 +56,10 @@ function gcms_get_site_by_id($site_id){
       ],
       'frontPage'         => intval(get_option( 'page_on_front' )),
       'postTypes' => [
-                  'items' => $items
+        'items'           => $items
       ],
       'forms' => [
-                  'items' => []
+        'items'           => []
       ]
     );
 

@@ -20,7 +20,7 @@ function gcms_format_post_type($site_id, $post_type) {
     'id' => $post_type->name,
     'slug' => property_exists($post_type, 'rewrite_slug') ? $post_type->rewrite_slug : '',
     'title' => $post_type->label,
-    'template' => [],
+    'template' => gcms_get_template_field_groups_by_post_type_name($post_type->name),
     'posts' => [
       'items' => $formatted_posts
     ],

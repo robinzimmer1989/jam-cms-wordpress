@@ -1,17 +1,20 @@
 <?php
 
-  function gcms_create_default_acf_fields(){
+  function gcms_add_acf_template($title, $name){
 
     // Create flexible content element
     $field_group = array(
-      'key' => 'group_blocks',
-      'title' => 'Blocks',
+      'key' => 'group_template_' . $name,
+      'title' => 'Template: ' . $title,
       'fields' => [
         [
-          'key' => 'field_5fa4b6444156f',
-          'name' => 'flexible_content',
-          'label' => 'Blocks',
-          'type' => 'flexible_content'
+          'key'     => 'field_flexible_content_group_template_' . $name,
+          'name'    => 'flexible_content',
+          'label'   => 'Flexible Content',
+          'type'    => 'clone',
+          'clone'   => array(
+            0 => 'group_flexible_content',
+          )
         ]
       ],
       'location' => array(
@@ -19,12 +22,12 @@
           'rule_0' => array(
             'param' => 'post_type',
             'operator' => '==',
-            'value' => 'page'
+            'value' => $name
           )
         )
       ),
       'active' => true,
-      'style' => 'default',
+      'style' => 'seamless',
       'position' => 'normal',
       'label_placement' => 'top',
       'instruction_placement' => 'label',
