@@ -35,6 +35,7 @@ function load_gatsby_cms() {
     require_once __DIR__ . '/acf/format_acf_field_value_for_db.php';
     require_once __DIR__ . '/acf/get_repeater_items_recursively.php';
     require_once __DIR__ . '/acf/get_option_group_fields.php';
+    require_once __DIR__ . '/acf/get_flexible_content_blocks.php';
     require_once __DIR__ . '/acf/add_menu_picker_field.php';
     require_once __DIR__ . '/acf/update_sub_fields_recursively.php';
     require_once __DIR__ . '/acf/add_acf_field_group_to_flexible_content.php';
@@ -43,6 +44,7 @@ function load_gatsby_cms() {
     require_once __DIR__ . '/acf/get_template_field_groups_by_post_type_name.php';
     require_once __DIR__ . '/acf/update_flexible_content_field_values.php';
     require_once __DIR__ . '/acf/update_template_field_values.php';
+    require_once __DIR__ . '/acf/delete_acf_fields_by_parent_id.php';
     
     // Queries
     require_once __DIR__ . '/queries/get_site_by_id.php';

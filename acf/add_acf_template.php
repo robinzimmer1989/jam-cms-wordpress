@@ -2,8 +2,11 @@
 
   function gcms_add_acf_template($title, $name){
 
+    $template_id = gcms_get_acf_field_id('acf-field-group', 'group_template_' . $name);
+
     // Create flexible content element
     $field_group = array(
+      'ID'    => $template_id ? $template_id : 0,
       'key' => 'group_template_' . $name,
       'title' => 'Template: ' . $title,
       'fields' => [

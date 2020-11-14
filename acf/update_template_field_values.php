@@ -8,7 +8,7 @@ function gcms_update_template_field_values($post_id, $module, $index){
    $fields = $module->fields;
 
    foreach($fields as $field){
-     $meta_key =  'field_' . $index . '_' . $field->id;
+     $meta_key =  'group_' . $module->name . '_' . $field->id;
      
      if($field->type == 'repeater' && property_exists($field, 'items') && property_exists($field, 'value')){
        gcms_update_sub_fields_recursively($post_id, $module->name, $field, $meta_key);
@@ -22,12 +22,12 @@ function gcms_update_template_field_values($post_id, $module, $index){
      }
 
      update_post_meta( $post_id, $meta_key, $value );
-     update_post_meta( $post_id, '_' . $meta_key, 'field_' . $index . '_' . $module->name . '_' . $template_name . '_field_' . $field->id . '_' . $module->name);
+     update_post_meta( $post_id, '_' . $meta_key, 'field_' . $index . '_group_' . $module->name . '_' .  $template_name . '_field_' . $field->id . '_group_' . $module->name);
    }
 
    $group_meta_key = 'field_' . $index;
-   update_post_meta( $post_id, $group_meta_key , '');
-   update_post_meta( $post_id, '_' . $group_meta_key, $group_meta_key . '_' . $template_name);
+   update_post_meta( $post_id, 'group_' . $module->name , '');
+   update_post_meta( $post_id, '_' . 'group_' . $module->name, 'field_' . $index . '_' . $template_name);
 
 }
 

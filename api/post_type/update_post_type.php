@@ -32,6 +32,10 @@ function gcms_api_update_post_type_callback($data) {
             update_option('cptui_post_types', $post_types);   
         }
 
+        // Delete all field groups
+        $id = gcms_get_acf_field_id('acf-field-group', 'group_template_' . $post_type_name);
+        gcms_delete_acf_fields_by_parent_id($id);
+
         // Check for template. If exists create/update field groups and assign to template
         if(count($template_modules) > 0){
 
@@ -49,7 +53,8 @@ function gcms_api_update_post_type_callback($data) {
           }
 
         }else{
-          // TODO: Restore original flexible content template
+          // Restore original flexible content template
+          gcms_add_acf_template($title, $post_type_name);
         }
         
       }
