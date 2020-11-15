@@ -3,19 +3,21 @@
 add_action( 'rest_api_init', 'gcms_api_update_site' ); 
 function gcms_api_update_site() {
     register_rest_route( 'gcms/v1', '/updateSite', array(
-        'methods' => 'GET',
+        'methods' => 'POST',
         'callback' => 'gcms_api_update_site_callback'
     ));
 }
 
 function gcms_api_update_site_callback($data) {
-    $site_id = $data->get_param('id');
-    $title = $data->get_param('title');
-    $front_page = $data->get_param('frontPage');
-    $webhook_url = $data->get_param('netlifyBuildHook');
-    $deployment_badge_url = $data->get_param('netlifyBadgeImage');
-    $deployment_badge_link_url = $data->get_param('netlifyBadgeLink');
-    $settings = $data->get_param('settings');
+    $parameters = $data->get_params();
+
+    $site_id = $parameters['id'];
+    $title = $parameters['title'];
+    $front_page = $parameters['frontPage'];
+    $webhook_url = $parameters['netlifyBuildHook'];
+    $deployment_badge_url = $parameters['netlifyBadgeImage'];
+    $deployment_badge_link_url = $parameters['netlifyBadgeLink'];
+    $settings = $parameters['settings'];
     $settings = $settings ? json_decode($settings) : [];
     
     $site = get_blog_details($site_id);

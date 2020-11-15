@@ -3,13 +3,15 @@
 add_action( 'rest_api_init', 'gcms_api_create_site' ); 
 function gcms_api_create_site() {
     register_rest_route( 'gcms/v1', '/createSite', array(
-        'methods' => 'GET',
+        'methods' => 'POST',
         'callback' => 'gcms_api_create_site_callback'
     ));
 }
 
 function gcms_api_create_site_callback($data) {
-    $title = $data->get_param('title');
+    $parameters = $data->get_params();
+
+    $title = $parameters['title'];
 
     if($title && current_user_can('administrator')){
 

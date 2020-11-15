@@ -3,15 +3,17 @@
 add_action( 'rest_api_init', 'gcms_api_get_media_items' ); 
 function gcms_api_get_media_items() {
     register_rest_route( 'gcms/v1', '/getMediaItems', array(
-        'methods' => 'GET',
+        'methods' => 'POST',
         'callback' => 'gcms_api_get_media_items_callback'
     ));
 }
 
 function gcms_api_get_media_items_callback($data) {
-    $site_id = $data->get_param('siteID');
-    $page = $data->get_param('page');
-    $limit = $data->get_param('limit');
+    $parameters = $data->get_params();
+    
+    $site_id = $parameters['siteID'];
+    $page = $parameters['page'];
+    $limit = $parameters['limit'];
 
     $site = get_blog_details($site_id);
 

@@ -3,14 +3,16 @@
 add_action( 'rest_api_init', 'gcms_api_delete_post' ); 
 function gcms_api_delete_post() {
   register_rest_route( 'gcms/v1', '/deletePost', array(
-    'methods' => 'GET',
+    'methods' => 'POST',
     'callback' => 'gcms_api_delete_post_callback'
   ));
 }
 
 function gcms_api_delete_post_callback($data) {
-    $site_id = $data->get_param('siteID');
-    $post_id = $data->get_param('id');
+    $parameters = $data->get_params();
+
+    $site_id = $parameters['siteID'];
+    $post_id = $parameters['id'];
 
     $site = get_blog_details($site_id);
 

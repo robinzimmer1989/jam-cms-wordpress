@@ -3,17 +3,19 @@
 add_action( 'rest_api_init', 'gcms_api_update_post_type' ); 
 function gcms_api_update_post_type() {
   register_rest_route( 'gcms/v1', '/updateCollection', array(
-    'methods' => 'GET',
+    'methods' => 'POST',
     'callback' => 'gcms_api_update_post_type_callback'
   ));
 }
 
 function gcms_api_update_post_type_callback($data) {
-    $site_id = $data->get_param('siteID');
-    $post_type_name = $data->get_param('id');
-    $title = $data->get_param('title');
-    $slug = $data->get_param('slug');
-    $template_modules = $data->get_param('template');
+    $parameters = $data->get_params();
+
+    $site_id = $parameters['siteID'];
+    $post_type_name = $parameters['id'];
+    $title = $parameters['title'];
+    $slug = $parameters['slug'];
+    $template_modules = $parameters['template'];
     $template_modules = $template_modules ? json_decode($template_modules) : [];
 
     $site = get_blog_details($site_id);

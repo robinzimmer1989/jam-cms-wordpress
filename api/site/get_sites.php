@@ -3,7 +3,7 @@
 add_action( 'rest_api_init', 'gcms_api_get_sites' ); 
 function gcms_api_get_sites() {
     register_rest_route( 'gcms/v1', '/getSites', array(
-        'methods' => 'GET',
+        'methods' => 'POST',
         'callback' => 'gcms_api_get_sites_callback'
     ));
 }

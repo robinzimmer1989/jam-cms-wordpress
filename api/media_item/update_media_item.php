@@ -3,15 +3,17 @@
 add_action( 'rest_api_init', 'gcms_api_update_media_item' ); 
 function gcms_api_update_media_item() {
   register_rest_route( 'gcms/v1', '/updateMediaItem', array(
-    'methods' => 'GET',
+    'methods' => 'POST',
     'callback' => 'gcms_api_update_media_item_callback'
   ));
 }
 
 function gcms_api_update_media_item_callback($data) {
-    $site_id = $data->get_param('siteID');
-    $attachment_id = $data->get_param('id');
-    $alt_text = $data->get_param('altText');
+    $parameters = $data->get_params();
+
+    $site_id = $parameters['siteID'];
+    $attachment_id = $parameters['id'];
+    $alt_text = $parameters['altText'];
 
     $site = get_blog_details($site_id);
 

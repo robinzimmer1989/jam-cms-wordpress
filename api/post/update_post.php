@@ -3,26 +3,28 @@
 add_action( 'rest_api_init', 'gcms_api_update_post' ); 
 function gcms_api_update_post() {
   register_rest_route( 'gcms/v1', '/updatePost', array(
-    'methods' => 'GET',
+    'methods' => 'POST',
     'callback' => 'gcms_api_update_post_callback'
   ));
 }
 
 function gcms_api_update_post_callback($data) {
-    $site_id        = $data->get_param('siteID');
-    $post_id        = $data->get_param('id');
-    $title          = $data->get_param('title');
-    $slug           = $data->get_param('slug');
-    $status         = $data->get_param('status');
-    $parent_id      = $data->get_param('parentID');
-    $featured_image = $data->get_param('featuredImage');
+    $parameters = $data->get_params();
+
+    $site_id        = $parameters['siteID'];
+    $post_id        = $parameters['id'];
+    $title          = $parameters['title'];
+    $slug           = $parameters['slug'];
+    $status         = $parameters['status'];
+    $parent_id      = $parameters['parentID'];
+    $featured_image = $parameters['featuredImage'];
     $featured_image = $featured_image ? json_decode($featured_image) : null;
 
-    $content = $data->get_param('content');
+    $content = $parameters['content'];
     $modules = $content ? json_decode($content) : [];
 
-    $seo_title = $data->get_param('seoTitle');
-    $seo_description = $data->get_param('seoDescription');
+    $seo_title = $parameters['seoTitle'];
+    $seo_description = $parameters['seoDescription'];
 
     $site = get_blog_details($site_id);
 

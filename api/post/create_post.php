@@ -3,17 +3,19 @@
 add_action( 'rest_api_init', 'gcms_api_create_post' ); 
 function gcms_api_create_post() {
     register_rest_route( 'gcms/v1', '/createPost', array(
-        'methods' => 'GET',
+        'methods' => 'POST',
         'callback' => 'gcms_api_create_post_callback'
     ));
 }
 
 function gcms_api_create_post_callback($data) {
-    $site_id = $data->get_param('siteID');
-    $title = $data->get_param('title');
-    $slug = $data->get_param('slug');
-    $post_type = $data->get_param('postTypeID');
-    $parent_id = $data->get_param('parentID');
+    $parameters = $data->get_params();
+
+    $site_id = $parameters['siteID'];
+    $title = $parameters['title'];
+    $slug = $parameters['slug'];
+    $post_type = $parameters['postTypeID'];
+    $parent_id = $parameters['parentID'];
 
     $site = get_blog_details($site_id);
 
