@@ -14,11 +14,11 @@ function gcms_get_flexible_content_blocks($modules){
         $field = (object) get_field_object('field_' . $key . '_' . $module['acf_fc_layout']);
 
         if($field){
-
+          
           $base_args = [
             'id'    => $key,
             'type'  => $field->type,
-            'value' => gcms_format_acf_field_value_for_frontend($field->type, $value)
+            'value' => gcms_format_acf_field_value_for_frontend($field, $value)
           ];
 
           $type_args = gcms_format_acf_field_type_for_frontend($field);

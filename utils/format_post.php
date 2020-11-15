@@ -7,7 +7,7 @@ function gcms_format_post($site_id, $post) {
   
   if($thumbnail_id){
     $media_item = acf_get_attachment($thumbnail_id);
-    $formatted_media_item = gcms_format_acf_field_value_for_frontend('image', $media_item);
+    $formatted_media_item = gcms_format_acf_field_value_for_frontend(['type' => 'image'], $media_item);
   }
 
   $formatted_post = [

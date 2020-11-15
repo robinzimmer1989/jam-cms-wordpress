@@ -1,6 +1,8 @@
 <?php
 
-function gcms_format_acf_field_value_for_frontend($type, $value){
+function gcms_format_acf_field_value_for_frontend($field, $value){
+  $field = (object) $field;
+  $type = $field->type;
 
   if($type == 'menu'){
     
@@ -15,6 +17,19 @@ function gcms_format_acf_field_value_for_frontend($type, $value){
     // Change null value to empty array
     if(!$value){
       return [];
+    }
+
+    // Loop through repeater items recursively and transform value
+    $i = 0;
+    foreach($value as $repeater_item){
+      $j = 0;
+      foreach($repeater_item as $key => $repeater_item_value){
+        $sub_field = $field->sub_fields[$j];
+        $value[$i][$key] = gcms_format_acf_field_value_for_frontend($sub_field, $repeater_item_value);
+        $j++;
+      }
+
+      $i++;
     }
 
   }elseif($type == 'image'){

@@ -56,6 +56,10 @@ function gcms_format_acf_field_type_for_db($field, $field_key = ''){
       $args['max'] = $field->max;
     }
 
+    if(property_exists($field, 'step')){
+      $args['step'] = $field->step;
+    }
+
     if(property_exists($field, 'options')){
       $choices = [];
       foreach($field->options as $option){

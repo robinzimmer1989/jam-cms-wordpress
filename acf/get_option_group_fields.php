@@ -17,7 +17,7 @@ function gcms_get_option_group_fields($option_name){
       $base_args = [
         'id'      => $field_key,
         'type'    => $field['type'],
-        'value'   => gcms_format_acf_field_value_for_frontend($field['type'], $value)
+        'value'   => gcms_format_acf_field_value_for_frontend($field, $value)
       ];
 
       $type_args = gcms_format_acf_field_type_for_frontend($field);
