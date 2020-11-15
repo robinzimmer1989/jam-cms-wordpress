@@ -1,6 +1,6 @@
 <?php
 
-class acf_field_menu_chooser extends acf_field {
+class acf_field_menu_picker extends acf_field {
 	
 	function __construct() {
 		$this->name = 'menu';
@@ -12,7 +12,6 @@ class acf_field_menu_chooser extends acf_field {
 		);
 		
     parent::__construct();
-    	
 	}
 	
 	function render_field_settings( $field ) {}
@@ -38,6 +37,6 @@ class acf_field_menu_chooser extends acf_field {
 	}
 }
 
-new acf_field_menu_chooser();
+new acf_field_menu_picker();
 
 ?>

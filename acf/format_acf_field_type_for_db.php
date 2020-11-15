@@ -11,7 +11,8 @@ function gcms_format_acf_field_type_for_db($field, $field_key = ''){
     $field->type == 'wysiwyg' ||
     $field->type == 'select' ||
     $field->type == 'menu' ||
-    $field->type == 'repeater'
+    $field->type == 'repeater' ||
+    $field->type == 'collection'
     // $field->type == 'email' ||
     // $field->type == 'url' ||
     // $field->type == 'file' ||
