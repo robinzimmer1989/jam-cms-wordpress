@@ -11,26 +11,26 @@ function gcms_api_update_site() {
 function gcms_api_update_site_callback($data) {
     $parameters = $data->get_params();
 
-    $site_id = $parameters['id'];
-    $title = $parameters['title'];
-    $front_page = $parameters['frontPage'];
-    $webhook_url = $parameters['netlifyBuildHook'];
-    $deployment_badge_url = $parameters['netlifyBadgeImage'];
-    $deployment_badge_link_url = $parameters['netlifyBadgeLink'];
-    $settings = $parameters['settings'];
-    $settings = $settings ? json_decode($settings) : [];
+    if(array_key_exists('id', $parameters)){
+        $site_id = $parameters['id'];
+    }
     
     $site = get_blog_details($site_id);
 
     if($site){
         switch_to_blog($site->blog_id);
 
-        if(isset($title)){
-            update_option('blogname', $title);
+        if(array_key_exists('title', $parameters)){
+            update_option('blogname', $parameters['title']);
         }
 
-        if(isset($front_page)){
-            update_blog_option( $site->blog_id, 'page_on_front', $front_page );
+        if(array_key_exists('frontPage', $parameters)){
+            update_blog_option( $site->blog_id, 'page_on_front', $parameters['frontPage'] );
+        }
+
+        if(array_key_exists('settings', $parameters)){
+            $settings = $parameters['settings'];
+            $settings = $settings ? json_decode($settings) : [];
         }
         
         // Update header
@@ -60,20 +60,16 @@ function gcms_api_update_site_callback($data) {
         }
 
         // Update Netlify settings
-        if(isset($webhook_url) || isset($deployment_badge_url) || isset($deployment_badge_link_url)){
-            $jamstack_deployment_settings = unserialize(get_option('wp_jamstack_deployments'));
+        if(
+            array_key_exists('netlifyBuildHook', $parameters) &&
+            array_key_exists('netlifyBadgeImage', $parameters) &&
+            array_key_exists('netlifyBadgeLink', $parameters)
+        ){
+            $jamstack_deployment_settings = get_option('wp_jamstack_deployments');
 
-            if(isset($webhook_url)){
-                $jamstack_deployment_settings['webhook_url'] = $webhook_url;
-            }
-
-            if(isset($deployment_badge_url)){
-                $jamstack_deployment_settings['deployment_badge_url'] = $deployment_badge_url;
-            }
-
-            if(isset($deployment_badge_link_url)){
-                $jamstack_deployment_settings['deployment_badge_link_url'] = $deployment_badge_link_url;
-            }
+            $jamstack_deployment_settings['webhook_url']                = $parameters['netlifyBuildHook'];
+            $jamstack_deployment_settings['deployment_badge_url']       = $parameters['netlifyBadgeImage'];
+            $jamstack_deployment_settings['deployment_badge_link_url']  = $parameters['netlifyBadgeLink'];
 
             update_option('wp_jamstack_deployments', $jamstack_deployment_settings);
         }

@@ -3,7 +3,7 @@
 function gcms_update_template_field_values($post_id, $module, $index){
 
   $post_type_name = get_post_type($post_id);
-  $template_name = 'group_template_' . $post_type_name;
+  $template_name = 'group_template-' . $post_type_name;
 
    $fields = $module->fields;
 

@@ -3,7 +3,7 @@
 function gcms_add_acf_field_group_to_flexible_content($field_group){
 
   // Add ACF clone field of module. This will be used for the flexible content element.
-  $flexible_content_field_id = gcms_get_acf_field_id('acf-field', 'field_flexible_content');
+  $flexible_content_field_id = gcms_get_acf_field_id('acf-field', 'field_flex');
 
   $clone_field_key = 'field_' . $field_group->key;
 

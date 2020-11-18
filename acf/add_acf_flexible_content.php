@@ -1,16 +1,19 @@
 <?php
 
 function gcms_add_acf_flexible_content(){
+  
+  // TODO: WordPress is throwing an error on create site related to an empty clone field
 
   $field_group = [
-    'key'                   => 'group_flexible_content',
+    'key'                   => 'group_flex',
     'title'                 => 'Flexible Content',
     'fields'                => [
       [
-        'key'   => 'field_flexible_content',
-        'name'  => 'flexible_content',
-        'label' => 'Flexible Content',
-        'type'  => 'flexible_content'
+        'key'         => 'field_flex',
+        'name'        => 'flex',
+        'label'       => 'Flexible Content',
+        'type'        => 'flexible_content',
+        'sub_fields'  => []
       ]
     ],
     'location'              => array(

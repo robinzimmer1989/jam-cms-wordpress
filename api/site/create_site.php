@@ -20,9 +20,9 @@ function gcms_api_create_site_callback($data) {
 
         $protocols = array('http://', 'http://www.', 'www.');
         $url = str_replace($protocols, '', get_site_url());
-        $path = wp_generate_uuid4();
+        $site_id = wp_generate_uuid4();
 
-        $site_id = wpmu_create_blog( $url, $path, $title, $user_id , array( 'public' => 0 ) );
+        wpmu_create_blog( $url, $site_id, $title, $user_id , array( 'public' => 0 ) );
         
         $site = get_blog_details($site_id);
         switch_to_blog($site->blog_id);

@@ -16,13 +16,19 @@ function gcms_get_sites_by_user_id($user_id){
 
       $jamstack_deployment_settings = get_option('wp_jamstack_deployments');
 
+      if($jamstack_deployment_settings){
+        $webhook_url = $jamstack_deployment_settings['webhook_url'];
+        $deployment_badge_url = $jamstack_deployment_settings['deployment_badge_url'];
+        $deployment_badge_link_url = $jamstack_deployment_settings['deployment_badge_link_url'];
+      }
+
       array_push($data, array(
-        'id' => $site_id,
-        'title' => $site->blogname,
-        'netlifyBuildHook' =>  $jamstack_deployment_settings['webhook_url'],
-        'netlifyBadgeImage' => $jamstack_deployment_settings['deployment_badge_url'],
-        'netlifyBadgeLink' => $jamstack_deployment_settings['deployment_badge_link_url'],
-        'multisite' => is_multisite()
+        'id'                  => $site_id,
+        'title'               => $site->blogname,
+        'netlifyBuildHook'    =>  $webhook_url ? $webhook_url : '',
+        'netlifyBadgeImage'   => $deployment_badge_url ? $deployment_badge_url : '',
+        'netlifyBadgeLink'    => $sitesdeployment_badge_link_url ? $deployment_badge_link_url : '',
+        'multisite'           => is_multisite()
       ));
     }
   }

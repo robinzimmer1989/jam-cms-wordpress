@@ -35,7 +35,7 @@ function gcms_api_update_post_type_callback($data) {
         }
 
         // Delete all field groups
-        $id = gcms_get_acf_field_id('acf-field-group', 'group_template_' . $post_type_name);
+        $id = gcms_get_acf_field_id('acf-field-group', 'group_template-' . $post_type_name);
         gcms_delete_acf_fields_by_parent_id($id);
 
         // Check for template. If exists create/update field groups and assign to template
@@ -49,7 +49,7 @@ function gcms_api_update_post_type_callback($data) {
               'rule_1' => ['param' => 'post_type', 'operator' => '!=', 'value' => 'page']
             ]);
 
-            gcms_add_acf_field_group_to_template('group_template_' . $post_type_name, $field_group, $i);
+            gcms_add_acf_field_group_to_template('group_template-' . $post_type_name, $field_group, $i);
             
             $i++;
           }

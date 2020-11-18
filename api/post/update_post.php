@@ -97,8 +97,8 @@ function gcms_api_update_post_callback($data) {
       }
       
       if(count($template) > 0 && $template[0]['type'] == 'flexible_content'){
-        update_post_meta( $post_id, 'flexible_content', $flexible_content_blocks);
-        update_post_meta( $post_id, '_flexible_content', "field_flexible_content");
+        update_post_meta( $post_id, 'flex', $flexible_content_blocks);
+        update_post_meta( $post_id, '_flex', 'field_flex');
       }
 
       $data = gcms_get_post_by_id($site_id, $post_id);

@@ -6,7 +6,7 @@ function gcms_update_flexible_content_field_values($post_id, $module, $index){
    $fields = $module->fields;
 
    foreach($fields as $field){
-     $meta_key =  'flexible_content_' . $index . '_' . $field->id;
+     $meta_key =  'flex_' . $index . '_' . $field->id;
      
      if($field->type == 'repeater' && property_exists($field, 'items') && property_exists($field, 'value')){
        gcms_update_sub_fields_recursively($post_id, $module->name, $field, $meta_key);
@@ -20,7 +20,7 @@ function gcms_update_flexible_content_field_values($post_id, $module, $index){
      }
 
      update_post_meta( $post_id, $meta_key, $value );
-     update_post_meta( $post_id, '_' . $meta_key, 'field_' . $module->name . '_field_' . $field->id . '_group_' . $module->name);
+     update_post_meta( $post_id, '_' . $meta_key, 'field_group_' . $module->name . '_field_' . $field->id . '_group_' . $module->name);
    }
 
 }
