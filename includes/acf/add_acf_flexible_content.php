@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * gcms_add_acf_flexible_content
+ *
+ * Create ACF field group with flexible content field
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @return void
+ */
+
 function gcms_add_acf_flexible_content(){
   
   // TODO: WordPress is throwing an error on create site related to an empty clone field

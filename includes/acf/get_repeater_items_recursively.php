@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * gcms_get_repeater_items_recursively
+ *
+ * Get and format sub fields of repeater item
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	object $field The ACF field
+ * @return array The formatted sub fields
+ */
+
 function gcms_get_repeater_items_recursively($field){
 
   // Get repeater sub fields

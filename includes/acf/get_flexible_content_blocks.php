@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * gcms_get_flexible_content_blocks
+ *
+ * Format blocks of flexible content field for frontend use
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	array $modules The unformatted blocks returnd by the get_fields function
+ * @return array The formatted blocks
+ */
+
 function gcms_get_flexible_content_blocks($modules){
 
   $formatted_modules = [];

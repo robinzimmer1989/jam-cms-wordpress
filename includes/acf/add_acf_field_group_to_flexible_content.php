@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * gcms_add_acf_field_group_to_flexible_content
+ *
+ * Add ACF field group to main flexible content field
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	object $field_group The field_group to add
+ * @return	void
+ */
+
 function gcms_add_acf_field_group_to_flexible_content($field_group){
 
   // Add ACF clone field of module. This will be used for the flexible content element.

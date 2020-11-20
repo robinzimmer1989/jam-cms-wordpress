@@ -1,5 +1,18 @@
 <?php
 
+/**
+ * gcms_format_acf_field_type_for_db
+ *
+ * Format field args before saving them to db
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	object $field The ACF field
+ * @param	string $field_key The field key. Only relevant to update sub fields.
+ * @return array $args The formatted arguments of the field
+ */
+
 function gcms_format_acf_field_type_for_db($field, $field_key = ''){
 
   $args = [];
@@ -12,14 +25,13 @@ function gcms_format_acf_field_type_for_db($field, $field_key = ''){
     $field->type == 'select' ||
     $field->type == 'menu' ||
     $field->type == 'repeater' ||
-    $field->type == 'collection'
+    $field->type == 'collection' ||
+    $field->type == 'link'
     // $field->type == 'email' ||
     // $field->type == 'url' ||
     // $field->type == 'file' ||
     // $field->type == 'checkbox' ||
-    // $field->type == 'radio' ||
     // $field->type == 'postObject' ||
-    // $field->type == 'link' ||
     // $field->type == 'map' ||
     // $field->type == 'colorPicker'
   ){

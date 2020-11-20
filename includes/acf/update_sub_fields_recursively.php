@@ -1,10 +1,25 @@
 <?php
 
-// Repeater fields have an items object with field definitions but no values
-// The values are stored by key-value pairs inside the value property
+/**
+ * gcms_update_sub_fields_recursively
+ *
+ * Update ACF fields recursively (for nested repeaters)
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	int $post_id
+ * @param	string $module_name The name of the field group
+ * @param	object $field The ACF field
+ * @param	string $field_key The key of the ACF field
+ * @return void
+ */
 
 function gcms_update_sub_fields_recursively($post_id, $module_name, $field, $field_key){
   
+  // Repeater fields have an items object with field definitions but no values
+  // The values are stored by key-value pairs inside the value property
+
   $i = 0;
 
   foreach($field->value as $value){

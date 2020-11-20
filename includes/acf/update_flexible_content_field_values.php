@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * gcms_update_flexible_content_field_values
+ *
+ * Update all fields of module of flexible content field
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	int $post_id The id of the post
+ * @param	object $module The module
+ * @return void
+ */
+
+
 function gcms_update_flexible_content_field_values($post_id, $module, $index){
 
    // Loop through fields and update value and ACF internal group / field reference

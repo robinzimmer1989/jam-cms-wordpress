@@ -1,5 +1,18 @@
 <?php
 
+/**
+ * gcms_format_acf_field_value_for_frontend
+ *
+ * Format value before returning to Gatsby site
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	object $field The ACF field
+ * @param	any $value The ACF field value
+ * @return any $value The formatted value
+ */
+
 function gcms_format_acf_field_value_for_frontend($field, $value){
   $field = (object) $field;
   $type = $field->type;
@@ -32,6 +45,22 @@ function gcms_format_acf_field_value_for_frontend($field, $value){
       $i++;
     }
 
+  }elseif($type == 'application'){
+
+    unset($value['ID']);
+    unset($value['sizes']);
+    unset($value['link']);
+    unset($value['author']);
+    unset($value['description']);
+    unset($value['caption']);
+    unset($value['name']);
+    unset($value['status']);
+    unset($value['uploaded_to']);
+    unset($value['date']);
+    unset($value['modified']);
+    unset($value['menu_order']);
+    unset($value['mime_type']);
+
   }elseif($type == 'image'){
 
     if(!$value){
@@ -60,7 +89,7 @@ function gcms_format_acf_field_value_for_frontend($field, $value){
     $value['childImageSharp'] = [
       'fluid' => [
         'aspectRatio' => $value['height'] / $value['width'],
-        'base64'      => '',
+        'base64'      => 'data:image/jpg;base64,'. base64_encode(file_get_contents($value['sizes']['tiny'])),
         'sizes'       => '(max-width: '. $value['width'] .'px) 100vw, '. $value['width'] .'px',
         'src'         => $value['url'],
         'srcSet'      => implode(',',$src_set)
@@ -74,7 +103,6 @@ function gcms_format_acf_field_value_for_frontend($field, $value){
     unset($value['author']);
     unset($value['description']);
     unset($value['caption']);
-    unset($value['title']);
     unset($value['name']);
     unset($value['status']);
     unset($value['uploaded_to']);

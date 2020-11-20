@@ -1,8 +1,23 @@
 <?php
 
+/**
+ * gcms_add_acf_field_group
+ *
+ * Creates ACF field group for module
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	object $module The frontend module containing fields, name and label (optional)
+ * @param	string $group_name_prefix The prefix for the group name (optional). Relevant for header/footer options to avoid name clashes.
+ * @param	string $field_name_prefix The prefix for the field name (optional). Relevant for modules for adding 'Block: '.
+ * @param	array $location_rule The location rule to decide where to add the field group (options vs. nowhere)
+ * @return object $field_group
+ */
+
 function gcms_add_acf_field_group(
   $module,
-  $group_name_prefix,
+  $group_name_prefix = '',
   $field_name_prefix = '',
   $location_rule
 ){

@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * gcms_update_template_field_values
+ *
+ * Update values of module in template
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	int $post_id
+ * @param	object $module The ACF field group
+ * @param	int $index The index within the template modules array
+ * @return void
+ */
+
 function gcms_update_template_field_values($post_id, $module, $index){
 
   $post_type_name = get_post_type($post_id);

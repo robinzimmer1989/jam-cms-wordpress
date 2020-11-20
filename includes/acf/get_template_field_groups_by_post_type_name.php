@@ -1,5 +1,18 @@
 <?php
 
+/**
+ * gcms_get_template_field_groups_by_post_type_name
+ *
+ * Get formatted template for Gatsby site
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	string $post_type_name The name of the post type (= unique ID)
+ * @param	array  $content Required to add values to formatted ACF fields
+ * @return object Template
+ */
+
 function gcms_get_template_field_groups_by_post_type_name($post_type_name, $content = null){
 
   $template_field_groups = gcms_get_template_by_post_type_name($post_type_name);

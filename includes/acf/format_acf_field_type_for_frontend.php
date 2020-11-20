@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * gcms_format_acf_field_type_for_frontend
+ *
+ * Format field args before returning them to Gatsby site
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	object $field The ACF field
+ * @return array $args The formatted arguments of the field
+ */
+
 function gcms_format_acf_field_type_for_frontend($field){
   $field = (object)$field;
   

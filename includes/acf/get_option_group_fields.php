@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * gcms_get_option_group_fields
+ *
+ * Get option fields by option name
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	string $option_name The name of the option field group such as header or footer
+ * @return array Formatted fields of field group
+ */
+
 function gcms_get_option_group_fields($option_name){
   $id = gcms_get_acf_field_id('acf-field-group', 'group_' . $option_name);
   $fields = acf_get_fields_by_id($id);

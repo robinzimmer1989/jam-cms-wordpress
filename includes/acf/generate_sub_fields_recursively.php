@@ -1,6 +1,18 @@
 <?php
 
-// This function loops through repeater fields and adds fields recursively (for nested repeaters)
+/**
+ * gcms_generate_sub_fields_recursively
+ *
+ * Loop through repeater fields and adds fields recursively (for nested repeaters)
+ *
+ * @date	20/11/20
+ * @since	0.0.1
+ *
+ * @param	array $items The items to format containing id, name and label
+ * @param	string $field_key The field key
+ * @return array Formatted subfields including type args
+ */
+
 function gcms_generate_sub_fields_recursively($items, $field_key){
   $sub_fields = [];
 
