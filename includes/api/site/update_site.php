@@ -21,7 +21,7 @@ function gcms_api_update_site_callback($data) {
     gcms_api_base_check($site_id);
 
     if(array_key_exists('frontPage', $parameters)){
-        update_blog_option( $site->blog_id, 'page_on_front', $parameters['frontPage'] );
+        update_blog_option( get_current_blog_id(), 'page_on_front', $parameters['frontPage'] );
     }
 
     if(array_key_exists('settings', $parameters)){
@@ -57,26 +57,32 @@ function gcms_api_update_site_callback($data) {
 
     
     if(current_user_can( 'manage_options' )){
-        
+
         if(array_key_exists('title', $parameters)){
             update_option('blogname', $parameters['title']);
         }
 
-            // Update Netlify settings
+        if(array_key_exists('apiKey', $parameters)){
+            $api_key = wp_generate_uuid4();
+            update_option('deployment_api_key', $api_key);
+        }
+
         if(
-            array_key_exists('netlifyBuildHook', $parameters) &&
-            array_key_exists('netlifyBadgeImage', $parameters) &&
-            array_key_exists('netlifyBadgeLink', $parameters)
+            array_key_exists('deploymentBuildHook', $parameters) &&
+            array_key_exists('deploymentBadgeImage', $parameters) &&
+            array_key_exists('deploymentBadgeLink', $parameters)
         ){
             $jamstack_deployment_settings = get_option('wp_jamstack_deployments');
 
-            $jamstack_deployment_settings['webhook_url']                = $parameters['netlifyBuildHook'];
-            $jamstack_deployment_settings['deployment_badge_url']       = $parameters['netlifyBadgeImage'];
-            $jamstack_deployment_settings['deployment_badge_link_url']  = $parameters['netlifyBadgeLink'];
+            $jamstack_deployment_settings['webhook_url']                = $parameters['deploymentBuildHook'];
+            $jamstack_deployment_settings['deployment_badge_url']       = $parameters['deploymentBadgeImage'];
+            $jamstack_deployment_settings['deployment_badge_link_url']  = $parameters['deploymentBadgeLink'];
 
             update_option('wp_jamstack_deployments', $jamstack_deployment_settings);
         }
     }
+
+    
 
     $data = gcms_get_site_by_id($site_id);
 

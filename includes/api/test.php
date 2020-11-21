@@ -9,14 +9,14 @@ function gcms_api_test() {
 }
 
 function gcms_api_test_callback($data) {
-  $parameters = $data->get_params();
+  // $parameters = $data->get_params();
 
-  $site_id = 'd8e07ad3-8bd8-49f5-8864-0bc47b219f69';
+  // $site_id = '06ddf2e6-2589-4896-b5a7-b76bc58f2f2d';
 
-  $site = get_blog_details($site_id);
-  switch_to_blog($site->blog_id);
+  // $site = get_blog_details($site_id);
+  // switch_to_blog($site->blog_id);
 
-  
+  // gcms_get_site_for_build_by_id($site_id);
 }
 
 ?>

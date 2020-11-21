@@ -45,6 +45,12 @@ function gcms_api_create_site_callback($data) {
     # TODO: Delete sample page and hello world posts
     // $homepage = get_page_by_title( 'Sample Page' );
 
+    // Create deployment api key
+    $api_key = wp_generate_uuid4();
+    update_option('deployment_api_key', $api_key);
+
+    gcms_api_base_check($site_id);
+
     $data = gcms_get_site_by_id($site_id);
 
     return $data;

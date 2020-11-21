@@ -65,6 +65,7 @@ if( ! class_exists('GatsbyCMS') ) :
             include_once( GATSBY_CMS_PATH . '/includes/utils/format_post_type.php');
             include_once( GATSBY_CMS_PATH . '/includes/utils/format_media_item.php');
             include_once( GATSBY_CMS_PATH . '/includes/utils/format_menu_item.php');
+            include_once( GATSBY_CMS_PATH . '/includes/utils/format_post_content_for_build.php');
             include_once( GATSBY_CMS_PATH . '/includes/utils/generate_id.php');
             include_once( GATSBY_CMS_PATH . '/includes/utils/array_flatten.php');
             include_once( GATSBY_CMS_PATH . '/includes/utils/build_menu_tree.php');
