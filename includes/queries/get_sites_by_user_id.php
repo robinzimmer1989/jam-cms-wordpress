@@ -28,7 +28,6 @@ function gcms_get_sites_by_user_id($user_id){
         'deploymentBuildHook'    => isset($webhook_url) ? $webhook_url : '',
         'deploymentBadgeImage'   => isset($deployment_badge_url) ? $deployment_badge_url : '',
         'deploymentBadgeLink'    => isset($sitesdeployment_badge_link_url) ? $deployment_badge_link_url : '',
-        'multisite'           => is_multisite()
       ));
     }
   }

@@ -35,13 +35,12 @@ function gcms_get_site_by_id($site_id = ''){
   $api_key = get_option('deployment_api_key');
 
   $data = array(
-    'id'                    => $site_id,
+    'id'                    => $site_id ? $site_id : 'default',
     'title'                 => get_bloginfo('name'),
     'deploymentBuildHook'   => $deployment_build_hook,
     'deploymentBadgeImage'  => $deployment_badge_image,
     'deploymentBadgeLink'   => $deployment_badge_link,
     'apiKey'                => $api_key ? $api_key : '',
-    'multisite'             => is_multisite(),
     'settings'              => [
       'header' => [
         'name'              => 'header',
@@ -68,6 +67,17 @@ function gcms_get_site_by_id($site_id = ''){
       'page'                => null
     ]
   );
+
+  $missing_plugins = gcms_check_for_missing_plugins();
+
+  if(count($missing_plugins) > 0){
+    $data['errors'] = [
+      0 => [
+        'title'       => 'Plugins missing',
+        'description' => 'Not all required plugins are installed. Please install the following plugins: ' . implode(', ', $missing_plugins)
+      ]
+    ];
+  }
 
   return $data;
 }

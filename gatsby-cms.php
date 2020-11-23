@@ -72,6 +72,7 @@ if( ! class_exists('GatsbyCMS') ) :
             include_once( GATSBY_CMS_PATH . '/includes/utils/build_menu_tree.php');
             include_once( GATSBY_CMS_PATH . '/includes/utils/generate_slug.php');
             include_once( GATSBY_CMS_PATH . '/includes/utils/api_base_check.php');
+            include_once( GATSBY_CMS_PATH . '/includes/utils/check_for_missing_plugins.php');
 
             // Admin
             include_once( GATSBY_CMS_PATH . '/includes/admin/fix_page_query.php');
