@@ -82,8 +82,6 @@ function gcms_api_update_site_callback($data) {
         }
     }
 
-    
-
     $data = gcms_get_site_by_id($site_id);
 
     return $data;

@@ -13,13 +13,15 @@ function gcms_api_get_sites() {
 
 function gcms_api_get_sites_callback($data) {
 
-    if(!is_multisite()){
-        return new WP_Error( 'rest_upload_no_data', __( 'No data supplied' ), array( 'status' => 400 ));
+    if(is_multisite()){
+        $user_id = get_current_user_id();
+        $data = gcms_get_sites_by_user_id($user_id);
+    }else{
+
+        $data = [
+            'site' => gcms_get_site_by_id()
+        ];
     }
-
-    $user_id = get_current_user_id();
-
-    $data = gcms_get_sites_by_user_id($user_id);
 
     return $data;
 }

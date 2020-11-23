@@ -1,6 +1,6 @@
 <?php
 
-function gcms_get_site_by_id($site_id){
+function gcms_get_site_by_id($site_id = ''){
 
   // Get generic and custom post types
   $post_types = get_post_types([], 'objects');
@@ -58,6 +58,14 @@ function gcms_get_site_by_id($site_id){
     ],
     'forms' => [
       'items'               => []
+    ],
+    'mediaItems' => [
+      'items'               => [],
+      'page'                => null
+    ],
+    'users' => [
+      'items'               => [],
+      'page'                => null
     ]
   );
 

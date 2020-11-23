@@ -6,7 +6,7 @@ function gcms_api_create_post_type() {
         'methods' => 'POST',
         'callback' => 'gcms_api_create_post_type_callback',
         'permission_callback' => function () {
-            return current_user_can( 'customize' );
+            return current_user_can( 'manage_options' );
         }
     ));
 }

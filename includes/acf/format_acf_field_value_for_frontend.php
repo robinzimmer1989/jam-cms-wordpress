@@ -19,8 +19,9 @@ function gcms_format_acf_field_value_for_frontend($field, $value){
 
   if($type == 'menu'){
     
+    // Change null value to empty array
     if(!$value){
-      return null;
+      return [];
     }
 
     $value = gcms_get_menu_by_id($value);

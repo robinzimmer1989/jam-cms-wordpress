@@ -65,6 +65,7 @@ if( ! class_exists('GatsbyCMS') ) :
             include_once( GATSBY_CMS_PATH . '/includes/utils/format_post_type.php');
             include_once( GATSBY_CMS_PATH . '/includes/utils/format_media_item.php');
             include_once( GATSBY_CMS_PATH . '/includes/utils/format_menu_item.php');
+            include_once( GATSBY_CMS_PATH . '/includes/utils/format_user.php');
             include_once( GATSBY_CMS_PATH . '/includes/utils/format_post_content_for_build.php');
             include_once( GATSBY_CMS_PATH . '/includes/utils/generate_id.php');
             include_once( GATSBY_CMS_PATH . '/includes/utils/array_flatten.php');
@@ -113,6 +114,8 @@ if( ! class_exists('GatsbyCMS') ) :
             include_once( GATSBY_CMS_PATH . '/includes/queries/get_media_items.php');
             include_once( GATSBY_CMS_PATH . '/includes/queries/get_post_type_by_name.php');
             include_once( GATSBY_CMS_PATH . '/includes/queries/get_menu_by_id.php');
+            include_once( GATSBY_CMS_PATH . '/includes/queries/get_user_by_id.php');
+            include_once( GATSBY_CMS_PATH . '/includes/queries/get_users.php');
 
             // Mutations
             include_once( GATSBY_CMS_PATH . '/includes/mutations/update_menu.php');
@@ -124,8 +127,8 @@ if( ! class_exists('GatsbyCMS') ) :
             include_once( GATSBY_CMS_PATH . '/includes/api/site/update_site.php');
             include_once( GATSBY_CMS_PATH . '/includes/api/site/get_site.php');
             include_once( GATSBY_CMS_PATH . '/includes/api/site/get_site_for_build.php');
-            include_once( GATSBY_CMS_PATH . '/includes/api/site/delete_site.php');         // multisite only
-            include_once( GATSBY_CMS_PATH . '/includes/api/site/get_sites.php');           // multisite only
+            include_once( GATSBY_CMS_PATH . '/includes/api/site/delete_site.php');
+            include_once( GATSBY_CMS_PATH . '/includes/api/site/get_sites.php');
 
             include_once( GATSBY_CMS_PATH . '/includes/api/post/create_post.php');
             include_once( GATSBY_CMS_PATH . '/includes/api/post/update_post.php');
@@ -140,6 +143,13 @@ if( ! class_exists('GatsbyCMS') ) :
             include_once( GATSBY_CMS_PATH . '/includes/api/media_item/update_media_item.php');
             include_once( GATSBY_CMS_PATH . '/includes/api/media_item/delete_media_item.php');
             include_once( GATSBY_CMS_PATH . '/includes/api/media_item/get_media_items.php');
+
+            include_once( GATSBY_CMS_PATH . '/includes/api/user/create_user.php');
+            include_once( GATSBY_CMS_PATH . '/includes/api/user/update_user.php');
+            include_once( GATSBY_CMS_PATH . '/includes/api/user/delete_user.php');
+            include_once( GATSBY_CMS_PATH . '/includes/api/user/get_users.php');
+            include_once( GATSBY_CMS_PATH . '/includes/api/user/get_user.php');
+            include_once( GATSBY_CMS_PATH . '/includes/api/user/get_auth_user.php');
             
             // Add actions.
             add_action( 'init', array($this, 'init'), 100 );
@@ -205,7 +215,7 @@ if( ! class_exists('GatsbyCMS') ) :
     }
 
     // Instantiate.
-    add_action( 'plugins_loaded', 'gatsby_cms', 999 );
+    add_action( 'plugins_loaded', 'gatsby_cms' );
 
 endif; // class_exists check
 

@@ -3,10 +3,11 @@
 add_action( 'rest_api_init', 'gcms_api_test' ); 
 function gcms_api_test() {
     register_rest_route( 'gcms/v1', '/test', array(
-        'methods' => 'POST',
+        'methods' => 'GET',
         'callback' => 'gcms_api_test_callback'
     ));
 }
+
 
 function gcms_api_test_callback($data) {
   // $parameters = $data->get_params();
@@ -15,8 +16,10 @@ function gcms_api_test_callback($data) {
 
   // $site = get_blog_details($site_id);
   // switch_to_blog($site->blog_id);
+  
+  // $menu_items = get_option('active_plugins');
 
-  // gcms_get_site_for_build_by_id($site_id);
+
 }
 
 ?>
