@@ -204,7 +204,7 @@ if( ! class_exists('GatsbyCMS') ) :
     * @param	void
     * @return	GatsbyCMS
     */
-    function gatsby_cms() {
+    function gcms_initialize_gatsby_cms() {
         global $gatsby_cms;
         
         // Instantiate only once.
@@ -216,7 +216,38 @@ if( ! class_exists('GatsbyCMS') ) :
     }
 
     // Instantiate.
-    add_action( 'plugins_loaded', 'gatsby_cms' );
+    add_action( 'plugins_loaded', 'gcms_initialize_gatsby_cms' );
+
+     /*
+    * gatsby_cms_activate
+    *
+    * Add basic ACF field setup and API key on plugin activation
+    *
+    * @date	    20/11/20
+    * @since	0.0.1
+    *
+    * @param	void
+    * @return	GatsbyCMS
+    */
+    function gatsby_cms_activate() {
+
+        // Initialize main plugin first so functions are available
+        gcms_initialize_gatsby_cms();
+
+       // Create flexible content element
+        gcms_add_acf_flexible_content();
+
+        // Create template and assign flexible content as default
+        gcms_add_acf_template('Page', 'page');
+
+        // Create deployment api key if doesn't exist yet
+        if(!get_option('deployment_api_key')){        
+            $api_key = wp_generate_uuid4();
+            update_option('deployment_api_key', $api_key);
+        }
+    }
+    
+    register_activation_hook( __FILE__, 'gatsby_cms_activate' );
 
 endif; // class_exists check
 
