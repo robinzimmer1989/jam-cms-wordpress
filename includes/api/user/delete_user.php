@@ -2,7 +2,7 @@
 
 add_action( 'rest_api_init', 'jam_cms_api_delete_user' ); 
 function jam_cms_api_delete_user() {
-    register_rest_route( 'gcms/v1', '/deleteUser', array(
+    register_rest_route( 'jamcms/v1', '/deleteUser', array(
         'methods' => 'POST',
         'callback' => 'jam_cms_api_delete_user_callback',
         'permission_callback' => function () {

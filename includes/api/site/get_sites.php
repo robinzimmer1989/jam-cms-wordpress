@@ -2,7 +2,7 @@
 
 add_action( 'rest_api_init', 'jam_cms_api_get_sites' ); 
 function jam_cms_api_get_sites() {
-    register_rest_route( 'gcms/v1', '/getSites', array(
+    register_rest_route( 'jamcms/v1', '/getSites', array(
         'methods' => 'POST',
         'callback' => 'jam_cms_api_get_sites_callback',
         'permission_callback' => function () {

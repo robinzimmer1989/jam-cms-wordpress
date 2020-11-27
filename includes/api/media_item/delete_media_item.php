@@ -2,7 +2,7 @@
 
 add_action( 'rest_api_init', 'jam_cms_api_delete_media_item' ); 
 function jam_cms_api_delete_media_item() {
-  register_rest_route( 'gcms/v1', '/deleteMediaItem', array(
+  register_rest_route( 'jamcms/v1', '/deleteMediaItem', array(
     'methods' => 'POST',
     'callback' => 'jam_cms_api_delete_media_item_callback',
     'permission_callback' => function () {

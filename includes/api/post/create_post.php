@@ -2,7 +2,7 @@
 
 add_action( 'rest_api_init', 'jam_cms_api_create_post' ); 
 function jam_cms_api_create_post() {
-  register_rest_route( 'gcms/v1', '/createPost', array(
+  register_rest_route( 'jamcms/v1', '/createPost', array(
       'methods' => 'POST',
       'callback' => 'jam_cms_api_create_post_callback',
       'permission_callback' => function () {

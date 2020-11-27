@@ -2,7 +2,7 @@
 
 add_action( 'rest_api_init', 'jam_cms_api_create_media_item' ); 
 function jam_cms_api_create_media_item() {
-    register_rest_route( 'gcms/v1', '/createMediaItem', array(
+    register_rest_route( 'jamcms/v1', '/createMediaItem', array(
         'methods' => 'POST',
         'callback' => 'jam_cms_api_create_media_item_callback',
         'permission_callback' => function () {

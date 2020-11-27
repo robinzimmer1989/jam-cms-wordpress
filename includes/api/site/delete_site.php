@@ -2,7 +2,7 @@
 
 add_action( 'rest_api_init', 'jam_cms_api_delete_site' ); 
 function jam_cms_api_delete_site() {
-    register_rest_route( 'gcms/v1', '/deleteSite', array(
+    register_rest_route( 'jamcms/v1', '/deleteSite', array(
         'methods' => 'POST',
         'callback' => 'jam_cms_api_delete_site_callback',
         'permission_callback' => function () {

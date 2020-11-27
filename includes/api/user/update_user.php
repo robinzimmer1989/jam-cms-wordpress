@@ -2,7 +2,7 @@
 
 add_action( 'rest_api_init', 'jam_cms_api_update_user' ); 
 function jam_cms_api_update_user() {
-    register_rest_route( 'gcms/v1', '/updateUser', array(
+    register_rest_route( 'jamcms/v1', '/updateUser', array(
         'methods' => 'POST',
         'callback' => 'jam_cms_api_update_user_callback',
         'permission_callback' => function ($data) {

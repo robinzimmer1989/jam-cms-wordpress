@@ -2,7 +2,7 @@
 
 add_action( 'rest_api_init', 'jam_cms_api_update_post' ); 
 function jam_cms_api_update_post() {
-  register_rest_route( 'gcms/v1', '/updatePost', array(
+  register_rest_route( 'jamcms/v1', '/updatePost', array(
     'methods' => 'POST',
     'callback' => 'jam_cms_api_update_post_callback',
     'permission_callback' => function () {

@@ -2,7 +2,7 @@
 
 add_action( 'rest_api_init', 'jam_cms_api_get_users' ); 
 function jam_cms_api_get_users() {
-    register_rest_route( 'gcms/v1', '/getUsers', array(
+    register_rest_route( 'jamcms/v1', '/getUsers', array(
         'methods' => 'POST',
         'callback' => 'jam_cms_api_get_users_callback',
         'permission_callback' => function () {

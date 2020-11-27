@@ -2,7 +2,7 @@
 
 add_action( 'rest_api_init', 'jam_cms_api_test' ); 
 function jam_cms_api_test() {
-    register_rest_route( 'gcms/v1', '/test', array(
+    register_rest_route( 'jamcms/v1', '/test', array(
         'methods' => 'GET',
         'callback' => 'jam_cms_api_test_callback'
     ));
