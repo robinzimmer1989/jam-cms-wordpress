@@ -1,6 +1,6 @@
 <?php
 
-function gcms_format_post_content_for_build($site_id, $modules){
+function jam_cms_format_post_content_for_build($site_id, $modules){
   $formatted_modules = [];
   foreach($modules as $module){
     $fields = [];
@@ -19,7 +19,7 @@ function gcms_format_post_content_for_build($site_id, $modules){
       
         $formatted_posts = [];
         foreach($posts as $post){
-          array_push($formatted_posts, gcms_format_post($site_id, $post));
+          array_push($formatted_posts, jam_cms_format_post($site_id, $post));
         }
 
         $fields[$field['id']] = $formatted_posts;

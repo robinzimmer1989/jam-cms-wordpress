@@ -1,26 +1,26 @@
 <?php
 
-add_action( 'rest_api_init', 'gcms_api_delete_user' ); 
-function gcms_api_delete_user() {
+add_action( 'rest_api_init', 'jam_cms_api_delete_user' ); 
+function jam_cms_api_delete_user() {
     register_rest_route( 'gcms/v1', '/deleteUser', array(
         'methods' => 'POST',
-        'callback' => 'gcms_api_delete_user_callback',
+        'callback' => 'jam_cms_api_delete_user_callback',
         'permission_callback' => function () {
             return current_user_can( 'remove_users' );
         }
     ));
 }
 
-function gcms_api_delete_user_callback($data) {
+function jam_cms_api_delete_user_callback($data) {
     $parameters = $data->get_params();
 
     $site_id    = $parameters['siteID'];
     $user_id    = $parameters['id'];
 
-    gcms_api_base_check($site_id, [$user_id]);
+    jam_cms_api_base_check($site_id, [$user_id]);
 
     // We need to generate the user object before deletion
-    $data = gcms_get_user_by_id($user_id);
+    $data = jam_cms_get_user_by_id($user_id);
 
     if(is_multisite()){
         $site = get_blog_details($site_id);

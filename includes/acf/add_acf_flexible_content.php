@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_add_acf_flexible_content
+ * jam_cms_add_acf_flexible_content
  *
  * Create ACF field group with flexible content field
  *
@@ -11,9 +11,9 @@
  * @return void
  */
 
-function gcms_add_acf_flexible_content(){
+function jam_cms_add_acf_flexible_content(){
 
-  $field_id = gcms_get_acf_field_id('acf-field-group', 'group_flex');
+  $field_id = jam_cms_get_acf_field_id('acf-field-group', 'group_flex');
 
   $field_group = [
     'ID'                    => $field_id ? $field_id : 0,

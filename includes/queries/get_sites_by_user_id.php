@@ -1,6 +1,6 @@
 <?php
 
-function gcms_get_sites_by_user_id($user_id){
+function jam_cms_get_sites_by_user_id($user_id){
   $sites = get_blogs_of_user($user_id);
 
   $data = array();

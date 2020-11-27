@@ -1,6 +1,6 @@
 <?php
 
-function gcms_api_base_check($site_id, $required_args = []){
+function jam_cms_api_base_check($site_id, $required_args = []){
 
   if(is_multisite()){
 

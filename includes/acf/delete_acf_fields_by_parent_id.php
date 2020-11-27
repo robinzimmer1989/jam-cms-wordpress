@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_delete_acf_fields_by_parent_id
+ * jam_cms_delete_acf_fields_by_parent_id
  *
  * Delete all ACF fields of field group
  *
@@ -12,7 +12,7 @@
  * @return	void
  */
 
-function gcms_delete_acf_fields_by_parent_id($parent_id){
+function jam_cms_delete_acf_fields_by_parent_id($parent_id){
   global $wpdb;
 
   $wpdb->get_var("

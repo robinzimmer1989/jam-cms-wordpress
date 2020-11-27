@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_generate_sub_fields_recursively
+ * jam_cms_generate_sub_fields_recursively
  *
  * Loop through repeater fields and adds fields recursively (for nested repeaters)
  *
@@ -13,7 +13,7 @@
  * @return array Formatted subfields including type args
  */
 
-function gcms_generate_sub_fields_recursively($items, $field_key){
+function jam_cms_generate_sub_fields_recursively($items, $field_key){
   $sub_fields = [];
 
   foreach($items as $sub_field){
@@ -30,7 +30,7 @@ function gcms_generate_sub_fields_recursively($items, $field_key){
       $base_args['sub_fields'] = $sub_sub_fields;
     }
 
-    $type_args = gcms_format_acf_field_type_for_db($sub_field);
+    $type_args = jam_cms_format_acf_field_type_for_db($sub_field);
 
     if($type_args){
       $args = array_merge($base_args, $type_args);

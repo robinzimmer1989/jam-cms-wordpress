@@ -1,24 +1,24 @@
 <?php
 
-add_action( 'rest_api_init', 'gcms_api_create_user' ); 
-function gcms_api_create_user() {
+add_action( 'rest_api_init', 'jam_cms_api_create_user' ); 
+function jam_cms_api_create_user() {
     register_rest_route( 'gcms/v1', '/createUser', array(
         'methods' => 'POST',
-        'callback' => 'gcms_api_create_user_callback',
+        'callback' => 'jam_cms_api_create_user_callback',
         'permission_callback' => function () {
             return current_user_can( 'create_users' );
         }
     ));
 }
 
-function gcms_api_create_user_callback($data) {
+function jam_cms_api_create_user_callback($data) {
     $parameters = $data->get_params();
 
     $site_id    = $parameters['siteID'];
     $email      = $parameters['email'];
     $role       = $parameters['role'];
 
-    gcms_api_base_check($site_id, [$email, $role]);
+    jam_cms_api_base_check($site_id, [$email, $role]);
 
     $password = wp_generate_password();
 
@@ -46,7 +46,7 @@ function gcms_api_create_user_callback($data) {
         ]);   
     }
 
-    $data = gcms_get_user_by_id($user_id);
+    $data = jam_cms_get_user_by_id($user_id);
 
     return $data;
 }

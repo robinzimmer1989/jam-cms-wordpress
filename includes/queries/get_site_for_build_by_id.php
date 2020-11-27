@@ -1,6 +1,6 @@
 <?php
 
-function gcms_get_site_for_build_by_id($site_id){
+function jam_cms_get_site_for_build_by_id($site_id){
 
   // Get generic and custom post types
   $post_types = get_post_types([], 'objects');
@@ -25,9 +25,9 @@ function gcms_get_site_for_build_by_id($site_id){
 
   $formatted_posts = [];
   foreach($posts as $post){
-    $formatted_post = gcms_get_post_by_id($site_id, $post->ID);
-    $formatted_post['slug'] = gcms_generate_slug($all_post_types, $posts, $post, $front_page);
-    $formatted_post['content'] = gcms_format_post_content_for_build($site_id, $formatted_post['content']);
+    $formatted_post = jam_cms_get_post_by_id($site_id, $post->ID);
+    $formatted_post['slug'] = jam_cms_generate_slug($all_post_types, $posts, $post, $front_page);
+    $formatted_post['content'] = jam_cms_format_post_content_for_build($site_id, $formatted_post['content']);
 
     // Remove the for builds unnecessary data
     unset($formatted_post['siteID']);
@@ -39,14 +39,14 @@ function gcms_get_site_for_build_by_id($site_id){
     array_push($formatted_posts, $formatted_post);
   }
 
-  $header_fields = gcms_get_option_group_fields('header');
+  $header_fields = jam_cms_get_option_group_fields('header');
 
   $formatted_header_fields = [];
   foreach($header_fields as $field){
     $formatted_header_fields[$field['id']] = $field['value'];
   }
 
-  $footer_fields = gcms_get_option_group_fields('footer');
+  $footer_fields = jam_cms_get_option_group_fields('footer');
 
   $formatted_footer_fields = [];
   foreach($footer_fields as $field){

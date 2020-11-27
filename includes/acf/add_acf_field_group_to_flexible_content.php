@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_add_acf_field_group_to_flexible_content
+ * jam_cms_add_acf_field_group_to_flexible_content
  *
  * Add ACF field group to main flexible content field
  *
@@ -12,14 +12,14 @@
  * @return	void
  */
 
-function gcms_add_acf_field_group_to_flexible_content($field_group){
+function jam_cms_add_acf_field_group_to_flexible_content($field_group){
 
   // Add ACF clone field of module. This will be used for the flexible content element.
-  $flexible_content_field_id = gcms_get_acf_field_id('acf-field', 'field_flex');
+  $flexible_content_field_id = jam_cms_get_acf_field_id('acf-field', 'field_flex');
 
   $clone_field_key = 'field_' . $field_group->key;
 
-  $clone_field_id = gcms_get_acf_field_id('acf-field', $clone_field_key);
+  $clone_field_id = jam_cms_get_acf_field_id('acf-field', $clone_field_key);
   
   if(!$clone_field_id){
     $args = [

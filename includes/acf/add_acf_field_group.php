@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_add_acf_field_group
+ * jam_cms_add_acf_field_group
  *
  * Creates ACF field group for module
  *
@@ -15,7 +15,7 @@
  * @return object $field_group
  */
 
-function gcms_add_acf_field_group(
+function jam_cms_add_acf_field_group(
   $module,
   $group_name_prefix = '',
   $field_name_prefix = '',
@@ -40,7 +40,7 @@ function gcms_add_acf_field_group(
     ];
 
     // Convert JS to ACF type arguments and prevent non supported field types from being added
-    $type_args = gcms_format_acf_field_type_for_db($field, $field_key);
+    $type_args = jam_cms_format_acf_field_type_for_db($field, $field_key);
 
     if($type_args){
       $args = array_merge($base_args, $type_args);
@@ -50,7 +50,7 @@ function gcms_add_acf_field_group(
 
   // Upsert module
   $field_group_key = 'group_' . $module->name;
-  $field_group_id  = gcms_get_acf_field_id('acf-field-group', $field_group_key);
+  $field_group_id  = jam_cms_get_acf_field_id('acf-field-group', $field_group_key);
 
   if(property_exists($module, 'label')){
     $field_group_label = $group_name_prefix . $module->label;

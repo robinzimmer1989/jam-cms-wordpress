@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_update_flexible_content_field_values
+ * jam_cms_update_flexible_content_field_values
  *
  * Update all fields of module of flexible content field
  *
@@ -14,7 +14,7 @@
  */
 
 
-function gcms_update_flexible_content_field_values($post_id, $module, $index){
+function jam_cms_update_flexible_content_field_values($post_id, $module, $index){
 
    // Loop through fields and update value and ACF internal group / field reference
    $fields = $module->fields;
@@ -23,14 +23,14 @@ function gcms_update_flexible_content_field_values($post_id, $module, $index){
      $meta_key =  'flex_' . $index . '_' . $field->id;
      
      if($field->type == 'repeater' && property_exists($field, 'items') && property_exists($field, 'value')){
-       gcms_update_sub_fields_recursively($post_id, $module->name, $field, $meta_key);
+       jam_cms_update_sub_fields_recursively($post_id, $module->name, $field, $meta_key);
 
        // The value for repeater fields must be the amount of items
        $value = count($field->value);
 
      }else{
        // Value needs to be formatted depending on type before storing into db
-       $value = gcms_format_acf_field_value_for_db($field);
+       $value = jam_cms_format_acf_field_value_for_db($field);
      }
 
      update_post_meta( $post_id, $meta_key, $value );

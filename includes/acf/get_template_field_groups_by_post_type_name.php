@@ -1,9 +1,9 @@
 <?php
 
 /**
- * gcms_get_template_field_groups_by_post_type_name
+ * jam_cms_get_template_field_groups_by_post_type_name
  *
- * Get formatted template for Gatsby site
+ * Get formatted template for frontend site
  *
  * @date	20/11/20
  * @since	0.0.1
@@ -13,9 +13,9 @@
  * @return object Template
  */
 
-function gcms_get_template_field_groups_by_post_type_name($post_type_name, $content = null){
+function jam_cms_get_template_field_groups_by_post_type_name($post_type_name, $content = null){
 
-  $template_field_groups = gcms_get_template_by_post_type_name($post_type_name);
+  $template_field_groups = jam_cms_get_template_by_post_type_name($post_type_name);
 
   $template = [];
 
@@ -41,7 +41,7 @@ function gcms_get_template_field_groups_by_post_type_name($post_type_name, $cont
           // Assign value if content variable is passed through.
           if($content){
             $value = $content[$field_group['name']][$field->name];
-            $value =  gcms_format_acf_field_value_for_frontend($field, $value);
+            $value =  jam_cms_format_acf_field_value_for_frontend($field, $value);
           }else{
             $value = null;
           }
@@ -52,7 +52,7 @@ function gcms_get_template_field_groups_by_post_type_name($post_type_name, $cont
             'value' => $value
           ];
 
-          $type_args = gcms_format_acf_field_type_for_frontend($field);
+          $type_args = jam_cms_format_acf_field_type_for_frontend($field);
           
           $args = array_merge($base_args, $type_args);
 

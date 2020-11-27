@@ -1,6 +1,6 @@
 <?php
 
-function gcms_format_user($user) {
+function jam_cms_format_user($user) {
 
   $formatted_user = [];
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_get_option_group_fields
+ * jam_cms_get_option_group_fields
  *
  * Get option fields by option name
  *
@@ -12,8 +12,8 @@
  * @return array Formatted fields of field group
  */
 
-function gcms_get_option_group_fields($option_name){
-  $id = gcms_get_acf_field_id('acf-field-group', 'group_' . $option_name);
+function jam_cms_get_option_group_fields($option_name){
+  $id = jam_cms_get_acf_field_id('acf-field-group', 'group_' . $option_name);
   $fields = acf_get_fields_by_id($id);
 
   $formatted_fields = [];
@@ -29,10 +29,10 @@ function gcms_get_option_group_fields($option_name){
       $base_args = [
         'id'      => $field_key,
         'type'    => $field['type'],
-        'value'   => gcms_format_acf_field_value_for_frontend($field, $value)
+        'value'   => jam_cms_format_acf_field_value_for_frontend($field, $value)
       ];
 
-      $type_args = gcms_format_acf_field_type_for_frontend($field);
+      $type_args = jam_cms_format_acf_field_type_for_frontend($field);
       
       $args = array_merge($base_args, $type_args);
 

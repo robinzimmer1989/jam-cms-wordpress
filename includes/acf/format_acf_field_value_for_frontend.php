@@ -1,9 +1,9 @@
 <?php
 
 /**
- * gcms_format_acf_field_value_for_frontend
+ * jam_cms_format_acf_field_value_for_frontend
  *
- * Format value before returning to Gatsby site
+ * Format value before returning to frontend site
  *
  * @date	20/11/20
  * @since	0.0.1
@@ -13,7 +13,7 @@
  * @return any $value The formatted value
  */
 
-function gcms_format_acf_field_value_for_frontend($field, $value){
+function jam_cms_format_acf_field_value_for_frontend($field, $value){
   $field = (object) $field;
   $type = $field->type;
 
@@ -24,7 +24,7 @@ function gcms_format_acf_field_value_for_frontend($field, $value){
       return [];
     }
 
-    $value = gcms_get_menu_by_id($value);
+    $value = jam_cms_get_menu_by_id($value);
 
   }elseif($type == 'repeater'){
 
@@ -39,7 +39,7 @@ function gcms_format_acf_field_value_for_frontend($field, $value){
       $j = 0;
       foreach($repeater_item as $key => $repeater_item_value){
         $sub_field = $field->sub_fields[$j];
-        $value[$i][$key] = gcms_format_acf_field_value_for_frontend($sub_field, $repeater_item_value);
+        $value[$i][$key] = jam_cms_format_acf_field_value_for_frontend($sub_field, $repeater_item_value);
         $j++;
       }
 

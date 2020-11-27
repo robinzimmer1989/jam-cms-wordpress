@@ -1,23 +1,23 @@
 <?php
 
-add_action( 'rest_api_init', 'gcms_api_update_post' ); 
-function gcms_api_update_post() {
+add_action( 'rest_api_init', 'jam_cms_api_update_post' ); 
+function jam_cms_api_update_post() {
   register_rest_route( 'gcms/v1', '/updatePost', array(
     'methods' => 'POST',
-    'callback' => 'gcms_api_update_post_callback',
+    'callback' => 'jam_cms_api_update_post_callback',
     'permission_callback' => function () {
       return current_user_can( 'edit_posts' );
     }
   ));
 }
 
-function gcms_api_update_post_callback($data) {
+function jam_cms_api_update_post_callback($data) {
     $parameters = $data->get_params();
 
     $site_id        = $parameters['siteID'];
     $post_id        = $parameters['id'];
 
-    gcms_api_base_check($site_id, [$post_id]);
+    jam_cms_api_base_check($site_id, [$post_id]);
 
     $post_data = array(
       'ID' => $post_id
@@ -61,7 +61,7 @@ function gcms_api_update_post_callback($data) {
      
       $modules = $parameters['content'] ? json_decode($parameters['content']) : [];
 
-      $template = gcms_get_template_by_post_id($post_id);
+      $template = jam_cms_get_template_by_post_id($post_id);
 
       $flexible_content_blocks = [];
 
@@ -74,18 +74,18 @@ function gcms_api_update_post_callback($data) {
         foreach($modules as $module){
 
           // Add / Update ACF field group if doesn't exist yet or has changed
-          $field_group = gcms_add_acf_field_group($module, 'Block: ', '', [
+          $field_group = jam_cms_add_acf_field_group($module, 'Block: ', '', [
             'rule_0' => ['param' => 'post_type', 'operator' => '==', 'value' => 'page'],
             'rule_1' => ['param' => 'post_type', 'operator' => '!=', 'value' => 'page']
           ]);
 
           // Check if flexible content
           if(count($template) > 0 && $template[0]['type'] == 'flexible_content'){
-            gcms_add_acf_field_group_to_flexible_content($field_group);
-            gcms_update_flexible_content_field_values($post_id, $module, $i);
+            jam_cms_add_acf_field_group_to_flexible_content($field_group);
+            jam_cms_update_flexible_content_field_values($post_id, $module, $i);
             array_push($flexible_content_blocks, 'group_' . $module->name);
           }else {
-            gcms_update_template_field_values($post_id, $module, $i);
+            jam_cms_update_template_field_values($post_id, $module, $i);
           }
 
           $i++;
@@ -98,7 +98,7 @@ function gcms_api_update_post_callback($data) {
       }
     }
 
-    $data = gcms_get_post_by_id($site_id, $post_id);
+    $data = jam_cms_get_post_by_id($site_id, $post_id);
 
     return $data;
 }

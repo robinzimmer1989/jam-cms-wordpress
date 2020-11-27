@@ -1,17 +1,17 @@
 <?php
 
-add_action( 'rest_api_init', 'gcms_api_create_post' ); 
-function gcms_api_create_post() {
+add_action( 'rest_api_init', 'jam_cms_api_create_post' ); 
+function jam_cms_api_create_post() {
   register_rest_route( 'gcms/v1', '/createPost', array(
       'methods' => 'POST',
-      'callback' => 'gcms_api_create_post_callback',
+      'callback' => 'jam_cms_api_create_post_callback',
       'permission_callback' => function () {
         return current_user_can( 'publish_posts ' );
       }
   ));
 }
 
-function gcms_api_create_post_callback($data) {
+function jam_cms_api_create_post_callback($data) {
     $parameters = $data->get_params();
 
     $site_id    = $parameters['siteID'];
@@ -20,7 +20,7 @@ function gcms_api_create_post_callback($data) {
     $post_type  = $parameters['postTypeID'];
     $parent_id  = $parameters['parentID'];
 
-    gcms_api_base_check($site_id, [$title, $slug, $post_type]);
+    jam_cms_api_base_check($site_id, [$title, $slug, $post_type]);
 
     $post_data = array(
       'post_title'  => $title,
@@ -32,7 +32,7 @@ function gcms_api_create_post_callback($data) {
 
     $post_id = wp_insert_post($post_data);
 
-    $data = gcms_get_post_by_id($site_id, $post_id);
+    $data = jam_cms_get_post_by_id($site_id, $post_id);
 
     return $data;
 }

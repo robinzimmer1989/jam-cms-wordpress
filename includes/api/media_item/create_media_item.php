@@ -1,22 +1,22 @@
 <?php
 
-add_action( 'rest_api_init', 'gcms_api_create_media_item' ); 
-function gcms_api_create_media_item() {
+add_action( 'rest_api_init', 'jam_cms_api_create_media_item' ); 
+function jam_cms_api_create_media_item() {
     register_rest_route( 'gcms/v1', '/createMediaItem', array(
         'methods' => 'POST',
-        'callback' => 'gcms_api_create_media_item_callback',
+        'callback' => 'jam_cms_api_create_media_item_callback',
         'permission_callback' => function () {
             return current_user_can( 'upload_files' );
         }
     ));
 }
 
-function gcms_api_create_media_item_callback($parameters) {
+function jam_cms_api_create_media_item_callback($parameters) {
     $site_id    = $parameters->get_param('siteID');
     $files      = $parameters->get_file_params();
     $headers    = $parameters->get_headers();
 
-    gcms_api_base_check($site_id);
+    jam_cms_api_base_check($site_id);
 
     if ( empty( $files ) ) {
         return new WP_Error( 'rest_upload_no_data', __( 'No data supplied' ), array( 'status' => 400 ) );
@@ -67,7 +67,7 @@ function gcms_api_create_media_item_callback($parameters) {
     if($attachment_id){
         $media_item = get_post($attachment_id);
 
-        return gcms_format_media_item($site_id, $media_item);
+        return jam_cms_format_media_item($site_id, $media_item);
     }
 
     return $attachment_id;

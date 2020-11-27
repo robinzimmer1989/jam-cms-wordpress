@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_add_acf_field_group_to_template
+ * jam_cms_add_acf_field_group_to_template
  *
  * Adds ACF field group to specified template.
  * We can't add the field group directly to the template, because that would create name clashes (i.e. multiple 'image' fields)
@@ -17,11 +17,11 @@
  * @return	void
  */
 
-function gcms_add_acf_field_group_to_template($template_name, $field_group, $index){
+function jam_cms_add_acf_field_group_to_template($template_name, $field_group, $index){
 
-  $template_id = gcms_get_acf_field_id('acf-field-group', $template_name);
+  $template_id = jam_cms_get_acf_field_id('acf-field-group', $template_name);
 
-  $group_field_id = gcms_add_acf_field(
+  $group_field_id = jam_cms_add_acf_field(
     'field_' . $index . '_' . $template_name,
     $field_group->key,
     $field_group->title,
@@ -31,7 +31,7 @@ function gcms_add_acf_field_group_to_template($template_name, $field_group, $ind
     $template_id,
   );
 
-  $field_id = gcms_add_acf_field(
+  $field_id = jam_cms_add_acf_field(
     'field_' . $index . '_' . $field_group->key .  '_' . $template_name,
     $field_group->key,
     $field_group->title,

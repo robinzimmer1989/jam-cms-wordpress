@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_get_flexible_content_blocks
+ * jam_cms_get_flexible_content_blocks
  *
  * Format blocks of flexible content field for frontend use
  *
@@ -12,7 +12,7 @@
  * @return array The formatted blocks
  */
 
-function gcms_get_flexible_content_blocks($modules){
+function jam_cms_get_flexible_content_blocks($modules){
 
   $formatted_modules = [];
 
@@ -30,10 +30,10 @@ function gcms_get_flexible_content_blocks($modules){
           $base_args = [
             'id'    => $key,
             'type'  => $field->type,
-            'value' => gcms_format_acf_field_value_for_frontend($field, $value)
+            'value' => jam_cms_format_acf_field_value_for_frontend($field, $value)
           ];
 
-          $type_args = gcms_format_acf_field_type_for_frontend($field);
+          $type_args = jam_cms_format_acf_field_type_for_frontend($field);
           
           $args = array_merge($base_args, $type_args);
 
@@ -46,7 +46,7 @@ function gcms_get_flexible_content_blocks($modules){
     $array = explode('_', $module['acf_fc_layout']);
     $name = end($array);
 
-    $field_group_id = gcms_get_acf_field_id('acf-field-group', $module['acf_fc_layout']);
+    $field_group_id = jam_cms_get_acf_field_id('acf-field-group', $module['acf_fc_layout']);
 
     array_push($formatted_modules, [
       'fields' => $fields,

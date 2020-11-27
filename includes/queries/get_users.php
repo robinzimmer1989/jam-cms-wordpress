@@ -1,6 +1,6 @@
 <?php
 
-function gcms_get_users($limit = 10, $page = 0){
+function jam_cms_get_users($limit = 10, $page = 0){
 
   $users = get_users([
     'number' => $limit,
@@ -11,7 +11,7 @@ function gcms_get_users($limit = 10, $page = 0){
   foreach($users as $user){
     // Don't return super admin
     if($user->ID != 1){
-      array_push($formatted_users, gcms_format_user($user));
+      array_push($formatted_users, jam_cms_format_user($user));
     }
   }
 

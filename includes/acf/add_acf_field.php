@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_add_acf_field
+ * jam_cms_add_acf_field
  *
  * Create ACF field
  *
@@ -16,7 +16,7 @@
  * @return int post_id
  */
 
-function gcms_add_acf_field(
+function jam_cms_add_acf_field(
   $key,
   $name,
   $label,

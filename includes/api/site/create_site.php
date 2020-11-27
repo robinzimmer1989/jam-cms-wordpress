@@ -1,17 +1,17 @@
 <?php
 
-add_action( 'rest_api_init', 'gcms_api_create_site' ); 
-function gcms_api_create_site() {
+add_action( 'rest_api_init', 'jam_cms_api_create_site' ); 
+function jam_cms_api_create_site() {
     register_rest_route( 'gcms/v1', '/createSite', array(
         'methods' => 'POST',
-        'callback' => 'gcms_api_create_site_callback',
+        'callback' => 'jam_cms_api_create_site_callback',
         'permission_callback' => function () {
             return current_user_can( 'create_sites' );
         }
     ));
 }
 
-function gcms_api_create_site_callback($data) {
+function jam_cms_api_create_site_callback($data) {
     $parameters = $data->get_params();
 
     $title      = $parameters['title'];
@@ -37,10 +37,10 @@ function gcms_api_create_site_callback($data) {
     switch_to_blog($site->blog_id);
 
     // Create flexible content element
-    gcms_add_acf_flexible_content();
+    jam_cms_add_acf_flexible_content();
 
     // Create template and assign flexible content as default
-    gcms_add_acf_template('Page', 'page');
+    jam_cms_add_acf_template('Page', 'page');
 
     # TODO: Delete sample page and hello world posts
     // $homepage = get_page_by_title( 'Sample Page' );
@@ -49,9 +49,9 @@ function gcms_api_create_site_callback($data) {
     $api_key = wp_generate_uuid4();
     update_option('deployment_api_key', $api_key);
 
-    gcms_api_base_check($site_id);
+    jam_cms_api_base_check($site_id);
 
-    $data = gcms_get_site_by_id($site_id);
+    $data = jam_cms_get_site_by_id($site_id);
 
     return $data;
 }

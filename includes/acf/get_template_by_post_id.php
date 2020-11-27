@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_get_template_by_post_id
+ * jam_cms_get_template_by_post_id
  *
  * Get template fields by post id
  *
@@ -12,11 +12,11 @@
  * @return array Field groups of the template
  */
 
-function gcms_get_template_by_post_id($post_id){
+function jam_cms_get_template_by_post_id($post_id){
 
   $post_type = get_post_type($post_id);
 
-  $id = gcms_get_acf_field_id('acf-field-group', 'group_template-' . $post_type);
+  $id = jam_cms_get_acf_field_id('acf-field-group', 'group_template-' . $post_type);
   $template_fields = acf_get_fields_by_id($id);
 
   return $template_fields;

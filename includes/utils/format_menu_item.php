@@ -1,6 +1,6 @@
 <?php
 
-function gcms_format_menu_item($menu_item){
+function jam_cms_format_menu_item($menu_item){
 
   $new_menu_item = (object) [
     'key'         => $menu_item->ID,

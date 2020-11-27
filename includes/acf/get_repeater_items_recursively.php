@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_get_repeater_items_recursively
+ * jam_cms_get_repeater_items_recursively
  *
  * Get and format sub fields of repeater item
  *
@@ -12,10 +12,10 @@
  * @return array The formatted sub fields
  */
 
-function gcms_get_repeater_items_recursively($field){
+function jam_cms_get_repeater_items_recursively($field){
 
   // Get repeater sub fields
-  $id = gcms_get_acf_field_id('acf-field', $field->key);
+  $id = jam_cms_get_acf_field_id('acf-field', $field->key);
 
   // We need to check for the id here, because if none is found it'll get all field groups
   if(!$id){
@@ -34,7 +34,7 @@ function gcms_get_repeater_items_recursively($field){
       'label' => $sub_field->label
     ];
     
-    $type_args = gcms_format_acf_field_type_for_frontend($sub_field, $sub_field->key);
+    $type_args = jam_cms_format_acf_field_type_for_frontend($sub_field, $sub_field->key);
               
     $args = array_merge($base_args, $type_args);
 

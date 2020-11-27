@@ -1,6 +1,6 @@
 <?php
 
-function gcms_update_post(){
+function jam_cms_update_post(){
   
 }
 

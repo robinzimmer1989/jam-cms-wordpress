@@ -1,6 +1,6 @@
 <?php
 
-function gcms_check_for_missing_plugins(){
+function jam_cms_check_for_missing_plugins(){
   $active_plugins = [];
 
   $site_plugins = get_option('active_plugins');

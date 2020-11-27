@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_format_acf_field_type_for_db
+ * jam_cms_format_acf_field_type_for_db
  *
  * Format field args before saving them to db
  *
@@ -13,7 +13,7 @@
  * @return array $args The formatted arguments of the field
  */
 
-function gcms_format_acf_field_type_for_db($field, $field_key = ''){
+function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
 
   $args = [];
 
@@ -82,7 +82,7 @@ function gcms_format_acf_field_type_for_db($field, $field_key = ''){
     }
 
     if(property_exists($field, 'items')){
-      $sub_fields = gcms_generate_sub_fields_recursively($field->items, $field_key);
+      $sub_fields = jam_cms_generate_sub_fields_recursively($field->items, $field_key);
       $args['sub_fields'] = $sub_fields;
     }
 

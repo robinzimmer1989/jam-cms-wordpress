@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_format_acf_field_value_for_db
+ * jam_cms_format_acf_field_value_for_db
  *
  * Format value before saving them to db
  *
@@ -12,7 +12,7 @@
  * @return any $value The formatted value
  */
 
-function gcms_format_acf_field_value_for_db($field){
+function jam_cms_format_acf_field_value_for_db($field){
 
   if(!property_exists($field, 'value') || !$field->value){
     return null;
@@ -25,7 +25,7 @@ function gcms_format_acf_field_value_for_db($field){
     $menu_slug = $field->id;
     $menu_items = $field->value;
 
-    $menu_id = gcms_update_menu($menu_slug, $menu_items);
+    $menu_id = jam_cms_update_menu($menu_slug, $menu_items);
     $value = $menu_id;
   
   }elseif($field->type == 'link'){

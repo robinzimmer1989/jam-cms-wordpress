@@ -1,9 +1,9 @@
 <?php
 
 /**
- * gcms_format_acf_field_type_for_frontend
+ * jam_cms_format_acf_field_type_for_frontend
  *
- * Format field args before returning them to Gatsby site
+ * Format field args before returning them to frontend site
  *
  * @date	20/11/20
  * @since	0.0.1
@@ -12,7 +12,7 @@
  * @return array $args The formatted arguments of the field
  */
 
-function gcms_format_acf_field_type_for_frontend($field){
+function jam_cms_format_acf_field_type_for_frontend($field){
   $field = (object)$field;
   
   $args = [];
@@ -54,7 +54,7 @@ function gcms_format_acf_field_type_for_frontend($field){
   }
   
   if($field->type == 'repeater'){
-    $args['items'] = gcms_get_repeater_items_recursively($field);
+    $args['items'] = jam_cms_get_repeater_items_recursively($field);
   }
 
   if(property_exists($field, 'choices')){

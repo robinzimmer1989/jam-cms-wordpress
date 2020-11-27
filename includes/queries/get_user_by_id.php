@@ -1,11 +1,11 @@
 <?php
 
-function gcms_get_user_by_id($user_id){
+function jam_cms_get_user_by_id($user_id){
 
   $user = get_user_by('ID', $user_id);
 
   if($user){
-    $formatted_user = gcms_format_user($user);
+    $formatted_user = jam_cms_format_user($user);
 
     return $formatted_user;
   }

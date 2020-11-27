@@ -1,6 +1,6 @@
 <?php
 
-function gcms_get_site_by_id($site_id = ''){
+function jam_cms_get_site_by_id($site_id = ''){
 
   // Get generic and custom post types
   $post_types = get_post_types([], 'objects');
@@ -13,12 +13,12 @@ function gcms_get_site_by_id($site_id = ''){
     $post_type = (object) $post_type;
 
     if ($post_type->publicly_queryable && $post_type->name != 'attachment') {
-        array_push($items, gcms_format_post_type($site_id, $post_type));
+        array_push($items, jam_cms_format_post_type($site_id, $post_type));
     }
   }
 
-  $header_fields = gcms_get_option_group_fields('header');
-  $footer_fields = gcms_get_option_group_fields('footer');
+  $header_fields = jam_cms_get_option_group_fields('header');
+  $footer_fields = jam_cms_get_option_group_fields('footer');
 
   $deployment_build_hook = '';
   $deployment_badge_image = '';
@@ -68,7 +68,7 @@ function gcms_get_site_by_id($site_id = ''){
     ]
   );
 
-  $missing_plugins = gcms_check_for_missing_plugins();
+  $missing_plugins = jam_cms_check_for_missing_plugins();
 
   if(count($missing_plugins) > 0){
     $data['errors'] = [

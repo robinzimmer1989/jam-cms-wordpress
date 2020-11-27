@@ -1,8 +1,8 @@
 <?php
 
-function gcms_get_menu_by_id($menu_id, $format = true){
+function jam_cms_get_menu_by_id($menu_id, $format = true){
   $menu_items = wp_get_nav_menu_items($menu_id);
-  return gcms_build_menu_tree($menu_items);
+  return jam_cms_build_menu_tree($menu_items);
 }
 
 ?>

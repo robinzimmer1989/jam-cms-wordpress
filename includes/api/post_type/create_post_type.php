@@ -1,31 +1,31 @@
 <?php
 
-add_action( 'rest_api_init', 'gcms_api_create_post_type' ); 
-function gcms_api_create_post_type() {
+add_action( 'rest_api_init', 'jam_cms_api_create_post_type' ); 
+function jam_cms_api_create_post_type() {
     register_rest_route( 'gcms/v1', '/createCollection', array(
         'methods' => 'POST',
-        'callback' => 'gcms_api_create_post_type_callback',
+        'callback' => 'jam_cms_api_create_post_type_callback',
         'permission_callback' => function () {
             return current_user_can( 'manage_options' );
         }
     ));
 }
 
-function gcms_api_create_post_type_callback($data) {
+function jam_cms_api_create_post_type_callback($data) {
     $parameters = $data->get_params();
 
     $site_id    = $parameters['siteID'];
     $title      = $parameters['title'];
     $slug       = $parameters['slug'];
 
-    gcms_api_base_check($site_id, [$post_id]);
+    jam_cms_api_base_check($site_id, [$post_id]);
 
     $cpt_ui = get_option('cptui_post_types');
     $post_types = $cpt_ui ? $cpt_ui : [];
 
     if($title !== 'Pages' && $slug !== 'page' && !array_key_exists($slug, $post_types)){
 
-        $name = gcms_generate_id();
+        $name = jam_cms_generate_id();
 
         $post_types[$name] = [
             'name'                  => $name,
@@ -57,9 +57,9 @@ function gcms_api_create_post_type_callback($data) {
         update_option('cptui_post_types', $post_types);
 
         // Create template and assign flexible content as default
-        gcms_add_acf_template($title, $name);
+        jam_cms_add_acf_template($title, $name);
 
-        $post_type = gcms_format_post_type($site_id, $post_types[$name]);
+        $post_type = jam_cms_format_post_type($site_id, $post_types[$name]);
 
         return $post_type;
     }

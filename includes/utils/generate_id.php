@@ -1,6 +1,6 @@
 <?php
 
-function gcms_generate_id($length = 12) {
+function jam_cms_generate_id($length = 12) {
     $characters = 'abcdefghijklmnopqrstuvwxyz';
     $charactersLength = strlen($characters);
     $randomString = '';

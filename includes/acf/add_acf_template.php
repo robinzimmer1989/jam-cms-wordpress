@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_add_acf_template
+ * jam_cms_add_acf_template
  *
  * Add template field group with flexible content field as clone
  *
@@ -13,9 +13,9 @@
  * @return	void
  */
 
-function gcms_add_acf_template($title, $name){
+function jam_cms_add_acf_template($title, $name){
 
-  $template_id = gcms_get_acf_field_id('acf-field-group', 'group_template-' . $name);
+  $template_id = jam_cms_get_acf_field_id('acf-field-group', 'group_template-' . $name);
 
   // Create flexible content element
   $field_group = array(

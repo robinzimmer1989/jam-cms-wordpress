@@ -1,6 +1,6 @@
 <?php
 
-function gcms_remove_default_post_type($args, $postType) {
+function jam_cms_remove_default_post_type($args, $postType) {
   if ($postType === 'post') {
       $args['public']                = false;
       $args['show_ui']               = false;
@@ -16,6 +16,6 @@ function gcms_remove_default_post_type($args, $postType) {
 
   return $args;
 }
-add_filter('register_post_type_args', 'gcms_remove_default_post_type', 0, 2);
+add_filter('register_post_type_args', 'jam_cms_remove_default_post_type', 0, 2);
 
 ?>

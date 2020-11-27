@@ -1,13 +1,13 @@
 <?php
 
-function gcms_format_post($site_id, $post) {
+function jam_cms_format_post($site_id, $post) {
 
   $thumbnail_id = get_post_thumbnail_id($post->ID);
   $formatted_media_item = null;
   
   if($thumbnail_id){
     $media_item = acf_get_attachment($thumbnail_id);
-    $formatted_media_item = gcms_format_acf_field_value_for_frontend(['type' => 'image'], $media_item);
+    $formatted_media_item = jam_cms_format_acf_field_value_for_frontend(['type' => 'image'], $media_item);
   }
 
   $formatted_post = [

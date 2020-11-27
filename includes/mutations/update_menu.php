@@ -1,6 +1,6 @@
 <?php
 
-function gcms_update_menu($menu_slug, $menu_items){
+function jam_cms_update_menu($menu_slug, $menu_items){
   $menu = wp_get_nav_menu_object($menu_slug);
 
   // Create menu if doesn't exist
@@ -18,7 +18,7 @@ function gcms_update_menu($menu_slug, $menu_items){
   }
 
   // Flatten menu items
-  $flattened_menu_items = gcms_array_flatten($menu_items);
+  $flattened_menu_items = jam_cms_array_flatten($menu_items);
   
   // Sort items by assigned index (= menu_order)
   usort($flattened_menu_items, fn($a, $b) => strcmp($a->index, $b->index));

@@ -1,6 +1,6 @@
 <?php
 
-function gcms_array_flatten($element, $index = 1, $parent_id = 0){
+function jam_cms_array_flatten($element, $index = 1, $parent_id = 0){
   $flat_array = array();
 
   foreach ($element as $key => $node) {
@@ -8,7 +8,7 @@ function gcms_array_flatten($element, $index = 1, $parent_id = 0){
     $node->index = $index;
 
     if (property_exists($node, 'children')) {
-      $flat_array = array_merge($flat_array, gcms_array_flatten($node->children, $index + 1, $node->key));
+      $flat_array = array_merge($flat_array, jam_cms_array_flatten($node->children, $index + 1, $node->key));
 
       $index = $index + count($flat_array);
 

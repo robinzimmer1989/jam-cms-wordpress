@@ -1,7 +1,7 @@
 <?php
 
 /**
- * gcms_get_acf_field_id
+ * jam_cms_get_acf_field_id
  *
  * Get database ID of ACF field group or field
  *
@@ -13,7 +13,7 @@
  * @return int ID
  */
 
-function gcms_get_acf_field_id($field_type, $key){
+function jam_cms_get_acf_field_id($field_type, $key){
   global $wpdb;
 
   return $wpdb->get_var("
