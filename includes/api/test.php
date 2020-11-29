@@ -16,10 +16,8 @@ function jam_cms_api_test_callback($data) {
 
   // $site = get_blog_details($site_id);
   // switch_to_blog($site->blog_id);
-  
-  // $menu_items = get_option('active_plugins');
 
-
+  return null;
 }
 
 ?>
