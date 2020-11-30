@@ -21,8 +21,10 @@ function jam_cms_update_menu($menu_slug, $menu_items){
   $flattened_menu_items = jam_cms_array_flatten($menu_items);
   
   // Sort items by assigned index (= menu_order)
-  usort($flattened_menu_items, fn($a, $b) => strcmp($a->index, $b->index));
-  
+  usort($flattened_menu_items, function ($a, $b) {
+    return $a->index <=> $b->index;
+  });
+
   // Initialize empty array to store new menu item ids
   $menu_item_ids = [];
 
