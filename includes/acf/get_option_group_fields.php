@@ -14,6 +14,11 @@
 
 function jam_cms_get_option_group_fields($option_name){
   $id = jam_cms_get_acf_field_id('acf-field-group', 'group_' . $option_name);
+
+  if(!$id){
+    return [];
+  }
+  
   $fields = acf_get_fields_by_id($id);
 
   $formatted_fields = [];
