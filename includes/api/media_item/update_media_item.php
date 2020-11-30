@@ -30,6 +30,10 @@ function jam_cms_api_update_media_item_callback($data) {
     update_post_meta( $attachment_id, '_wp_attachment_image_alt', $alt_text );
 
     wp_update_post( $attachment_meta );
+
+    $media_item = jam_cms_get_media_item_by_id($site_id, $attachment_id);
+
+    return $media_item;
 }
 
 ?>
