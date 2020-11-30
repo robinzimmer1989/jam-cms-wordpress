@@ -21,7 +21,13 @@ function jam_cms_api_update_site_callback($data) {
     jam_cms_api_base_check($site_id);
 
     if(array_key_exists('frontPage', $parameters)){
-        update_blog_option( get_current_blog_id(), 'page_on_front', $parameters['frontPage'] );
+        if(is_multisite()){
+            $blog_id = get_current_blog_id();
+            update_blog_option($blog_id, 'page_on_front', $parameters['frontPage']);
+        }else{
+            update_option('page_on_front', $parameters['frontPage']);
+        }
+        
     }
 
     if(array_key_exists('settings', $parameters)){
