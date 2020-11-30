@@ -6,7 +6,7 @@ function jam_cms_api_create_post() {
       'methods' => 'POST',
       'callback' => 'jam_cms_api_create_post_callback',
       'permission_callback' => function () {
-        return current_user_can( 'publish_posts ' );
+        return current_user_can('publish_posts');
       }
   ));
 }
