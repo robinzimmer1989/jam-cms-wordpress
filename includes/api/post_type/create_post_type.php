@@ -18,7 +18,7 @@ function jam_cms_api_create_post_type_callback($data) {
     $title      = $parameters['title'];
     $slug       = $parameters['slug'];
 
-    jam_cms_api_base_check($site_id, [$post_id]);
+    jam_cms_api_base_check($site_id, [$title]);
 
     $cpt_ui = get_option('cptui_post_types');
     $post_types = $cpt_ui ? $cpt_ui : [];
