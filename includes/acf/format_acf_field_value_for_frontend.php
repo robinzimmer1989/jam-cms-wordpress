@@ -69,7 +69,6 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
     }
 
     // Format to dummy Gatsby image
-
     $src_set = [];
     if($value['sizes']['thumbnail']){
       array_push($src_set, $value['sizes']['thumbnail'] . ' ' . $value['sizes']['thumbnail-width'] . 'w');
@@ -97,6 +96,9 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
       ]
     ];
 
+    // Rename alt attribute
+    $value['altText'] = $value['alt'];
+
     // Remove unnecessary data
     unset($value['ID']);
     unset($value['sizes']);
@@ -113,6 +115,7 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
     unset($value['mime_type']);
     unset($value['icon']);
     unset($value['image_meta']);
+    unset($value['alt']);
   }
 
   return $value;
