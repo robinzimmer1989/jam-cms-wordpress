@@ -16,7 +16,6 @@ function jam_cms_api_update_media_item_callback($data) {
 
     $site_id        = $parameters['siteID'];
     $attachment_id  = $parameters['id'];
-    $alt_text       = $parameters['altText'];
 
     jam_cms_api_base_check($site_id, [$attachment_id]);
 
@@ -27,8 +26,10 @@ function jam_cms_api_update_media_item_callback($data) {
       'post_content'	=> '',
     );
 
-    update_post_meta( $attachment_id, '_wp_attachment_image_alt', $alt_text );
-
+    if(array_key_exists('altText', $parameters)){
+      update_post_meta( $attachment_id, '_wp_attachment_image_alt', $parameters['altText'] );
+    }
+    
     wp_update_post( $attachment_meta );
 
     $media_item = jam_cms_get_media_item_by_id($site_id, $attachment_id);
