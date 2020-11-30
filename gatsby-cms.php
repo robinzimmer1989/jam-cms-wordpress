@@ -113,6 +113,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/queries/get_sites_by_user_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_post_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_media_items.php');
+            include_once( JAM_CMS_PATH . '/includes/queries/get_media_item_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_post_type_by_name.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_menu_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_user_by_id.php');
