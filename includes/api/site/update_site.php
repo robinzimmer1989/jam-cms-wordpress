@@ -23,11 +23,12 @@ function jam_cms_api_update_site_callback($data) {
     if(array_key_exists('frontPage', $parameters)){
         if(is_multisite()){
             $blog_id = get_current_blog_id();
+            update_blog_option($blog_id, 'show_on_front', 'page');
             update_blog_option($blog_id, 'page_on_front', $parameters['frontPage']);
         }else{
+            update_option('show_on_front', 'page');
             update_option('page_on_front', $parameters['frontPage']);
         }
-        
     }
 
     if(array_key_exists('settings', $parameters)){
