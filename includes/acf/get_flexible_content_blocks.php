@@ -14,6 +14,10 @@
 
 function jam_cms_get_flexible_content_blocks($modules){
 
+  if(!$modules){
+    return [];
+  }
+
   $formatted_modules = [];
 
   foreach($modules as $module){
