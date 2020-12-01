@@ -21,7 +21,7 @@ function jam_cms_api_update_post_type_callback($data) {
     $template_modules = $parameters['template'];
     $template_modules = $template_modules ? json_decode($template_modules) : [];
 
-    jam_cms_api_base_check($site_id, [$post_id]);
+    jam_cms_api_base_check($site_id, [$post_type_name, $title, $slug]);
 
     if($post_type_name != 'page'){
       $post_types = get_option('cptui_post_types');
