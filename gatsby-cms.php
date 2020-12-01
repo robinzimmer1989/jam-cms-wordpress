@@ -65,6 +65,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/format_post_type.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_media_item.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_menu_item.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/format_url.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_user.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_post_content_for_build.php');
             include_once( JAM_CMS_PATH . '/includes/utils/generate_id.php');
