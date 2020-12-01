@@ -26,6 +26,17 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
 
     $value = jam_cms_get_menu_by_id($value);
 
+  }elseif($type == 'link'){
+
+    // Change null value to empty array
+    if(!$value){
+      return [
+        'url'     => '',
+        'title'   => '',
+        'target'  => '',
+      ];
+    }
+
   }elseif($type == 'repeater'){
 
     // Change null value to empty array
