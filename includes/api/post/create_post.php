@@ -27,7 +27,7 @@ function jam_cms_api_create_post_callback($data) {
       'post_name'   => $slug,
       'post_status' => 'draft',
       'post_type'   => $post_type,
-      'post_parent' => $parent_id || 0
+      'post_parent' => $parent_id
     );
 
     $post_id = wp_insert_post($post_data);
