@@ -26,7 +26,7 @@ function jam_cms_generate_sub_fields_recursively($items, $field_key){
     ];
 
     if(property_exists($sub_field, 'items')){
-      $sub_sub_fields = generate_sub_fields_recursively($sub_field->items, $sub_field_key);
+      $sub_sub_fields = jam_cms_generate_sub_fields_recursively($sub_field->items, $sub_field_key);
       $base_args['sub_fields'] = $sub_sub_fields;
     }
 
