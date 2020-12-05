@@ -29,7 +29,7 @@ function jam_cms_format_post_content_for_build($site_id, $modules){
     }
 
     array_push($formatted_modules, [
-      'name'    => $module['name'],
+      'name'    => $module['id'],
       'fields'  => $fields
     ]);
   }

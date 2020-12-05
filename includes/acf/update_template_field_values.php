@@ -22,10 +22,10 @@ function jam_cms_update_template_field_values($post_id, $module, $index){
    $fields = $module->fields;
 
    foreach($fields as $field){
-     $meta_key =  'group_' . $module->name . '_' . $field->id;
+     $meta_key =  'group_' . $module->id . '_' . $field->id;
      
      if($field->type == 'repeater' && property_exists($field, 'items') && property_exists($field, 'value')){
-       jam_cms_update_sub_fields_recursively($post_id, $module->name, $field, $meta_key);
+       jam_cms_update_sub_fields_recursively($post_id, $module->id, $field, $meta_key);
 
        // The value for repeater fields must be the amount of items
        $value = count($field->value);
@@ -36,12 +36,12 @@ function jam_cms_update_template_field_values($post_id, $module, $index){
      }
 
      update_post_meta( $post_id, $meta_key, $value );
-     update_post_meta( $post_id, '_' . $meta_key, 'field_' . $index . '_group_' . $module->name . '_' .  $template_name . '_field_' . $field->id . '_group_' . $module->name);
+     update_post_meta( $post_id, '_' . $meta_key, 'field_' . $index . '_group_' . $module->id . '_' .  $template_name . '_field_' . $field->id . '_group_' . $module->id);
    }
 
    $group_meta_key = 'field_' . $index;
-   update_post_meta( $post_id, 'group_' . $module->name , '');
-   update_post_meta( $post_id, '_' . 'group_' . $module->name, 'field_' . $index . '_' . $template_name);
+   update_post_meta( $post_id, 'group_' . $module->id , '');
+   update_post_meta( $post_id, '_' . 'group_' . $module->id, 'field_' . $index . '_' . $template_name);
 
 }
 

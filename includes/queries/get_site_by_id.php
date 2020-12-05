@@ -43,11 +43,11 @@ function jam_cms_get_site_by_id($site_id = ''){
     'apiKey'                => $api_key ? $api_key : '',
     'settings'              => [
       'header' => [
-        'name'              => 'header',
+        'id'                => 'header',
         'fields'            => $header_fields
       ],
       'footer' => [
-      'name'                => 'footer',
+        'id'                => 'footer',
         'fields'            => $footer_fields
       ]
     ],

@@ -61,7 +61,7 @@ function jam_cms_get_template_field_groups_by_post_type_name($post_type_name, $c
         }
 
         array_push($template, [
-          'name'    => $name,
+          'id'      => $name,
           'label'   => $label,
           'fields'  => $fields
         ]);

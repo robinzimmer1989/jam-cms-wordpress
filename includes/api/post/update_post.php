@@ -83,7 +83,7 @@ function jam_cms_api_update_post_callback($data) {
           if(count($template) > 0 && $template[0]['type'] == 'flexible_content'){
             jam_cms_add_acf_field_group_to_flexible_content($field_group);
             jam_cms_update_flexible_content_field_values($post_id, $module, $i);
-            array_push($flexible_content_blocks, 'group_' . $module->name);
+            array_push($flexible_content_blocks, 'group_' . $module->id);
           }else {
             jam_cms_update_template_field_values($post_id, $module, $i);
           }

@@ -48,14 +48,14 @@ function jam_cms_get_flexible_content_blocks($modules){
 
     // The module name is something like 'group_hero' so we want to remove the 'group_' part in the next step
     $array = explode('_', $module['acf_fc_layout']);
-    $name = end($array);
+    $id = end($array);
 
     $field_group_id = jam_cms_get_acf_field_id('acf-field-group', $module['acf_fc_layout']);
 
     array_push($formatted_modules, [
-      'fields' => $fields,
-      'name' => $name,
-      'label' => str_replace('Block: ', '', get_the_title($field_group_id))
+      'id' => $id,
+      'label' => str_replace('Block: ', '', get_the_title($field_group_id)),
+      'fields' => $fields
     ]);
   }
 

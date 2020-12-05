@@ -30,7 +30,7 @@ function jam_cms_add_acf_field_group(
       return;
     }
 
-    $field_key = 'field_' . $field->id . '_group_' . $module->name;
+    $field_key = 'field_' . $field->id . '_group_' . $module->id;
     $field_name = $field_name_prefix . $field->id;
     
     $base_args = [
@@ -49,13 +49,13 @@ function jam_cms_add_acf_field_group(
   }
 
   // Upsert module
-  $field_group_key = 'group_' . $module->name;
+  $field_group_key = 'group_' . $module->id;
   $field_group_id  = jam_cms_get_acf_field_id('acf-field-group', $field_group_key);
 
   if(property_exists($module, 'label')){
     $field_group_label = $group_name_prefix . $module->label;
   }else {
-    $field_group_label = $group_name_prefix . $module->name;
+    $field_group_label = $group_name_prefix . $module->id;
   }
 
   // Create field group

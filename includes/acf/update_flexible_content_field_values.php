@@ -23,7 +23,7 @@ function jam_cms_update_flexible_content_field_values($post_id, $module, $index)
      $meta_key =  'flex_' . $index . '_' . $field->id;
      
      if($field->type == 'repeater' && property_exists($field, 'items') && property_exists($field, 'value')){
-       jam_cms_update_sub_fields_recursively($post_id, $module->name, $field, $meta_key);
+       jam_cms_update_sub_fields_recursively($post_id, $module->id, $field, $meta_key);
 
        // The value for repeater fields must be the amount of items
        $value = count($field->value);
@@ -34,7 +34,7 @@ function jam_cms_update_flexible_content_field_values($post_id, $module, $index)
      }
 
      update_post_meta( $post_id, $meta_key, $value );
-     update_post_meta( $post_id, '_' . $meta_key, 'field_group_' . $module->name . '_field_' . $field->id . '_group_' . $module->name);
+     update_post_meta( $post_id, '_' . $meta_key, 'field_group_' . $module->id . '_field_' . $field->id . '_group_' . $module->id);
    }
 
 }
