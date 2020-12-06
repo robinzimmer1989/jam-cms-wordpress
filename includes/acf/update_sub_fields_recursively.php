@@ -33,7 +33,9 @@ function jam_cms_update_sub_fields_recursively($post_id, $module_name, $field, $
       
       // Add value to sub field (which is technically just an field definition item)
       $sub_field_id = $sub_field->id;
-      $sub_field->value = $value->$sub_field_id;
+      if(property_exists($value, $sub_field_id)){
+        $sub_field->value = $value->$sub_field_id;
+      }
 
       // Value needs to be formatted depending on type before storing into db
       $sub_field_value = jam_cms_format_acf_field_value_for_db($sub_field);
