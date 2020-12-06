@@ -26,8 +26,8 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
     $field->type == 'menu' ||
     $field->type == 'repeater' ||
     $field->type == 'collection' ||
-    $field->type == 'link'
-    // $field->type == 'email' ||
+    $field->type == 'link' ||
+    $field->type == 'flexible_content'
     // $field->type == 'url' ||
     // $field->type == 'file' ||
     // $field->type == 'checkbox' ||
@@ -81,9 +81,27 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
       $args['choices'] = $choices;
     }
 
-    if(property_exists($field, 'items')){
+    if($field->type == 'repeater' && property_exists($field, 'items')){
       $sub_fields = jam_cms_generate_sub_fields_recursively($field->items, $field_key);
       $args['sub_fields'] = $sub_fields;
+    }
+
+    if($field->type == 'flexible_content' && property_exists($field, 'items')){
+
+      foreach($field->items as $layout){
+
+        $sub_field_key = 'layout_' . $layout->id . '_' . $field_key;
+
+        $sub_fields = jam_cms_generate_sub_fields_recursively($layout->fields, $sub_field_key);
+
+        $args['layouts']["layout_" . $layout->id] = [
+          "key"     => "layout_" . $layout->id . '_' . $field_key,
+          "label"   => $layout->label,
+          "name"    => $layout->id,
+          "display" => "block",
+          'sub_fields'  => $sub_fields
+        ];
+      }
     }
 
   }else{

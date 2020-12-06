@@ -1,14 +1,14 @@
 <?php
 /**
  * @link              http://example.com
- * @since             0.0.4
+ * @since             0.0.1
  * @package           jamCMS
  *
  * @wordpress-plugin
  * Plugin Name:       jamCMS
  * Plugin URI:        https://github.com/robinzimmer1989/jam-cms-wordpress
  * Description:       
- * Version:           0.0.1
+ * Version:           0.0.2
  * Author:            Robin Zimmer
  * Author URI:        https://github.com/robinzimmer1989
  * License:           
@@ -95,14 +95,17 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/acf/format_acf_field_value_for_frontend.php');
             include_once( JAM_CMS_PATH . '/includes/acf/format_acf_field_value_for_db.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_repeater_items_recursively.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_items_recursively.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_option_group_fields.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_blocks.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_sub_blocks.php');
             include_once( JAM_CMS_PATH . '/includes/acf/update_sub_fields_recursively.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_acf_field_group_to_flexible_content.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_template_by_post_id.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_template_by_post_type_name.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_template_field_groups_by_post_type_name.php');
             include_once( JAM_CMS_PATH . '/includes/acf/update_flexible_content_field_values.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/update_flexible_content_sub_fields_recursively.php');
             include_once( JAM_CMS_PATH . '/includes/acf/update_template_field_values.php');
             include_once( JAM_CMS_PATH . '/includes/acf/delete_acf_fields_by_parent_id.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_menu_picker_field.php');

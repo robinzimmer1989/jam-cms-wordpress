@@ -57,6 +57,10 @@ function jam_cms_format_acf_field_type_for_frontend($field){
     $args['items'] = jam_cms_get_repeater_items_recursively($field);
   }
 
+  if($field->type == 'flexible_content'){
+    $args['items'] = jam_cms_get_flexible_content_items_recursively($field);
+  }
+
   if(property_exists($field, 'choices')){
     $options = [];
     foreach($field->choices as $key => $value){

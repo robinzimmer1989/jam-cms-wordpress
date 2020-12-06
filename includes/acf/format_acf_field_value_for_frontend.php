@@ -57,6 +57,9 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
       $i++;
     }
 
+  }elseif($type == 'flexible_content'){
+    $value = jam_cms_get_flexible_content_sub_blocks($field, $value);
+
   }elseif($type == 'application'){
 
     unset($value['ID']);
