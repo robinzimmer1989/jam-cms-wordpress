@@ -30,6 +30,19 @@ function jam_cms_update_template_field_values($post_id, $module, $index){
        // The value for repeater fields must be the amount of items
        $value = count($field->value);
 
+      }else if($field->type == 'flexible_content' && property_exists($field, 'items') && property_exists($field, 'value')){
+        $layouts = [];
+        
+        $j = 0;
+        foreach($field->value as $layout){
+          array_push($layouts, $layout->id);
+          $j++;
+        }
+  
+        $value = $layouts;
+  
+        jam_cms_update_flexible_content_sub_fields_recursively($post_id, $module->id, $field, $meta_key);
+  
      }else{
        // Value needs to be formatted depending on type before storing into db
        $value = jam_cms_format_acf_field_value_for_db($field);
