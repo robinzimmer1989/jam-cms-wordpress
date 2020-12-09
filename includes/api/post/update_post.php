@@ -58,44 +58,21 @@ function jam_cms_api_update_post_callback($data) {
     }
 
     if(array_key_exists('content', $parameters)){
-     
       $modules = $parameters['content'] ? json_decode($parameters['content']) : [];
-
-      $template = jam_cms_get_template_by_post_id($post_id);
-
-      $flexible_content_blocks = [];
-
-      // Generate and update acf flexible content modules on the fly
-      if($modules && count($modules) > 0){
-        
-        $i = 0;
-
-        // Update acf fields in post
-        foreach($modules as $module){
-
-          // Add / Update ACF field group if doesn't exist yet or has changed
-          $field_group = jam_cms_add_acf_field_group($module, 'Block: ', '', [
-            'rule_0' => ['param' => 'post_type', 'operator' => '==', 'value' => 'page'],
-            'rule_1' => ['param' => 'post_type', 'operator' => '!=', 'value' => 'page']
-          ]);
-
-          // Check if flexible content
-          if(count($template) > 0 && $template[0]['type'] == 'flexible_content'){
-            jam_cms_add_acf_field_group_to_flexible_content($field_group);
-            jam_cms_update_flexible_content_field_values($post_id, $module, $i);
-            array_push($flexible_content_blocks, 'group_' . $module->id);
-          }else {
-            jam_cms_update_template_field_values($post_id, $module, $i);
-          }
-
-          $i++;
-        }
-      }
       
-      if(count($template) > 0 && $template[0]['type'] == 'flexible_content'){
-        update_post_meta( $post_id, 'flex', $flexible_content_blocks);
-        update_post_meta( $post_id, '_flex', 'field_flex');
+      foreach($modules as $module){
+
+        // Add / Update ACF field group if doesn't exist yet or has changed
+        $field_group = jam_cms_add_acf_field_group($module, 'Block: ', '', [
+          'rule_0' => ['param' => 'post_type', 'operator' => '==', 'value' => 'page'],
+          'rule_1' => ['param' => 'post_type', 'operator' => '!=', 'value' => 'page']
+        ]);
+        
+        // Add field group to flexible content
+        jam_cms_add_acf_field_group_to_flexible_content($field_group);
       }
+
+      jam_cms_update_acf_fields($post_id, $modules);
     }
 
     $data = jam_cms_get_post_by_id($site_id, $post_id);

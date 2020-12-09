@@ -17,6 +17,12 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
 
   $args = [];
 
+  // error_log(print_r($field, true));
+
+  if(!property_exists($field, 'type')){
+    return null;
+  }
+
   if(
     $field->type == 'image' ||
     $field->type == 'number' ||
@@ -27,7 +33,8 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
     $field->type == 'repeater' ||
     $field->type == 'collection' ||
     $field->type == 'link' ||
-    $field->type == 'flexible_content'
+    $field->type == 'flexible_content' ||
+    $field->type == 'layout'
     // $field->type == 'url' ||
     // $field->type == 'file' ||
     // $field->type == 'checkbox' ||

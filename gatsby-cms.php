@@ -82,6 +82,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/admin/add_image_size.php');
 
             // ACF
+            include_once( JAM_CMS_PATH . '/includes/acf/update_acf_fields.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_acf_field_id.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_acf_field.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_acf_field_group.php');
@@ -99,14 +100,10 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/acf/get_option_group_fields.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_blocks.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_sub_blocks.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/update_sub_fields_recursively.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_acf_field_group_to_flexible_content.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_template_by_post_id.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_template_by_post_type_name.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_template_field_groups_by_post_type_name.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/update_flexible_content_field_values.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/update_flexible_content_sub_fields_recursively.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/update_template_field_values.php');
             include_once( JAM_CMS_PATH . '/includes/acf/delete_acf_fields_by_parent_id.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_menu_picker_field.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_post_type_picker_field.php');
