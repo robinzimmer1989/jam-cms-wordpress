@@ -1,14 +1,14 @@
 <?php
 /**
  * @link              http://example.com
- * @since             0.0.3
+ * @since             0.0.1
  * @package           jamCMS
  *
  * @wordpress-plugin
  * Plugin Name:       jamCMS
  * Plugin URI:        https://github.com/robinzimmer1989/jam-cms-wordpress
  * Description:       
- * Version:           0.0.2
+ * Version:           0.0.3
  * Author:            Robin Zimmer
  * Author URI:        https://github.com/robinzimmer1989
  * License:           
