@@ -1,7 +1,7 @@
 <?php
 /**
  * @link              http://example.com
- * @since             0.0.1
+ * @since             0.0.2
  * @package           jamCMS
  *
  * @wordpress-plugin
