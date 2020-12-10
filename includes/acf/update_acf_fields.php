@@ -56,7 +56,8 @@ function jam_cms_build_acf_fields_recursively($field, $value, $key, $index){
     }
 
   }else{
-    $prop = $value;
+    $field->value = $value;
+    $prop = jam_cms_format_acf_field_value_for_db($field);
   }
 
   $index++;
