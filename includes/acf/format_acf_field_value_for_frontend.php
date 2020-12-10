@@ -15,6 +15,11 @@
 
 function jam_cms_format_acf_field_value_for_frontend($field, $value){
   $field = (object) $field;
+
+  if(!property_exists($field, 'type')){
+    return null;
+  }
+
   $type = $field->type;
 
   if($type == 'menu'){
@@ -27,7 +32,6 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
     $value = jam_cms_get_menu_by_id($value);
 
   }elseif($type == 'link'){
-
     // Change null value to empty array
     if(!$value){
       return [
@@ -84,6 +88,7 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
 
     // Format to dummy Gatsby image
     $src_set = [];
+
     if($value['sizes']['thumbnail']){
       array_push($src_set, $value['sizes']['thumbnail'] . ' ' . $value['sizes']['thumbnail-width'] . 'w');
     }
