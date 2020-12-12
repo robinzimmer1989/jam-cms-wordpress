@@ -80,6 +80,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/admin/whitelist_apis.php');
             include_once( JAM_CMS_PATH . '/includes/admin/remove_default_post_type.php');
             include_once( JAM_CMS_PATH . '/includes/admin/add_image_size.php');
+            include_once( JAM_CMS_PATH . '/includes/admin/decapitate_wordpress.php');
 
             // ACF
             include_once( JAM_CMS_PATH . '/includes/acf/update_acf_fields.php');
