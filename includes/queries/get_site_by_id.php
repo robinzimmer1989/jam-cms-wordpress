@@ -32,7 +32,11 @@ function jam_cms_get_site_by_id($site_id = ''){
     $deployment_badge_link = $jamstack_deployment_settings['deployment_badge_link_url'];
   }
 
-  $api_key = get_option('deployment_api_key');
+  $api_key = '';
+
+  if(current_user_can( 'manage_options' )){
+    $api_key = get_option('deployment_api_key');
+  }
 
   $data = array(
     'id'                    => $site_id ? $site_id : 'default',
