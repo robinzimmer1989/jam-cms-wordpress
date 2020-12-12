@@ -41,7 +41,7 @@ function jam_cms_get_flexible_content_blocks($modules){
           
           $args = array_merge($base_args, $type_args);
 
-          array_push($fields, $args);
+          $fields[$key] = $args;
         }
       }
     }

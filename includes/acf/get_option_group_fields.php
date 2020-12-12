@@ -13,19 +13,22 @@
  */
 
 function jam_cms_get_option_group_fields($option_name){
-  $id = jam_cms_get_acf_field_id('acf-field-group', 'group_' . $option_name);
+  $field_group_id = jam_cms_get_acf_field_id('acf-field-group', 'group_' . $option_name);
 
-  if(!$id){
-    return [];
+  if(!$field_group_id){
+    return  [
+      'id'      => $option_name,
+      'label'   => $option_name,
+      'fields'  => (object) []
+    ];
   }
   
-  $fields = acf_get_fields_by_id($id);
+  $fields = acf_get_fields_by_id($field_group_id);
 
   $formatted_fields = [];
 
   if($fields){  
     foreach($fields as $field){
-
       $value = get_field($field['key'], 'option');
 
       // We need to remove the module name in the title
@@ -34,18 +37,24 @@ function jam_cms_get_option_group_fields($option_name){
       $base_args = [
         'id'      => $field_key,
         'type'    => $field['type'],
-        'value'   => jam_cms_format_acf_field_value_for_frontend($field, $value)
+        'value'   => jam_cms_format_acf_field_value_for_frontend($field, $value),
       ];
 
       $type_args = jam_cms_format_acf_field_type_for_frontend($field);
       
       $args = array_merge($base_args, $type_args);
 
-      array_push($formatted_fields, $args);
+      $formatted_fields[$field_key] = $args;
     }
   }
 
-  return $formatted_fields;
+  return  [
+    'id'      => $option_name,
+    'label'   => get_the_title($field_group_id),
+    'fields'  => (object) $formatted_fields
+  ];
+  
+  
 }
 
 ?>

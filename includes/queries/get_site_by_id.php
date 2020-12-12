@@ -17,9 +17,6 @@ function jam_cms_get_site_by_id($site_id = ''){
     }
   }
 
-  $header_fields = jam_cms_get_option_group_fields('header');
-  $footer_fields = jam_cms_get_option_group_fields('footer');
-
   $deployment_build_hook = '';
   $deployment_badge_image = '';
   $deployment_badge_link = '';
@@ -46,14 +43,8 @@ function jam_cms_get_site_by_id($site_id = ''){
     'deploymentBadgeLink'   => $deployment_badge_link,
     'apiKey'                => $api_key ? $api_key : '',
     'settings'              => [
-      'header' => [
-        'id'                => 'header',
-        'fields'            => $header_fields
-      ],
-      'footer' => [
-        'id'                => 'footer',
-        'fields'            => $footer_fields
-      ]
+      'header'              => jam_cms_get_option_group_fields('header'),
+      'footer'              => jam_cms_get_option_group_fields('footer')
     ],
     'frontPage'             => intval(get_option( 'page_on_front' )),
     'postTypes' => [
