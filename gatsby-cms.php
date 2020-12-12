@@ -71,7 +71,6 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/generate_id.php');
             include_once( JAM_CMS_PATH . '/includes/utils/array_flatten.php');
             include_once( JAM_CMS_PATH . '/includes/utils/build_menu_tree.php');
-            include_once( JAM_CMS_PATH . '/includes/utils/generate_slug.php');
             include_once( JAM_CMS_PATH . '/includes/utils/api_base_check.php');
             include_once( JAM_CMS_PATH . '/includes/utils/check_for_missing_plugins.php');
 
