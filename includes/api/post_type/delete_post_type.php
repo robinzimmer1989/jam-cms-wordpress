@@ -27,6 +27,9 @@ function jam_cms_api_delete_post_type_callback($data) {
 
       update_option('cptui_post_types', $post_types);
 
+      // Delete ACF field group
+      acf_delete_field_group("group_template-{$post_type_id}");
+
       $post_type = [
         'siteID' => $site_id,
         'id' => $post_type_id,
