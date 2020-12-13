@@ -30,7 +30,7 @@ function jam_cms_generate_sub_fields_recursively($items, $field_key){
       $base_args['sub_fields'] = $sub_sub_fields;
     }
 
-    $type_args = jam_cms_format_acf_field_type_for_db($sub_field);
+    $type_args = jam_cms_format_acf_field_type_for_db($sub_field, $field_key);
 
     if($type_args){
       $args = array_merge($base_args, $type_args);
