@@ -23,14 +23,14 @@ function jam_cms_get_flexible_content_sub_blocks($field, $value){
   foreach($value as $layout){
     $sub_fields = [];
 
-    foreach($layout as $key => $value ){
+    foreach($layout as $key => $layout_value ){
       if($key != 'acf_fc_layout'){
 
         // Get field information to get type
-        $sub_field = (object) get_field_object('field_' . $key . '_layout_' . $layout['acf_fc_layout'] . '_');
+        $sub_field = (object) get_field_object('field_' . $key . '_layout_' . $layout['acf_fc_layout'] . '_' . $field->key);
 
         if($sub_field){
-          $sub_fields[$key] = jam_cms_format_acf_field_value_for_frontend($sub_field, $value);
+          $sub_fields[$key] = jam_cms_format_acf_field_value_for_frontend($sub_field, $layout_value);
         }
       }
     }

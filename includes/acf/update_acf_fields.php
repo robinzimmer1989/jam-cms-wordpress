@@ -30,7 +30,7 @@ function jam_cms_build_acf_fields_recursively($field, $value, $key, $index){
     foreach($value as $sub_value) {
 
       $layout_id = $sub_value->id;
-      $layout_key = "layout_{$layout_id}_";
+      $layout_key = "layout_{$layout_id}_{$key}";
 
       $layout_index = array_search($layout_id, array_column($field->items, 'id'));
 
