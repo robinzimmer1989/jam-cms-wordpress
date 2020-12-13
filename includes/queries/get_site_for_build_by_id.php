@@ -39,24 +39,22 @@ function jam_cms_get_site_for_build_by_id($site_id){
     array_push($formatted_posts, $formatted_post);
   }
 
-  $header_fields = jam_cms_get_option_group_fields('header');
-
-  $formatted_header_fields = [];
-  foreach($header_fields as $field){
-    $formatted_header_fields[$field['id']] = $field['value'];
+  $header = jam_cms_get_option_group_fields('header');
+  $header_fields = [];
+  foreach($header['fields'] as $field){
+    $header_fields[$field['id']] = $field['value'];
   }
 
-  $footer_fields = jam_cms_get_option_group_fields('footer');
-
-  $formatted_footer_fields = [];
-  foreach($footer_fields as $field){
-    $formatted_footer_fields[$field['id']] = $field['value'];
+  $footer = jam_cms_get_option_group_fields('footer');
+  $footer_fields = [];
+  foreach($footer['fields'] as $field){
+    $footer_fields[$field['id']] = $field['value'];
   }
 
   $data = array(
     'posts' => $formatted_posts,
-    'header' => $formatted_header_fields,
-    'footer' => $formatted_footer_fields
+    'header' => $header_fields,
+    'footer' => $footer_fields
   );
 
   return $data;
