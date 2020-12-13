@@ -10,11 +10,18 @@ function jam_cms_format_post($site_id, $post) {
     $formatted_media_item = jam_cms_format_acf_field_value_for_frontend(['type' => 'image'], $media_item);
   }
 
+  $slug = $post->post_name;
+
+  // Remove "_trashed" affix added by WordPress
+  if($post->post_status == 'trash'){
+    $slug = str_replace('__trashed', '', $slug);
+  }
+
   $formatted_post = [
     'id'              => $post->ID,
     'siteID'          => $site_id,
     'title'           => $post->post_title,
-    'slug'            => $post->post_name,
+    'slug'            => $slug,
     'postTypeID'      => $post->post_type,
     'parentID'        => $post->post_parent,
     'status'          => $post->post_status,
