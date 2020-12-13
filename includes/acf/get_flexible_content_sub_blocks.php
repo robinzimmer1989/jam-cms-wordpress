@@ -23,11 +23,15 @@ function jam_cms_get_flexible_content_sub_blocks($field, $value){
   foreach($value as $layout){
     $sub_fields = [];
 
+    $layout_id = $layout['acf_fc_layout'];
+    $layout_key = $field->layouts["layout_{$layout_id}"]["key"];
+
     foreach($layout as $key => $layout_value ){
+
       if($key != 'acf_fc_layout'){
 
-        // Get field information to get type
-        $sub_field = (object) get_field_object('field_' . $key . '_layout_' . $layout['acf_fc_layout'] . '_' . $field->key);
+        // Get field information
+        $sub_field = (object) get_field_object("field_{$key}_{$layout_key}");
 
         if($sub_field){
           $sub_fields[$key] = jam_cms_format_acf_field_value_for_frontend($sub_field, $layout_value);
