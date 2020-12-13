@@ -101,9 +101,6 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_blocks.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_sub_blocks.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_acf_field_group_to_flexible_content.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/get_template_by_post_id.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/get_template_by_post_type_name.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/get_template_field_groups_by_post_type_name.php');
             include_once( JAM_CMS_PATH . '/includes/acf/delete_acf_fields_by_parent_id.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_menu_picker_field.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_post_type_picker_field.php');

@@ -18,8 +18,6 @@ function jam_cms_api_update_post_type_callback($data) {
     $post_type_name   = $parameters['id'];
     $title            = $parameters['title'];
     $slug             = $parameters['slug'];
-    $template_modules = $parameters['template'];
-    $template_modules = $template_modules ? json_decode($template_modules) : [];
 
     jam_cms_api_base_check($site_id, [$post_type_name, $title, $slug]);
 
@@ -38,26 +36,8 @@ function jam_cms_api_update_post_type_callback($data) {
       $id = jam_cms_get_acf_field_id('acf-field-group', 'group_template-' . $post_type_name);
       jam_cms_delete_acf_fields_by_parent_id($id);
 
-      // Check for template. If exists create/update field groups and assign to template
-      if(count($template_modules) > 0){
-
-        $i = 0;
-
-        foreach($template_modules as $module){
-          $field_group = jam_cms_add_acf_field_group($module, 'Block: ', '', [
-            'rule_0' => ['param' => 'post_type', 'operator' => '==', 'value' => 'page'],
-            'rule_1' => ['param' => 'post_type', 'operator' => '!=', 'value' => 'page']
-          ]);
-
-          jam_cms_add_acf_field_group_to_template('group_template-' . $post_type_name, $field_group, $i);
-          
-          $i++;
-        }
-
-      }else{
-        // Restore original flexible content template
-        jam_cms_add_acf_template($title, $post_type_name);
-      }
+      // Restore original flexible content template
+      jam_cms_add_acf_template($title, $post_type_name);
       
     }
 
