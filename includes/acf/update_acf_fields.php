@@ -4,7 +4,7 @@ function jam_cms_build_acf_fields_recursively($field, $value, $key, $index){
 
   $sub_key = "field_{$field->id}_{$key}";
 
-  if($field->type == "repeater" && property_exists($field, 'items') && $value){
+  if($field->type == "repeater" && property_exists($field, 'items')){
 
     $prop = [];
 
@@ -22,7 +22,7 @@ function jam_cms_build_acf_fields_recursively($field, $value, $key, $index){
       $j++;
     }
 
-  }else if($field->type == "flexible_content" && property_exists($field, 'items') && $value){
+  }else if($field->type == "flexible_content" && property_exists($field, 'items')){
 
     $prop = [];
 
