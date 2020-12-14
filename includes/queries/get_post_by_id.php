@@ -12,9 +12,12 @@ function jam_cms_get_post_by_id($site_id, $post_id){
       $formatted_post['content'] = jam_cms_get_flexible_content_blocks($content['flex']);
     }
 
+    $seo_title = get_post_meta($post->ID, '_yoast_wpseo_title');
+    $seo_description = get_post_meta($post->ID, '_yoast_wpseo_metadesc');
+
     $formatted_post['seo'] = [
-      'title'       => get_post_meta($post->ID, '_yoast_wpseo_title'),
-      'description' => get_post_meta($post->ID, '_yoast_wpseo_metadesc')
+      'title'       => $seo_title ? $seo_title[0] : '',
+      'description' => $seo_description ? $seo_description[0] : ''
     ];
 
     return $formatted_post;
