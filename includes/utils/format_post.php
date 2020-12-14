@@ -27,8 +27,7 @@ function jam_cms_format_post($site_id, $post) {
     'status'          => $post->post_status,
     'featuredImage'   => $formatted_media_item,
     'content'         => [],
-    'seoTitle'        => get_post_meta($post->ID, '_yoast_wpseo_title'),
-    'seoDescription'  => get_post_meta($post->ID, '_yoast_wpseo_metadesc'),
+    'seo'             => [],
     'createdAt'       => $post->post_date,
   ];
 

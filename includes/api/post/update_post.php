@@ -41,12 +41,18 @@ function jam_cms_api_update_post_callback($data) {
 
     wp_update_post($post_data);
 
-    if(array_key_exists('seoTitle', $parameters)){
-      update_post_meta($post_id, '_yoast_wpseo_title', $parameters['seoTitle']);
-    }
+    if(array_key_exists('seo', $parameters)){
+      $seo = $parameters['seo'] ? json_decode($parameters['seo']) : null;
 
-    if(array_key_exists('seoDescription', $parameters)){
-      update_post_meta($post_id, '_yoast_wpseo_metadesc', $parameters['seoDescription']);
+      if($seo){
+        if(property_exists($seo, 'title')){
+          update_post_meta($post_id, '_yoast_wpseo_title', $seo->title);
+        }
+
+        if(property_exists($seo, 'description')){
+          update_post_meta($post_id, '_yoast_wpseo_metadesc', $seo->description);
+        }
+      }      
     }
 
     if(array_key_exists('featuredImage', $parameters)){
