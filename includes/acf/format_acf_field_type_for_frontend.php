@@ -65,8 +65,8 @@ function jam_cms_format_acf_field_type_for_frontend($field){
     $options = [];
     foreach($field->choices as $key => $value){
       array_push($options, [
-        'name' => $key,
-        'value' => $value
+        'name' => $value,
+        'value' => $key
       ]);
     }
     $args['options'] = $options;
