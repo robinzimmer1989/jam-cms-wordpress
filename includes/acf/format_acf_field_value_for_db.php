@@ -14,7 +14,7 @@
 
 function jam_cms_format_acf_field_value_for_db($field){
 
-  if(!property_exists($field, 'value') || !$field->value){
+  if(!property_exists($field, 'value')){
     return null;
   }
 
