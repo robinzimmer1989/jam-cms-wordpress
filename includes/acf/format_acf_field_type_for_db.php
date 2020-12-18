@@ -32,10 +32,11 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
     $field->type == 'collection' ||
     $field->type == 'link' ||
     $field->type == 'flexible_content' ||
-    $field->type == 'layout'
+    $field->type == 'layout' ||
+    $field->type == 'checkbox' ||
+    $field->type == 'radio'
     // $field->type == 'url' ||
     // $field->type == 'file' ||
-    // $field->type == 'checkbox' ||
     // $field->type == 'postObject' ||
     // $field->type == 'map' ||
     // $field->type == 'colorPicker'
