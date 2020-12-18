@@ -80,7 +80,7 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
     unset($value['menu_order']);
     unset($value['mime_type']);
 
-  }elseif($type == 'image'){
+  }elseif($type == 'image' || $type == 'file'){
 
     if(!$value){
       return null;
@@ -89,34 +89,36 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
     // Format to dummy Gatsby image
     $src_set = [];
 
-    if($value['sizes']['thumbnail']){
-      array_push($src_set, $value['sizes']['thumbnail'] . ' ' . $value['sizes']['thumbnail-width'] . 'w');
+    if($type =='image'){
+      if($value['sizes']['thumbnail']){
+        array_push($src_set, $value['sizes']['thumbnail'] . ' ' . $value['sizes']['thumbnail-width'] . 'w');
+      }
+
+      if($value['sizes']['medium']){
+        array_push($src_set, $value['sizes']['medium'] . ' ' . $value['sizes']['medium-width'] . 'w');
+      }
+
+      if($value['sizes']['medium_large']){
+        array_push($src_set, $value['sizes']['medium_large'] . ' ' . $value['sizes']['medium_large-width'] . 'w');
+      }
+
+      if($value['sizes']['large']){
+        array_push($src_set, $value['sizes']['large'] . ' ' . $value['sizes']['large-width'] . 'w');
+      }
+
+      $value['childImageSharp'] = [
+        'fluid' => [
+          'aspectRatio' => $value['height'] / $value['width'],
+          'base64'      => 'data:image/jpg;base64,'. base64_encode(file_get_contents($value['sizes']['tiny'])),
+          'sizes'       => '(max-width: '. $value['width'] .'px) 100vw, '. $value['width'] .'px',
+          'src'         => $value['url'],
+          'srcSet'      => implode(',',$src_set)
+        ]
+      ];
+
+      // Rename alt attribute
+      $value['altText'] = $value['alt'];
     }
-
-    if($value['sizes']['medium']){
-      array_push($src_set, $value['sizes']['medium'] . ' ' . $value['sizes']['medium-width'] . 'w');
-    }
-
-    if($value['sizes']['medium_large']){
-      array_push($src_set, $value['sizes']['medium_large'] . ' ' . $value['sizes']['medium_large-width'] . 'w');
-    }
-
-    if($value['sizes']['large']){
-      array_push($src_set, $value['sizes']['large'] . ' ' . $value['sizes']['large-width'] . 'w');
-    }
-
-    $value['childImageSharp'] = [
-      'fluid' => [
-        'aspectRatio' => $value['height'] / $value['width'],
-        'base64'      => 'data:image/jpg;base64,'. base64_encode(file_get_contents($value['sizes']['tiny'])),
-        'sizes'       => '(max-width: '. $value['width'] .'px) 100vw, '. $value['width'] .'px',
-        'src'         => $value['url'],
-        'srcSet'      => implode(',',$src_set)
-      ]
-    ];
-
-    // Rename alt attribute
-    $value['altText'] = $value['alt'];
 
     // Remove unnecessary data
     unset($value['ID']);
@@ -132,7 +134,6 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
     unset($value['modified']);
     unset($value['menu_order']);
     unset($value['mime_type']);
-    unset($value['icon']);
     unset($value['image_meta']);
     unset($value['alt']);
   }
