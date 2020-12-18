@@ -34,12 +34,9 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
     $field->type == 'flexible_content' ||
     $field->type == 'layout' ||
     $field->type == 'checkbox' ||
-    $field->type == 'radio'
-    // $field->type == 'url' ||
-    // $field->type == 'file' ||
-    // $field->type == 'postObject' ||
-    // $field->type == 'map' ||
-    // $field->type == 'colorPicker'
+    $field->type == 'radio' ||
+    $field->type == 'file' ||
+    $field->type == 'date_picker'
   ){
     $args['type'] = $field->type;
 
