@@ -8,10 +8,10 @@ function jam_cms_get_post_by_id($site_id, $post_id){
     $formatted_post = jam_cms_format_post($site_id, $post); 
 
     // Add post content
-    $content = get_fields($post_id);
+    $fields = get_fields($post_id);
 
-    if($content){
-      $formatted_post['content'] = jam_cms_get_flexible_content_blocks($content['flex']);
+    if($fields){
+      $formatted_post['content'] = jam_cms_format_fields($fields, $post_id);
     }
 
     // Add SEO
@@ -31,6 +31,17 @@ function jam_cms_get_post_by_id($site_id, $post_id){
       'description' => $seo_description ? $seo_description[0] : '',
       'ogImage'     => $formatted_seo_og_image
     ];
+
+    // Add revisions
+    $revisions =  wp_get_post_revisions($post_id);
+    $formatted_revisions = [];
+    foreach($revisions as $revision){
+      array_push($formatted_revisions, [
+        'id'      => $revision->ID,
+        'title'   => $revision->post_date
+      ]);
+    }
+    $formatted_post['revisions'] = $formatted_revisions;
 
     return $formatted_post;
   }

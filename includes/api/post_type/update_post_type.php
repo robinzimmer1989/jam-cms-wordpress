@@ -31,14 +31,6 @@ function jam_cms_api_update_post_type_callback($data) {
 
           update_option('cptui_post_types', $post_types);   
       }
-
-      // Delete all field groups
-      $id = jam_cms_get_acf_field_id('acf-field-group', 'group_template-' . $post_type_name);
-      jam_cms_delete_acf_fields_by_parent_id($id);
-
-      // Restore original flexible content template
-      jam_cms_add_acf_template($title, $post_type_name);
-      
     }
 
     $post_type = jam_cms_format_post_type($site_id, $post_types[$post_type_name]);

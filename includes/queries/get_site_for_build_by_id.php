@@ -25,13 +25,12 @@ function jam_cms_get_site_for_build_by_id($site_id){
 
   $formatted_posts = [];
   foreach($posts as $post){
-    $formatted_post = jam_cms_get_post_by_id($site_id, $post->ID);
-    $formatted_post['slug'] = str_replace(home_url(), '', get_permalink($post->ID));
-    $formatted_post['content'] = jam_cms_format_post_content_for_build($site_id, $formatted_post['content']);
+    $formatted_post             = jam_cms_get_post_by_id($site_id, $post->ID);
+    $formatted_post['slug']     = str_replace(home_url(), '', get_permalink($post->ID));
+    $formatted_post['content']  = jam_cms_format_post_content_for_build($site_id, $formatted_post['content']);
 
     // Remove the for builds unnecessary data
     unset($formatted_post['siteID']);
-    unset($formatted_post['postTypeID']);
     unset($formatted_post['parentID']);
     unset($formatted_post['status']);
     unset($formatted_post['createdAt']);
@@ -39,26 +38,22 @@ function jam_cms_get_site_for_build_by_id($site_id){
     array_push($formatted_posts, $formatted_post);
   }
 
-  $header = jam_cms_get_option_group_fields('header');
-  $header_fields = [];
-  foreach($header['fields'] as $field){
-    $header_fields[$field['id']] = $field['value'];
-  }
-
-  $footer = jam_cms_get_option_group_fields('footer');
-  $footer_fields = [];
-  foreach($footer['fields'] as $field){
-    $footer_fields[$field['id']] = $field['value'];
+  // Get settings and only return id-value pairing
+  $formatted_settings = (object) [];
+  $settings = jam_cms_get_option_group_fields();
+  if($settings){
+    foreach($settings as $setting){
+      $setting_id = $setting['id'];
+      $formatted_settings->$setting_id = $setting['value'];
+    }
   }
 
   $data = array(
-    'posts' => $formatted_posts,
-    'header' => $header_fields,
-    'footer' => $footer_fields
+    'posts'     => $formatted_posts,
+    'settings'  => $formatted_settings
   );
 
   return $data;
-
 }
 
 ?>

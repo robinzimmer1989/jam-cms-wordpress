@@ -15,20 +15,19 @@ function jam_cms_api_create_post_type_callback($data) {
     $parameters = $data->get_params();
 
     $site_id    = $parameters['siteID'];
+    $id         = $parameters['id'];
     $title      = $parameters['title'];
     $slug       = $parameters['slug'];
 
-    jam_cms_api_base_check($site_id, [$title]);
+    jam_cms_api_base_check($site_id, [$title, $id]);
 
     $cpt_ui = get_option('cptui_post_types');
     $post_types = $cpt_ui ? $cpt_ui : [];
 
-    if($title !== 'Pages' && $slug !== 'page' && !array_key_exists($slug, $post_types)){
+    if($title !== 'Pages' && $id !== 'page' && !array_key_exists($id, $post_types)){
 
-        $name = jam_cms_generate_id();
-
-        $post_types[$name] = [
-            'name'                  => $name,
+        $post_types[$id] = [
+            'name'                  => $id,
             'label'                 => $title,
             'singular_label'        => $title,
             'labels'                => [],
@@ -56,10 +55,7 @@ function jam_cms_api_create_post_type_callback($data) {
 
         update_option('cptui_post_types', $post_types);
 
-        // Create template and assign flexible content as default
-        jam_cms_add_acf_template($title, $name);
-
-        $post_type = jam_cms_format_post_type($site_id, $post_types[$name]);
+        $post_type = jam_cms_format_post_type($site_id, $post_types[$id]);
 
         return $post_type;
     }

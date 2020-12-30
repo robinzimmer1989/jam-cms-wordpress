@@ -17,6 +17,12 @@ function jam_cms_format_post($site_id, $post) {
     $slug = str_replace('__trashed', '', $slug);
   }
 
+  // Get template file. WP return empty string if default template.
+  $template = get_page_template_slug($post->ID);
+  if(!$template){
+    $template = "default";
+  }
+
   $formatted_post = [
     'id'              => $post->ID,
     'siteID'          => $site_id,
@@ -26,7 +32,8 @@ function jam_cms_format_post($site_id, $post) {
     'parentID'        => $post->post_parent,
     'status'          => $post->post_status,
     'featuredImage'   => $formatted_media_item,
-    'content'         => [],
+    'template'        => $template,
+    'content'         => (object) [],
     'seo'             => [],
     'createdAt'       => $post->post_date,
   ];

@@ -34,34 +34,10 @@ function jam_cms_api_update_site_callback($data) {
     if(array_key_exists('settings', $parameters)){
         $settings = $parameters['settings'];
         $settings = $settings ? json_decode($settings) : [];
+
+        jam_cms_upsert_acf_template_options($settings);
+        jam_cms_update_acf_fields_options($settings);
     }
-    
-    // Update header
-    if(isset($settings) && property_exists($settings, 'header')){
-        jam_cms_add_acf_field_group($settings->header, '', 'header_', [
-            'rule_0' => ['param' => 'options_page', 'operator' => '==', 'value' => 'theme_header']
-        ]);
-
-        foreach($settings->header->fields as $field){
-            $meta = 'options_header_' . $field->id;
-            update_option($meta, jam_cms_format_acf_field_value_for_db($field));
-            update_option('_' . $meta, 'field_' . $field->id . '_group_header');
-        }
-    }
-
-    // Update footer
-    if(isset($settings) && property_exists($settings, 'footer')){
-        jam_cms_add_acf_field_group($settings->footer, '', 'footer_', [
-            'rule_0' => ['param' => 'options_page', 'operator' => '==', 'value' => 'theme_footer']
-        ]);
-
-        foreach($settings->footer->fields as $field){
-            $meta = 'options_footer_' . $field->id;
-            update_option($meta, jam_cms_format_acf_field_value_for_db($field));
-            update_option('_' . $meta, 'field_' . $field->id . '_group_footer');
-        }
-    }
-
     
     if(current_user_can( 'manage_options' )){
 

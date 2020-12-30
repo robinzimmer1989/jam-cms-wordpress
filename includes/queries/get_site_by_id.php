@@ -42,10 +42,7 @@ function jam_cms_get_site_by_id($site_id = ''){
     'deploymentBadgeImage'  => $deployment_badge_image,
     'deploymentBadgeLink'   => $deployment_badge_link,
     'apiKey'                => $api_key ? $api_key : '',
-    'settings'              => [
-      'header'              => jam_cms_get_option_group_fields('header'),
-      'footer'              => jam_cms_get_option_group_fields('footer')
-    ],
+    'settings'              => jam_cms_get_option_group_fields(),
     'frontPage'             => intval(get_option( 'page_on_front' )),
     'postTypes' => [
       'items'               => $items

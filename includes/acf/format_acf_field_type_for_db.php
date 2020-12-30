@@ -36,7 +36,8 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
     $field->type == 'checkbox' ||
     $field->type == 'radio' ||
     $field->type == 'file' ||
-    $field->type == 'date_picker'
+    $field->type == 'date_picker' ||
+    $field->type == 'group'
   ){
     $args['type'] = $field->type;
 
@@ -82,6 +83,11 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
         $choices[$option->value] = $option->name;
       }
       $args['choices'] = $choices;
+    }
+
+    if($field->type == 'group' && property_exists($field, 'fields')){
+      $sub_fields = jam_cms_generate_sub_fields_recursively($field->fields, $field_key);
+      $args['sub_fields'] = $sub_fields;
     }
 
     if($field->type == 'repeater' && property_exists($field, 'items')){

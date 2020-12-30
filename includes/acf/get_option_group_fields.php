@@ -12,15 +12,11 @@
  * @return array Formatted fields of field group
  */
 
-function jam_cms_get_option_group_fields($option_name){
-  $field_group_id = jam_cms_get_acf_field_id('acf-field-group', 'group_' . $option_name);
+function jam_cms_get_option_group_fields(){
+  $field_group_id = jam_cms_get_acf_field_id('acf-field-group', 'group_theme-options');
 
   if(!$field_group_id){
-    return  [
-      'id'      => $option_name,
-      'label'   => $option_name,
-      'fields'  => (object) []
-    ];
+    return (object) [];
   }
   
   $fields = acf_get_fields_by_id($field_group_id);
@@ -32,7 +28,7 @@ function jam_cms_get_option_group_fields($option_name){
       $value = get_field($field['key'], 'option');
 
       // We need to remove the module name in the title
-      $field_key = str_replace($option_name . '_', '', $field['name']);
+      $field_key = $field['name'];
 
       $base_args = [
         'id'      => $field_key,
@@ -48,11 +44,7 @@ function jam_cms_get_option_group_fields($option_name){
     }
   }
 
-  return  [
-    'id'      => $option_name,
-    'label'   => get_the_title($field_group_id),
-    'fields'  => (object) $formatted_fields
-  ];
+  return (object) $formatted_fields;
   
   
 }

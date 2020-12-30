@@ -14,8 +14,8 @@ function jam_cms_api_update_post() {
 function jam_cms_api_update_post_callback($data) {
     $parameters = $data->get_params();
 
-    $site_id        = $parameters['siteID'];
-    $post_id        = $parameters['id'];
+    $site_id    = $parameters['siteID'];
+    $post_id    = $parameters['id'];
 
     jam_cms_api_base_check($site_id, [$post_id]);
 
@@ -72,22 +72,25 @@ function jam_cms_api_update_post_callback($data) {
       }
     }
 
-    if(array_key_exists('content', $parameters)){
-      $modules = $parameters['content'] ? json_decode($parameters['content']) : [];
-      
-      foreach($modules as $module){
+    if(array_key_exists('template', $parameters)){
+      update_post_meta( $post_id, '_wp_page_template', $parameters['template'] );
+    }
 
-        // Add / Update ACF field group if doesn't exist yet or has changed
-        $field_group = jam_cms_add_acf_field_group($module, 'Block: ', '', [
-          'rule_0' => ['param' => 'post_type', 'operator' => '==', 'value' => 'page'],
-          'rule_1' => ['param' => 'post_type', 'operator' => '!=', 'value' => 'page']
-        ]);
-        
-        // Add field group to flexible content
-        jam_cms_add_acf_field_group_to_flexible_content($field_group);
+    if(array_key_exists('templateObject', $parameters)){
+      $templateObject = $parameters['templateObject'] ? json_decode($parameters['templateObject']) : null;
+
+      if($templateObject){
+        jam_cms_create_template($templateObject);
+        jam_cms_upsert_acf_template($templateObject, $post_id);
       }
+    }
 
-      jam_cms_update_acf_fields($post_id, $modules);
+    if(array_key_exists('content', $parameters)){
+      $content = $parameters['content'] ? json_decode($parameters['content']) : null;
+
+      if($content){
+        jam_cms_update_acf_fields($post_id, $content);
+      }
     }
 
     $data = jam_cms_get_post_by_id($site_id, $post_id);

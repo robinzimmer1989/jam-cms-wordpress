@@ -36,15 +36,6 @@ function jam_cms_api_create_site_callback($data) {
     $site = get_blog_details($site_id);
     switch_to_blog($site->blog_id);
 
-    // Create flexible content element
-    jam_cms_add_acf_flexible_content();
-
-    // Create template and assign flexible content as default
-    jam_cms_add_acf_template('Page', 'page');
-
-    # TODO: Delete sample page and hello world posts
-    // $homepage = get_page_by_title( 'Sample Page' );
-
     // Create deployment api key
     $api_key = wp_generate_uuid4();
     update_option('deployment_api_key', $api_key);

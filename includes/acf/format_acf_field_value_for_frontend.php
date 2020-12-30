@@ -40,6 +40,8 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
         'target'  => '',
       ];
     }
+  }elseif($type == 'number'){
+    $value = (int) $value;
 
   }elseif($type == 'repeater'){
 
@@ -64,8 +66,14 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
   }elseif($type == 'flexible_content'){
     $value = jam_cms_get_flexible_content_sub_blocks($field, $value);
 
-  }elseif($type == 'application'){
+  }elseif($type == 'group'){
+    // Loop through group sub fields and transform values recursively
+    foreach($field->sub_fields as $group_item){
+      $key = $group_item['name'];
+      $value[$key] = jam_cms_format_acf_field_value_for_frontend($group_item, $value[$key]);
+    }
 
+  }elseif($type == 'application'){
     unset($value['ID']);
     unset($value['sizes']);
     unset($value['link']);

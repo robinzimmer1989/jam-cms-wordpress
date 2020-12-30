@@ -8,7 +8,7 @@
  * Plugin Name:       jamCMS
  * Plugin URI:        https://github.com/robinzimmer1989/jam-cms-wordpress
  * Description:       
- * Version:           0.0.7
+ * Version:           0.1.0
  * Author:            Robin Zimmer
  * Author URI:        https://github.com/robinzimmer1989
  * License:           
@@ -73,6 +73,8 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/build_menu_tree.php');
             include_once( JAM_CMS_PATH . '/includes/utils/api_base_check.php');
             include_once( JAM_CMS_PATH . '/includes/utils/check_for_missing_plugins.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/get_template_key.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/create_template.php');
 
             // Admin
             include_once( JAM_CMS_PATH . '/includes/admin/fix_page_query.php');
@@ -80,28 +82,27 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/admin/remove_default_post_type.php');
             include_once( JAM_CMS_PATH . '/includes/admin/add_image_size.php');
             include_once( JAM_CMS_PATH . '/includes/admin/decapitate_wordpress.php');
+            include_once( JAM_CMS_PATH . '/includes/admin/custom_templates.php');
 
             // ACF
+            include_once( JAM_CMS_PATH . '/includes/acf/generate_acf_fields_recursively.php');
             include_once( JAM_CMS_PATH . '/includes/acf/update_acf_fields.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/get_acf_field_id.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/add_acf_field.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/add_acf_field_group.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/update_acf_fields_options.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/upsert_acf_template.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/upsert_acf_template_options.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/format_fields.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/get_group_items_recursively.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_items_recursively.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/get_repeater_items_recursively.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_acf_options_page.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/add_acf_template.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/add_acf_flexible_content.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/add_acf_field_group_to_template.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/get_acf_field_id.php');
             include_once( JAM_CMS_PATH . '/includes/acf/generate_sub_fields_recursively.php');
             include_once( JAM_CMS_PATH . '/includes/acf/format_acf_field_type_for_frontend.php');
             include_once( JAM_CMS_PATH . '/includes/acf/format_acf_field_type_for_db.php');
             include_once( JAM_CMS_PATH . '/includes/acf/format_acf_field_value_for_frontend.php');
             include_once( JAM_CMS_PATH . '/includes/acf/format_acf_field_value_for_db.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/get_repeater_items_recursively.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_items_recursively.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_option_group_fields.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_blocks.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_sub_blocks.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/add_acf_field_group_to_flexible_content.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/delete_acf_fields_by_parent_id.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_menu_picker_field.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_post_type_picker_field.php');
             
@@ -232,12 +233,6 @@ if( ! class_exists('JamCMS') ) :
 
         // Initialize main plugin first so functions are available
         jam_cms_initialize_jam_cms();
-
-       // Create flexible content element
-        jam_cms_add_acf_flexible_content();
-
-        // Create template and assign flexible content as default
-        jam_cms_add_acf_template('Page', 'page');
 
         // Create deployment api key if doesn't exist yet
         if(!get_option('deployment_api_key')){        

@@ -52,6 +52,10 @@ function jam_cms_format_acf_field_type_for_frontend($field){
   if(property_exists($field, 'step')){
     $args['step'] = $field->step;
   }
+
+  if($field->type == 'group'){
+    $args['fields'] = jam_cms_get_group_items_recursively($field);
+  }
   
   if($field->type == 'repeater'){
     $args['items'] = jam_cms_get_repeater_items_recursively($field);
