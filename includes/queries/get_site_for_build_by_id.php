@@ -33,7 +33,7 @@ function jam_cms_get_site_for_build_by_id($site_id){
     unset($formatted_post['siteID']);
     unset($formatted_post['parentID']);
     unset($formatted_post['status']);
-    unset($formatted_post['createdAt']);
+    unset($formatted_post['revisions']);
 
     array_push($formatted_posts, $formatted_post);
   }
