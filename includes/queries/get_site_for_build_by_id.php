@@ -27,7 +27,7 @@ function jam_cms_get_site_for_build_by_id(){
 
   foreach($posts as $post){
     $formatted_post             = jam_cms_get_post_by_id($post->ID, 'build');
-    $formatted_post['slug']     = str_replace(home_url(), '', get_permalink($post->ID));
+    $formatted_post['slug']     = jam_cms_generate_slug_by_id($post->ID);
 
     // Remove the for builds unnecessary data
     unset($formatted_post['siteID']);

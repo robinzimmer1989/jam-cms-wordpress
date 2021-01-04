@@ -74,6 +74,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/check_for_missing_plugins.php');
             include_once( JAM_CMS_PATH . '/includes/utils/get_template_key.php');
             include_once( JAM_CMS_PATH . '/includes/utils/create_template.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/generate_slug_by_id.php');
 
             // Admin
             include_once( JAM_CMS_PATH . '/includes/admin/fix_page_query.php');

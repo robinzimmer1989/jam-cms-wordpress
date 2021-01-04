@@ -44,7 +44,7 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value, $mode = 'de
     
       $formatted_posts = [];
       foreach($posts as $post){
-        array_push($formatted_posts, jam_cms_format_post($post));
+        array_push($formatted_posts, jam_cms_format_post($post, $mode));
       }
 
       $value = $formatted_posts;
@@ -60,6 +60,7 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value, $mode = 'de
         'target'  => '',
       ];
     }
+    
   }elseif($type == 'number'){
 
     $value = (int) $value;
