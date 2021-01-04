@@ -1,6 +1,6 @@
 <?php
 
-function jam_cms_format_post($site_id, $post) {
+function jam_cms_format_post($post) {
 
   $thumbnail_id = get_post_thumbnail_id($post->ID);
   $formatted_media_item = null;
@@ -25,7 +25,6 @@ function jam_cms_format_post($site_id, $post) {
 
   $formatted_post = [
     'id'              => $post->ID,
-    'siteID'          => $site_id,
     'title'           => $post->post_title,
     'slug'            => $slug,
     'postTypeID'      => $post->post_type,

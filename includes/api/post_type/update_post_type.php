@@ -33,7 +33,7 @@ function jam_cms_api_update_post_type_callback($data) {
       }
     }
 
-    $post_type = jam_cms_format_post_type($site_id, $post_types[$post_type_name]);
+    $post_type = jam_cms_format_post_type($post_types[$post_type_name]);
 
     return $post_type;
 }

@@ -67,7 +67,6 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/format_menu_item.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_url.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_user.php');
-            include_once( JAM_CMS_PATH . '/includes/utils/format_post_content_for_build.php');
             include_once( JAM_CMS_PATH . '/includes/utils/generate_id.php');
             include_once( JAM_CMS_PATH . '/includes/utils/array_flatten.php');
             include_once( JAM_CMS_PATH . '/includes/utils/build_menu_tree.php');
@@ -113,7 +112,6 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/queries/get_post_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_media_items.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_media_item_by_id.php');
-            include_once( JAM_CMS_PATH . '/includes/queries/get_post_type_by_name.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_menu_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_user_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_users.php');

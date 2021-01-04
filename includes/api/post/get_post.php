@@ -19,7 +19,7 @@ function jam_cms_api_get_post_callback($data) {
 
     jam_cms_api_base_check($site_id, [$post_id]);
         
-    $post = jam_cms_get_post_by_id($site_id, $post_id);
+    $post = jam_cms_get_post_by_id($post_id);
 
     return $post;
 }

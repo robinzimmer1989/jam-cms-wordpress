@@ -13,7 +13,7 @@ function jam_cms_get_site_by_id($site_id = ''){
     $post_type = (object) $post_type;
 
     if ($post_type->publicly_queryable && $post_type->name != 'attachment') {
-        array_push($items, jam_cms_format_post_type($site_id, $post_type));
+        array_push($items, jam_cms_format_post_type($post_type));
     }
   }
 

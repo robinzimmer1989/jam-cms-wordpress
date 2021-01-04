@@ -1,17 +1,17 @@
 <?php
 
-function jam_cms_get_post_by_id($site_id, $post_id){
+function jam_cms_get_post_by_id($post_id, $mode = 'dev'){
 
   $post = get_post($post_id);
 
   if($post){
-    $formatted_post = jam_cms_format_post($site_id, $post); 
+    $formatted_post = jam_cms_format_post($post); 
 
     // Add post content
     $fields = get_fields($post_id);
 
     if($fields){
-      $formatted_post['content'] = jam_cms_format_fields($fields, $post_id);
+      $formatted_post['content'] = jam_cms_format_fields($fields, $post_id, $mode);
     }
 
     // Add SEO

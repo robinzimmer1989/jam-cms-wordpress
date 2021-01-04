@@ -93,7 +93,7 @@ function jam_cms_api_update_post_callback($data) {
       }
     }
 
-    $data = jam_cms_get_post_by_id($site_id, $post_id);
+    $data = jam_cms_get_post_by_id($post_id);
 
     return $data;
 }

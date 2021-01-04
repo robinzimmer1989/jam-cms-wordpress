@@ -12,34 +12,44 @@
  * @return array The formatted blocks
  */
 
-function jam_cms_format_fields($fields, $post_id){
+function jam_cms_format_fields($fields, $post_id, $mode = 'dev'){
 
   $template_key = jam_cms_get_template_key($post_id);
 
   $formatted_fields = [];
 
-  foreach($fields as $key => $value ){
+  if($fields){
+    
+    foreach($fields as $key => $value ){
 
-    // Get field information to get type
-    $field = (object) get_field_object("field_{$key}_group_{$template_key}");
+      // Get field information to get type
+      $field = (object) get_field_object("field_{$key}_group_{$template_key}");
 
-    if($field){
-      
-      $base_args = [
-        'id'    => $key,
-        'type'  => $field->type,
-        'value' => jam_cms_format_acf_field_value_for_frontend($field, $value)
-      ];
+      if($field){
 
-      $type_args = jam_cms_format_acf_field_type_for_frontend($field);
-      
-      $args = array_merge($base_args, $type_args);
+        $value = jam_cms_format_acf_field_value_for_frontend($field, $value, $mode);
 
-      $formatted_fields[$key] = $args;
+        if($mode == 'build'){
+          $formatted_fields[$key] = $value;
+
+        }else{
+          $base_args = [
+            'id'    => $key,
+            'type'  => $field->type,
+            'value' => $value
+          ];
+
+          $type_args = jam_cms_format_acf_field_type_for_frontend($field);
+          
+          $args = array_merge($base_args, $type_args);
+
+          $formatted_fields[$key] = $args;
+        }
+      }
+
     }
 
   }
-
 
   return $formatted_fields;
 }

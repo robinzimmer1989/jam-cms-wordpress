@@ -1,6 +1,6 @@
 <?php
 
-function jam_cms_get_site_for_build_by_id($site_id){
+function jam_cms_get_site_for_build_by_id(){
 
   // Get generic and custom post types
   $post_types = get_post_types([], 'objects');
@@ -24,10 +24,10 @@ function jam_cms_get_site_for_build_by_id($site_id){
   ));
 
   $formatted_posts = [];
+
   foreach($posts as $post){
-    $formatted_post             = jam_cms_get_post_by_id($site_id, $post->ID);
+    $formatted_post             = jam_cms_get_post_by_id($post->ID, 'build');
     $formatted_post['slug']     = str_replace(home_url(), '', get_permalink($post->ID));
-    $formatted_post['content']  = jam_cms_format_post_content_for_build($site_id, $formatted_post['content']);
 
     // Remove the for builds unnecessary data
     unset($formatted_post['siteID']);

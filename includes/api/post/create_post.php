@@ -32,7 +32,7 @@ function jam_cms_api_create_post_callback($data) {
 
     $post_id = wp_insert_post($post_data);
 
-    $data = jam_cms_get_post_by_id($site_id, $post_id);
+    $data = jam_cms_get_post_by_id($post_id);
 
     return $data;
 }

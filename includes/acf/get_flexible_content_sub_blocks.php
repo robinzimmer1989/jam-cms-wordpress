@@ -12,7 +12,7 @@
  * @return array The formatted blocks
  */
 
-function jam_cms_get_flexible_content_sub_blocks($field, $value){
+function jam_cms_get_flexible_content_sub_blocks($field, $value, $mode = 'dev'){
 
   if(!$value){
     return [];
@@ -34,7 +34,7 @@ function jam_cms_get_flexible_content_sub_blocks($field, $value){
         $sub_field = (object) get_field_object("field_{$key}_{$layout_key}");
 
         if($sub_field){
-          $sub_fields[$key] = jam_cms_format_acf_field_value_for_frontend($sub_field, $layout_value);
+          $sub_fields[$key] = jam_cms_format_acf_field_value_for_frontend($sub_field, $layout_value, $mode);
         }
       }
     }

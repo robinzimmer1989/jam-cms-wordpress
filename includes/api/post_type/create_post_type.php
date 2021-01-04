@@ -55,7 +55,7 @@ function jam_cms_api_create_post_type_callback($data) {
 
         update_option('cptui_post_types', $post_types);
 
-        $post_type = jam_cms_format_post_type($site_id, $post_types[$id]);
+        $post_type = jam_cms_format_post_type($post_types[$id]);
 
         return $post_type;
     }
