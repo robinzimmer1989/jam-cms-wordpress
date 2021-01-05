@@ -27,6 +27,10 @@ function jam_cms_api_delete_user_callback($data) {
         remove_user_from_blog($user_id, $site->blog_id);
 
     }else {
+        // We need to load the delete user function separately
+        // https://stackoverflow.com/questions/37080849/call-to-undefined-function-wp-delete-user
+        require_once(ABSPATH.'wp-admin/includes/user.php');
+        
         wp_delete_user($user_id);
     }
 
