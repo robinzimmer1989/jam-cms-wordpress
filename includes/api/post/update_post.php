@@ -27,8 +27,9 @@ function jam_cms_api_update_post_callback($data) {
       $post_data['post_title'] = $parameters['title'];
     }
 
-    if(array_key_exists('slug', $parameters)){
-      $post_data['post_name'] = $parameters['slug'];
+    if(array_key_exists('slug', $parameters) && array_key_exists('parentID', $parameters)){
+      $unique_slug = wp_unique_post_slug( $parameters['slug'], $post_id, '', get_post_type($post_id), $parameters['parentID'] );
+      $post_data['post_name'] = $unique_slug;
     }
 
     if(array_key_exists('status', $parameters)){

@@ -16,21 +16,27 @@ function jam_cms_api_create_post_callback($data) {
 
     $site_id    = $parameters['siteID'];
     $title      = $parameters['title'];
-    $slug       = $parameters['slug'];
     $post_type  = $parameters['postTypeID'];
     $parent_id  = $parameters['parentID'];
 
-    jam_cms_api_base_check($site_id, [$title, $slug, $post_type]);
+    jam_cms_api_base_check($site_id, [$title, $post_type]);
 
-    $post_data = array(
+    $post_id = wp_insert_post([
       'post_title'  => $title,
-      'post_name'   => $slug,
+      'post_name'   => '',
       'post_status' => 'draft',
       'post_type'   => $post_type,
       'post_parent' => $parent_id
-    );
+    ]);
 
-    $post_id = wp_insert_post($post_data);
+    // Generate unique postname. We need the post id to do that, so we have to split the process into two steps.
+    $slug = sanitize_title_with_dashes($title);
+    $unique_slug = wp_unique_post_slug( $slug, $post_id, '', $post_type, $parent_id );
+
+    wp_update_post([
+      'ID'          => $post_id,
+      'post_name'   => $unique_slug
+    ]);
 
     $data = jam_cms_get_post_by_id($post_id);
 
