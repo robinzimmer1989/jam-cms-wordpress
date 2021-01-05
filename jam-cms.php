@@ -8,7 +8,7 @@
  * Plugin Name:       jamCMS
  * Plugin URI:        https://github.com/robinzimmer1989/jam-cms-wordpress
  * Description:       
- * Version:           0.1.3
+ * Version:           0.1.4
  * Author:            Robin Zimmer
  * Author URI:        https://github.com/robinzimmer1989
  * License:           
