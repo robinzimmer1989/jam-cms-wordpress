@@ -7,9 +7,9 @@ function jam_cms_create_template($template){
     $theme_templates = [];
   }
   
-  if(!array_key_exists("{$template->id}.php", $theme_templates) && $template->id != 'default'){
+  if(!array_key_exists("{$template->id}", $theme_templates) && $template->id != 'default'){
     $label = $template->label ? $template->label : $template->id;
-    $theme_templates["{$template->id}.php"] = $label;  
+    $theme_templates["{$template->id}"] = $label;  
   }
   
   update_option('jam-cms-templates', $theme_templates);

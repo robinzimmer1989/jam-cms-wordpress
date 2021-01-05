@@ -49,8 +49,6 @@ function jam_cms_upsert_acf_template($template, $post_id){
           'operator'  => '==',
           'value'     => $template->postTypeID,
         ),
-      ),
-      array(
         array(
           'param'     => "{$template->postTypeID}_template",
           'operator'  => '==',
