@@ -94,6 +94,8 @@ function jam_cms_api_update_post_callback($data) {
       }
     }
 
+    update_option('jam_cms_undeployed_changes', true);
+
     $data = jam_cms_get_post_by_id($post_id);
 
     return $data;

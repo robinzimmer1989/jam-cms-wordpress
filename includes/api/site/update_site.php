@@ -50,20 +50,21 @@ function jam_cms_api_update_site_callback($data) {
             update_option('deployment_api_key', $api_key);
         }
 
-        if(
-            array_key_exists('deploymentBuildHook', $parameters) &&
-            array_key_exists('deploymentBadgeImage', $parameters) &&
-            array_key_exists('deploymentBadgeLink', $parameters)
-        ){
+        if(array_key_exists('deployment', $parameters)){
+            $deployment = $parameters['deployment'];
+            $deployment = $deployment ? json_decode($deployment) : [];
+
             $jamstack_deployment_settings = get_option('wp_jamstack_deployments');
 
-            $jamstack_deployment_settings['webhook_url']                = $parameters['deploymentBuildHook'];
-            $jamstack_deployment_settings['deployment_badge_url']       = $parameters['deploymentBadgeImage'];
-            $jamstack_deployment_settings['deployment_badge_link_url']  = $parameters['deploymentBadgeLink'];
+            $jamstack_deployment_settings['webhook_url']                = $deployment->buildHook;
+            $jamstack_deployment_settings['deployment_badge_url']       = $deployment->badgeImage;
+            $jamstack_deployment_settings['deployment_badge_link_url']  = $deployment->badgeLink;
 
             update_option('wp_jamstack_deployments', $jamstack_deployment_settings);
         }
     }
+    
+    update_option('jam_cms_undeployed_changes', true);
 
     $data = jam_cms_get_site_by_id($site_id);
 

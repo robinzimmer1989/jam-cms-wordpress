@@ -129,6 +129,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/site/get_site_for_build.php');
             include_once( JAM_CMS_PATH . '/includes/api/site/delete_site.php');
             include_once( JAM_CMS_PATH . '/includes/api/site/get_sites.php');
+            include_once( JAM_CMS_PATH . '/includes/api/site/deploy_site.php');
 
             include_once( JAM_CMS_PATH . '/includes/api/post/create_post.php');
             include_once( JAM_CMS_PATH . '/includes/api/post/update_post.php');

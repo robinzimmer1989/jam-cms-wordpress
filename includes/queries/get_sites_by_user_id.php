@@ -24,10 +24,7 @@ function jam_cms_get_sites_by_user_id($user_id){
 
       array_push($data, array(
         'id'                  => $site_id,
-        'title'               => $site->blogname,
-        'deploymentBuildHook'    => isset($webhook_url) ? $webhook_url : '',
-        'deploymentBadgeImage'   => isset($deployment_badge_url) ? $deployment_badge_url : '',
-        'deploymentBadgeLink'    => isset($sitesdeployment_badge_link_url) ? $deployment_badge_link_url : '',
+        'title'               => $site->blogname
       ));
     }
   }

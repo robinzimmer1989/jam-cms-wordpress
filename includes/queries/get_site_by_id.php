@@ -35,12 +35,19 @@ function jam_cms_get_site_by_id($site_id = ''){
     $api_key = get_option('deployment_api_key');
   }
 
+  $last_build = get_option('jam_cms_last_build');
+  $undeployed_changes = get_option('jam_cms_undeployed_changes');
+
   $data = array(
     'id'                    => $site_id ? $site_id : 'default',
     'title'                 => get_bloginfo('name'),
-    'deploymentBuildHook'   => $deployment_build_hook,
-    'deploymentBadgeImage'  => $deployment_badge_image,
-    'deploymentBadgeLink'   => $deployment_badge_link,
+    'deployment'            => [
+      'lastBuild'           => $last_build,
+      'undeployedChanges'   => boolval($undeployed_changes),
+      'buildHook'           => $deployment_build_hook,
+      'badgeImage'          => $deployment_badge_image,
+      'badgeLink'           => $deployment_badge_link,
+    ],
     'apiKey'                => $api_key ? $api_key : '',
     'settings'              => jam_cms_get_option_group_fields(),
     'frontPage'             => intval(get_option( 'page_on_front' )),
@@ -57,7 +64,7 @@ function jam_cms_get_site_by_id($site_id = ''){
     'users' => [
       'items'               => [],
       'page'                => null
-    ]
+    ],
   );
 
   $missing_plugins = jam_cms_check_for_missing_plugins();
