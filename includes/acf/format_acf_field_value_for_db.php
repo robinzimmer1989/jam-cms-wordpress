@@ -18,12 +18,13 @@ function jam_cms_format_acf_field_value_for_db($field){
     return null;
   }
 
-  if($field->type == 'image' && $field->value){
-    $value = $field->value->id;
-
-  }elseif($field->type == 'file' && $field->value){
-    $value = $field->value->id;
-  
+  if($field->type == 'image' || $field->type == 'file'){
+    if($field->value){
+      $value = $field->value->id;
+    }else{
+      $value = '';
+    }
+    
   }elseif($field->type == 'menu'){
     $menu_slug = $field->id;
     $menu_items = $field->value;
