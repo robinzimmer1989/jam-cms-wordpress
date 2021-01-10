@@ -38,19 +38,19 @@ function jam_cms_get_site_for_build_by_id(){
     array_push($formatted_posts, $formatted_post);
   }
 
-  // Get settings and only return id-value pairing
-  $formatted_settings = (object) [];
-  $settings = jam_cms_get_option_group_fields();
-  if($settings){
-    foreach($settings as $setting){
-      $setting_id = $setting['id'];
-      $formatted_settings->$setting_id = $setting['value'];
+  // Get globalOptions and only return id-value pairing
+  $formatted_options = (object) [];
+  $globalOptions = jam_cms_get_option_group_fields();
+  if($globalOptions){
+    foreach($globalOptions as $option){
+      $option_id = $option['id'];
+      $formatted_options->$option_id = $option['value'];
     }
   }
 
   $data = array(
     'posts'     => $formatted_posts,
-    'settings'  => $formatted_settings
+    'globalOptions'  => $formatted_options
   );
 
   return $data;

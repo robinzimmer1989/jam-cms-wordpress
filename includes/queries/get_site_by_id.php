@@ -49,7 +49,7 @@ function jam_cms_get_site_by_id($site_id = ''){
       'badgeLink'           => $deployment_badge_link,
     ],
     'apiKey'                => $api_key ? $api_key : '',
-    'settings'              => jam_cms_get_option_group_fields(),
+    'globalOptions'              => jam_cms_get_option_group_fields(),
     'frontPage'             => intval(get_option( 'page_on_front' )),
     'postTypes' => [
       'items'               => $items
