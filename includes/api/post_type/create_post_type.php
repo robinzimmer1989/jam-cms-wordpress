@@ -47,7 +47,7 @@ function jam_cms_api_create_post_type_callback($data) {
             'hierarchical'          => true,
             'rewrite'               => true,
             'rewrite_withfront'     => false,
-            'rewrite_slug'          => $slug,
+            'rewrite_slug'          => $slug ? $slug : '/',
             'supports'              => ['title', 'thumbnail'],
             'taxonomies'            => [],
             'query_var'             => true

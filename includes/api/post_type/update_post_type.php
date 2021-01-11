@@ -25,9 +25,10 @@ function jam_cms_api_update_post_type_callback($data) {
       $post_types = get_option('cptui_post_types');
 
       if($post_types){
+
           $post_types[$post_type_name]['label']           = $title;
           $post_types[$post_type_name]['singular_label']  = $title;
-          $post_types[$post_type_name]['rewrite_slug']    = $slug;
+          $post_types[$post_type_name]['rewrite_slug']    = $slug ? $slug : '/';
 
           update_option('cptui_post_types', $post_types);   
       }
