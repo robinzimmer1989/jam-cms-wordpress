@@ -139,6 +139,8 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value, $mode = 'de
         array_push($src_set, $value['sizes']['large'] . ' ' . $value['sizes']['large-width'] . 'w');
       }
 
+      array_push($src_set, $value['url'] . ' ' . $value['width'] . 'w');
+
       $value['childImageSharp'] = [
         'fluid' => [
           'aspectRatio' => $value['height'] / $value['width'],
