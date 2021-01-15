@@ -82,6 +82,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/admin/remove_default_post_type.php');
             include_once( JAM_CMS_PATH . '/includes/admin/add_image_size.php');
             include_once( JAM_CMS_PATH . '/includes/admin/decapitate_wordpress.php');
+            include_once( JAM_CMS_PATH . '/includes/admin/page_templater.php');
             include_once( JAM_CMS_PATH . '/includes/admin/custom_templates.php');
 
             // ACF
