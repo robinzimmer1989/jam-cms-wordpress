@@ -36,26 +36,27 @@ function jam_cms_upsert_acf_template($template, $post_id){
     $field_group_label = $template->id;
   }
 
+  $locations = [[
+    'param'     => 'post_type',
+    'operator'  => '==',
+    'value'     => $template->postTypeID,
+  ]];
+
+  if($template->postTypeID == 'page'){
+    array_push($locations, [
+      'param'     => "{$template->postTypeID}_template",
+      'operator'  => '==',
+      'value'     => $template->id,
+    ]);
+  }
+
   // Create field group
   $field_group = [
     'ID'                    => $field_group_id ? $field_group_id : 0,
     'key'                   => $field_group_key,
     'title'                 => $field_group_label,
     'fields'                => $fields,
-    'location' => array(
-      array(
-        array(
-          'param'     => 'post_type',
-          'operator'  => '==',
-          'value'     => $template->postTypeID,
-        ),
-        array(
-          'param'     => "{$template->postTypeID}_template",
-          'operator'  => '==',
-          'value'     => $template->id,
-        ),
-      ),
-    ),
+    'location'              => [$locations],
     'active'                => true,
     'style'                 => 'seamless',
     'position'              => 'normal',
