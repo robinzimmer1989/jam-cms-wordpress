@@ -63,6 +63,8 @@ if( ! class_exists('JamCMS') ) :
              // Utilities
             include_once( JAM_CMS_PATH . '/includes/utils/format_post.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_post_type.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/format_taxonomy.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/format_term.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_media_item.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_menu_item.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_url.php');
@@ -140,6 +142,14 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/post_type/create_post_type.php');
             include_once( JAM_CMS_PATH . '/includes/api/post_type/update_post_type.php');
             include_once( JAM_CMS_PATH . '/includes/api/post_type/delete_post_type.php');
+
+            include_once( JAM_CMS_PATH . '/includes/api/taxonomy/create_taxonomy.php');
+            include_once( JAM_CMS_PATH . '/includes/api/taxonomy/update_taxonomy.php');
+            include_once( JAM_CMS_PATH . '/includes/api/taxonomy/delete_taxonomy.php');
+
+            include_once( JAM_CMS_PATH . '/includes/api/term/create_term.php');
+            include_once( JAM_CMS_PATH . '/includes/api/term/update_term.php');
+            include_once( JAM_CMS_PATH . '/includes/api/term/delete_term.php');
 
             include_once( JAM_CMS_PATH . '/includes/api/media_item/create_media_item.php');
             include_once( JAM_CMS_PATH . '/includes/api/media_item/update_media_item.php');

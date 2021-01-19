@@ -40,6 +40,16 @@ function jam_cms_api_update_post_callback($data) {
       $post_data['post_parent'] = $parameters['parentID'];
     }
 
+    if(array_key_exists('taxonomies', $parameters)){
+      $taxonomies = $parameters['taxonomies'] ? json_decode($parameters['taxonomies']) : null;
+
+      if($taxonomies){
+        foreach($taxonomies as $key => $terms){
+          wp_set_post_terms($post_id, $terms, $key);
+        }
+      }
+    }
+
     wp_update_post($post_data);
 
     if(array_key_exists('seo', $parameters)){

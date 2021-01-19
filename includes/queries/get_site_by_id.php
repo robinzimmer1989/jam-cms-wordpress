@@ -7,16 +7,25 @@ function jam_cms_get_site_by_id($site_id = ''){
   $custom_post_types = get_option('cptui_post_types') ? get_option('cptui_post_types') : [];
   $all_post_types = array_merge($post_types, $custom_post_types);
 
-  $items = [];
-  foreach ( $all_post_types as $post_type ) {
+  $formatted_post_types = [];
+  foreach ($all_post_types as $post_type){
     // Custom post types are constructed as an array so we have to convert them
     $post_type = (object) $post_type;
 
     if ($post_type->publicly_queryable && $post_type->name != 'attachment') {
-        array_push($items, jam_cms_format_post_type($post_type));
+        array_push($formatted_post_types, jam_cms_format_post_type($post_type));
     }
   }
 
+  // Get custom taxonomies
+  $taxonomies = get_option('cptui_taxonomies') ? get_option('cptui_taxonomies') : [];
+
+  $formatted_taxonomies = [];
+  foreach($taxonomies as $taxonomy){
+    array_push($formatted_taxonomies, jam_cms_format_taxonomy($taxonomy));
+  }
+
+  // Get deployment info
   $deployment_build_hook = '';
   $deployment_badge_image = '';
   $deployment_badge_link = '';
@@ -29,14 +38,13 @@ function jam_cms_get_site_by_id($site_id = ''){
     $deployment_badge_link = $jamstack_deployment_settings['deployment_badge_link_url'];
   }
 
-  $api_key = '';
+  $last_build = get_option('jam_cms_last_build');
+  $undeployed_changes = get_option('jam_cms_undeployed_changes');
 
+  $api_key = '';
   if(current_user_can( 'manage_options' )){
     $api_key = get_option('deployment_api_key');
   }
-
-  $last_build = get_option('jam_cms_last_build');
-  $undeployed_changes = get_option('jam_cms_undeployed_changes');
 
   $data = array(
     'id'                    => $site_id ? $site_id : 'default',
@@ -49,10 +57,13 @@ function jam_cms_get_site_by_id($site_id = ''){
       'badgeLink'           => $deployment_badge_link,
     ],
     'apiKey'                => $api_key ? $api_key : '',
-    'globalOptions'              => jam_cms_get_option_group_fields(),
+    'globalOptions'         => jam_cms_get_option_group_fields(),
     'frontPage'             => intval(get_option( 'page_on_front' )),
     'postTypes' => [
-      'items'               => $items
+      'items'               => $formatted_post_types
+    ],
+    'taxonomies' => [
+      'items'               => $formatted_taxonomies,
     ],
     'forms' => [
       'items'               => []

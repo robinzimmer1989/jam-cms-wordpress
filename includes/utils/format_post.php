@@ -16,7 +16,6 @@ function jam_cms_format_post($post, $mode = 'dev') {
     $slug = jam_cms_generate_slug_by_id($post->ID);
   }
   
-
   // Remove "_trashed" affix added by WordPress
   if($post->post_status == 'trash'){
     $slug = str_replace('__trashed', '', $slug);
@@ -26,6 +25,21 @@ function jam_cms_format_post($post, $mode = 'dev') {
   $template = get_page_template_slug($post->ID);
   if(!$template){
     $template = "default";
+  }
+
+  // Get taxonomies
+  $taxonomies = get_object_taxonomies($post->post_type);
+  
+  $formatted_taxonomies = [];
+  foreach($taxonomies as $taxonomy_name){
+    $terms = wp_get_post_terms($post->ID, $taxonomy_name);
+
+    $term_ids = [];
+    foreach($terms as $term){
+      array_push($term_ids, $term->term_id);
+    }
+
+    $formatted_taxonomies[$taxonomy_name] = $term_ids;
   }
 
   $formatted_post = [
@@ -39,6 +53,7 @@ function jam_cms_format_post($post, $mode = 'dev') {
     'template'        => $template,
     'content'         => (object) [],
     'seo'             => [],
+    'taxonomies'      => $formatted_taxonomies,
     'createdAt'       => $post->post_date,
   ];
 
