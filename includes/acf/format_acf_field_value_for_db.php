@@ -24,7 +24,15 @@ function jam_cms_format_acf_field_value_for_db($field){
     }else{
       $value = '';
     }
+  }elseif($field->type == 'gallery'){
+    $gallery = [];
     
+    foreach($field->value as $value){
+      array_push($gallery, $value->id);
+    }
+
+    $value = $gallery;
+  
   }elseif($field->type == 'menu'){
     $menu_slug = $field->id;
     $menu_items = $field->value;

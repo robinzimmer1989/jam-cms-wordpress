@@ -37,7 +37,8 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
     $field->type == 'radio' ||
     $field->type == 'file' ||
     $field->type == 'date_picker' ||
-    $field->type == 'group'
+    $field->type == 'group' ||
+    $field->type == 'gallery'
   ){
     $args['type'] = $field->type;
 
@@ -98,7 +99,6 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
     }
 
     if($field->type == 'flexible_content' && property_exists($field, 'items')){
-
       foreach($field->items as $layout){
 
         $sub_field_key = 'layout_' . $layout->id . '_' . $field_key;

@@ -113,6 +113,22 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value, $mode = 'de
     unset($value['menu_order']);
     unset($value['mime_type']);
 
+  }elseif($type == 'gallery'){
+
+    // Change null value to empty array
+    if(!$value){
+      return [];
+    }
+
+    $formatted_gallery = [];
+
+    foreach($value as $item){
+      $formatted_item = jam_cms_format_acf_field_value_for_frontend(['type' => 'image'], $item);
+      array_push($formatted_gallery, $formatted_item);
+    }
+
+    return $formatted_gallery;
+
   }elseif($type == 'image' || $type == 'file'){
 
     if(!$value){
