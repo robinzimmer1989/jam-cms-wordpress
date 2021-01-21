@@ -42,8 +42,12 @@ function jam_cms_api_update_site_callback($data) {
     if(current_user_can( 'manage_options' )){
 
         if(array_key_exists('title', $parameters)){
-            update_option('blogname', $parameters['title']);
+           update_option('blogname', $parameters['title']);
         }
+
+        if(array_key_exists('googleMapsApi', $parameters)){           
+            update_option('jam_cms_google_maps_api_key', $parameters['googleMapsApi']);
+         }
 
         if(array_key_exists('apiKey', $parameters)){
             $api_key = wp_generate_uuid4();

@@ -41,24 +41,30 @@ function jam_cms_get_site_by_id($site_id = ''){
   $last_build = get_option('jam_cms_last_build');
   $undeployed_changes = get_option('jam_cms_undeployed_changes');
 
-  $api_key = '';
-  if(current_user_can( 'manage_options' )){
-    $api_key = get_option('deployment_api_key');
+  $deployment_api_key = '';
+  if(current_user_can('manage_options')){
+    $deployment_api_key = get_option('deployment_api_key');
+  }
+
+  $google_maps_api_key= '';
+  if(current_user_can('edit_posts')){
+    $google_maps_api_key = get_option('jam_cms_google_maps_api_key');
   }
 
   $data = array(
     'id'                    => $site_id ? $site_id : 'default',
     'title'                 => get_bloginfo('name'),
+    'googleMapsApi'         => $google_maps_api_key ? $google_maps_api_key : '',
+    'frontPage'             => intval(get_option( 'page_on_front' )),
+    'apiKey'                => $deployment_api_key ? $deployment_api_key : '',
     'deployment'            => [
       'lastBuild'           => $last_build,
       'undeployedChanges'   => boolval($undeployed_changes),
       'buildHook'           => $deployment_build_hook,
       'badgeImage'          => $deployment_badge_image,
-      'badgeLink'           => $deployment_badge_link,
+      'badgeLink'           => $deployment_badge_link,      
     ],
-    'apiKey'                => $api_key ? $api_key : '',
     'globalOptions'         => jam_cms_get_option_group_fields(),
-    'frontPage'             => intval(get_option( 'page_on_front' )),
     'postTypes' => [
       'items'               => $formatted_post_types
     ],
