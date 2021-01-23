@@ -108,6 +108,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_sub_blocks.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_menu_picker_field.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_post_type_picker_field.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/add_google_maps_api_key.php');
             
             // Queries
             include_once( JAM_CMS_PATH . '/includes/queries/get_site_by_id.php');
@@ -138,6 +139,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/post/update_post.php');
             include_once( JAM_CMS_PATH . '/includes/api/post/get_post.php');
             include_once( JAM_CMS_PATH . '/includes/api/post/delete_post.php');
+            include_once( JAM_CMS_PATH . '/includes/api/post/duplicate_post.php');
 
             include_once( JAM_CMS_PATH . '/includes/api/post_type/create_post_type.php');
             include_once( JAM_CMS_PATH . '/includes/api/post_type/update_post_type.php');
