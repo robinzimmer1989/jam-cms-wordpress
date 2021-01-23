@@ -33,6 +33,7 @@ function jam_cms_get_option_group_fields(){
       $base_args = [
         'id'      => $field_key,
         'type'    => $field['type'],
+        'label'   => $field['label'] ? $field['label'] : $field['name'],
         'value'   => jam_cms_format_acf_field_value_for_frontend($field, $value),
       ];
 
