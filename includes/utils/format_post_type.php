@@ -5,11 +5,12 @@ function jam_cms_format_post_type($post_type) {
   $post_type = (object) $post_type;
 
   // Get all posts
-  $posts = get_posts(array(
+  $posts = get_posts([
     'numberposts' => -1,
-    'post_type' => $post_type->name,
-    'post_status' => ['publish', 'draft', 'trash']
-  ));
+    'post_type'   => $post_type->name,
+    'post_status' => ['publish', 'draft', 'trash'],
+    'orderby'     => 'menu_order'
+  ]);
 
   // Format posts
   $formatted_posts = [];
