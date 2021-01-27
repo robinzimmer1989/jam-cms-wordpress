@@ -9,10 +9,12 @@ function jam_cms_api_get_site_for_build() {
 }
 
 function jam_cms_api_get_site_for_build_callback($data) {
-    $site_id = $data->get_param('siteID');
-    $api_key = $data->get_param('apiKey');
+    $parameters = $data->get_params();
+  
+    jam_cms_api_base_check($parameters, ['apiKey']);
 
-    jam_cms_api_base_check($site_id, [$api_key]);
+    $site_id = $parameters['siteID'];
+    $api_key = $parameters['apiKey'];
 
     $api_key_db = get_option('deployment_api_key');
 

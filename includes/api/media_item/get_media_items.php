@@ -13,12 +13,12 @@ function jam_cms_api_get_media_items() {
 
 function jam_cms_api_get_media_items_callback($data) {
     $parameters = $data->get_params();
+
+    jam_cms_api_base_check($parameters);
     
     $site_id    = $parameters['siteID'];
     $page       = $parameters['page'];
     $limit      = $parameters['limit'];
-
-    jam_cms_api_base_check($site_id);
 
     $data = jam_cms_get_media_items($site_id, $limit, $page);
 

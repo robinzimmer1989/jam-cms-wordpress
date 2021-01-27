@@ -14,10 +14,10 @@ function jam_cms_api_duplicate_post() {
 function jam_cms_api_duplicate_post_callback($data) {
   $parameters   = $data->get_params();
 
+  jam_cms_api_base_check($parameters, ['id']);
+
   $site_id      = $parameters['siteID'];
   $post_id      = $parameters['id'];
-
-  jam_cms_api_base_check($site_id, [$post_id]);
 
   // https://rudrastyh.com/wordpress/duplicate-post.html
 

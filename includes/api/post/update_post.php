@@ -14,10 +14,10 @@ function jam_cms_api_update_post() {
 function jam_cms_api_update_post_callback($data) {
     $parameters = $data->get_params();
 
+    jam_cms_api_base_check($parameters, ['id']);
+
     $site_id    = $parameters['siteID'];
     $post_id    = $parameters['id'];
-
-    jam_cms_api_base_check($site_id, [$post_id]);
 
     $post_data = array(
       'ID' => $post_id
@@ -93,6 +93,10 @@ function jam_cms_api_update_post_callback($data) {
       if($templateObject){
         jam_cms_create_template($templateObject);
         jam_cms_upsert_acf_template($templateObject, $post_id);
+
+        // TODO: Add ACF settings field to field group
+        $template_key = jam_cms_get_template_key($post_id);
+        update_option("jam_cms_template_{$template_key}_query", $templateObject->query ? $templateObject->query : '');
       }
     }
 

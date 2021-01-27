@@ -14,10 +14,10 @@ function jam_cms_api_get_user() {
 function jam_cms_api_get_user_callback($data) {
     $parameters = $data->get_params();
 
+    jam_cms_api_base_check($parameters, ['id']);
+
     $site_id    = $parameters['siteID'];
     $user_id    = $parameters['id'];
-
-    jam_cms_api_base_check($site_id, [$user_id]);
 
     $data = jam_cms_get_user_by_id($user_id);
 

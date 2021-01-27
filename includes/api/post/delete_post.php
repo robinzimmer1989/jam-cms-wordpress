@@ -14,10 +14,10 @@ function jam_cms_api_delete_post() {
 function jam_cms_api_delete_post_callback($data) {
     $parameters   = $data->get_params();
 
+    jam_cms_api_base_check($parameters, ['id']);
+
     $site_id      = $parameters['siteID'];
     $post_id      = $parameters['id'];
-
-    jam_cms_api_base_check($site_id, [$post_id]);
 
     // We need to generate the data beforehand, because otherwise it would throw an error 'Post not found'.
     $data = jam_cms_get_post_by_id($post_id);

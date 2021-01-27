@@ -14,11 +14,11 @@ function jam_cms_api_get_users() {
 function jam_cms_api_get_users_callback($data) {
     $parameters = $data->get_params();
 
+    jam_cms_api_base_check($parameters);
+
     $site_id    = $parameters['siteID'];
     $page       = $parameters['page'];
     $limit      = $parameters['limit'];
-
-    jam_cms_api_base_check($site_id);
 
     $data = jam_cms_get_users($limit, $page);
 

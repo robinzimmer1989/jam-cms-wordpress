@@ -14,6 +14,8 @@ function jam_cms_api_update_term() {
 function jam_cms_api_update_term_callback($data) {
   $parameters = $data->get_params();
 
+  jam_cms_api_base_check($parameters, ['taxonomyID', 'title', 'id']);
+
   $site_id     = $parameters['siteID'];
   $taxonomy_id = $parameters['taxonomyID'];
   $id          = $parameters['id'];
@@ -21,8 +23,6 @@ function jam_cms_api_update_term_callback($data) {
   $slug        = $parameters['slug'];
   $parent_id   = $parameters['parentID'];
   $description = $parameters['description'];
-
-  jam_cms_api_base_check($site_id, [$taxonomy_id, $title, $id]);
 
   $updated_term = wp_update_term($id, $taxonomy_id, [
     'name'        => $title,

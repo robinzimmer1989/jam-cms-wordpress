@@ -14,11 +14,11 @@ function jam_cms_api_create_user() {
 function jam_cms_api_create_user_callback($data) {
     $parameters = $data->get_params();
 
+    jam_cms_api_base_check($parameters, ['email', 'role']);
+
     $site_id    = $parameters['siteID'];
     $email      = $parameters['email'];
     $role       = $parameters['role'];
-
-    jam_cms_api_base_check($site_id, [$email, $role]);
 
     $password = wp_generate_password();
 

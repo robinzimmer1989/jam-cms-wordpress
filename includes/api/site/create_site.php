@@ -14,15 +14,15 @@ function jam_cms_api_create_site() {
 function jam_cms_api_create_site_callback($data) {
     $parameters = $data->get_params();
 
-    $title      = $parameters['title'];
-
     if(!is_multisite()){
-        return new WP_Error( 'rest_upload_no_data', __( 'No data supplied' ), array( 'status' => 400 ));
+        return new WP_Error( 'no_multisite', __( 'No multisite' ), array( 'status' => 400 ));
     }
 
-    if(!isset($title) || !$title){
-        return new WP_Error( 'rest_upload_no_data', __( 'No data supplied' ), array( 'status' => 400 ));
+    if(!property_exists($parameters, 'title')){
+        return new WP_Error( 'no_title', __( 'No title supplied' ), array( 'status' => 400 ));
     }
+
+    $title = $parameters['title'];
 
     $current_user = wp_get_current_user();
     $user_id = $current_user->ID;

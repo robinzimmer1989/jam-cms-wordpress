@@ -14,12 +14,12 @@ function jam_cms_api_create_post() {
 function jam_cms_api_create_post_callback($data) {
     $parameters = $data->get_params();
 
+    jam_cms_api_base_check($parameters, ['title', 'postTypeID']);
+
     $site_id    = $parameters['siteID'];
     $title      = $parameters['title'];
     $post_type  = $parameters['postTypeID'];
     $parent_id  = $parameters['parentID'];
-
-    jam_cms_api_base_check($site_id, [$title, $post_type]);
 
     $post_id = wp_insert_post([
       'post_title'  => $title,

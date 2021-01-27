@@ -14,9 +14,9 @@ function jam_cms_api_delete_site() {
 function jam_cms_api_delete_site_callback($data) {
     $parameters = $data->get_params();
 
-    $site_id    = $parameters['id'];
+    jam_cms_api_base_check($parameters, ['id']);
 
-    jam_cms_api_base_check($site_id);
+    $site_id    = $parameters['id'];
 
     // TODO: Needs implementation
 }

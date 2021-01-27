@@ -14,12 +14,12 @@ function jam_cms_api_create_post_type() {
 function jam_cms_api_create_post_type_callback($data) {
     $parameters = $data->get_params();
 
+    jam_cms_api_base_check($parameters, ['id', 'title']);
+
     $site_id    = $parameters['siteID'];
     $id         = $parameters['id'];
     $title      = $parameters['title'];
     $slug       = $parameters['slug'];
-
-    jam_cms_api_base_check($site_id, [$title, $id]);
 
     $cpt_ui = get_option('cptui_post_types');
     $post_types = $cpt_ui ? $cpt_ui : [];

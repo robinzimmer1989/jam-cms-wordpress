@@ -13,11 +13,11 @@ function jam_cms_api_update_media_item() {
 
 function jam_cms_api_update_media_item_callback($data) {
     $parameters     = $data->get_params();
+    
+    jam_cms_api_base_check($parameters, ['id']);
 
     $site_id        = $parameters['siteID'];
     $attachment_id  = $parameters['id'];
-
-    jam_cms_api_base_check($site_id, [$attachment_id]);
 
     $attachment_meta = array(
       'ID'		        => $attachment_id,

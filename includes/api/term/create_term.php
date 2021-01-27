@@ -14,14 +14,14 @@ function jam_cms_api_create_term() {
 function jam_cms_api_create_term_callback($data) {
     $parameters = $data->get_params();
 
+    jam_cms_api_base_check($parameters, ['taxonomyID', 'title']);
+
     $site_id     = $parameters['siteID'];
     $taxonomy_id = $parameters['taxonomyID'];
     $title       = $parameters['title'];
     $slug        = $parameters['slug'];
     $parent_id   = $parameters['parentID'];
     $description = $parameters['description'];
-
-    jam_cms_api_base_check($site_id, [$taxonomy_id, $title]);
 
     $new_term = wp_insert_term($title, $taxonomy_id, [
         'description' => $description,

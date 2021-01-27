@@ -14,13 +14,13 @@ function jam_cms_api_update_taxonomy() {
 function jam_cms_api_update_taxonomy_callback($data) {
     $parameters       = $data->get_params();
 
+    jam_cms_api_base_check($parameters, ['id', 'title', 'slug']);
+
     $site_id          = $parameters['siteID'];
     $id               = $parameters['id'];
     $title            = $parameters['title'];
     $slug             = $parameters['slug'];
     $postTypes        = $parameters['postTypes'];
-
-    jam_cms_api_base_check($site_id, [$id, $title, $slug]);
 
     $taxonomies = get_option('cptui_taxonomies');
     $taxonomies = $taxonomies ? $taxonomies : [];
