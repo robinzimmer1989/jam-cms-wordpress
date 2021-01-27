@@ -18,9 +18,10 @@ function jam_cms_get_site_for_build_by_id(){
   $front_page = intval(get_option( 'page_on_front' ));
 
   $posts = get_posts(array(
-    'numberposts' => -1,
-    'post_type' => $public_post_types,
-    'post_status' => ['publish']
+    'numberposts'   => -1,
+    'post_type'     => $public_post_types,
+    'post_status'   => ['publish'],
+    'orderby'       => 'menu_order'
   ));
 
   $formatted_posts = [];
