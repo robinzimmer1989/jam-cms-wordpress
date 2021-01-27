@@ -45,6 +45,11 @@ function jam_cms_api_update_site_callback($data) {
            update_option('blogname', $parameters['title']);
         }
 
+        if(array_key_exists('siteUrl', $parameters)){
+            $formatted_site_url = rtrim($parameters['siteUrl'],'/');
+            update_option('site_url', $formatted_site_url);
+         }
+
         if(array_key_exists('googleMapsApi', $parameters)){           
             update_option('jam_cms_google_maps_api_key', $parameters['googleMapsApi']);
          }

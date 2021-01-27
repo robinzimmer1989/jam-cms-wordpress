@@ -51,9 +51,12 @@ function jam_cms_get_site_by_id($site_id = ''){
     $google_maps_api_key = get_option('jam_cms_google_maps_api_key');
   }
 
+  $site_url = get_option('site_url');
+
   $data = array(
     'id'                    => $site_id ? $site_id : 'default',
     'title'                 => get_bloginfo('name'),
+    'siteUrl'               => $site_url ? $site_url : '',
     'googleMapsApi'         => $google_maps_api_key ? $google_maps_api_key : '',
     'frontPage'             => intval(get_option( 'page_on_front' )),
     'apiKey'                => $deployment_api_key ? $deployment_api_key : '',
