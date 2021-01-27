@@ -7,7 +7,7 @@
  * @wordpress-plugin
  * Plugin Name:       jamCMS
  * Plugin URI:        https://github.com/robinzimmer1989/jam-cms-wordpress
- * Description:       
+ * Description:       A CMS for the JAMStack world. Made for developers.
  * Version:           0.2.0
  * Author:            Robin Zimmer
  * Author URI:        https://github.com/robinzimmer1989
@@ -86,6 +86,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/admin/decapitate_wordpress.php');
             include_once( JAM_CMS_PATH . '/includes/admin/page_templater.php');
             include_once( JAM_CMS_PATH . '/includes/admin/custom_templates.php');
+            include_once( JAM_CMS_PATH . '/includes/admin/emails.php');
 
             // ACF
             include_once( JAM_CMS_PATH . '/includes/acf/generate_acf_fields_recursively.php');
@@ -120,6 +121,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/queries/get_menu_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_user_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_users.php');
+            include_once( JAM_CMS_PATH . '/includes/queries/get_data_by_query.php');
 
             // Mutations
             include_once( JAM_CMS_PATH . '/includes/mutations/update_menu.php');
