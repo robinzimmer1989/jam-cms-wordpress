@@ -13,6 +13,8 @@ function jam_cms_get_post_by_id($post_id, $mode = 'dev'){
     if($fields){
       $formatted_post['content'] = jam_cms_format_fields($fields, $post_id, $mode);
     }
+    
+    $formatted_post['query'] = jam_cms_get_data_by_query($post_id);
 
     // Add SEO
     $seo_title = get_post_meta($post->ID, '_yoast_wpseo_title');
