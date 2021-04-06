@@ -60,14 +60,15 @@ if( ! class_exists('JamCMS') ) :
             $this->define( 'JAM_CMS_BASENAME', plugin_basename( __FILE__ ) );
             $this->define( 'JAM_CMS_VERSION', $this->version );
             
-             // Utilities
+            // Utilities
+            include_once( JAM_CMS_PATH . '/includes/utils/error_log.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/format_url.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_post.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_post_type.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_taxonomy.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_term.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_media_item.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_menu_item.php');
-            include_once( JAM_CMS_PATH . '/includes/utils/format_url.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_user.php');
             include_once( JAM_CMS_PATH . '/includes/utils/generate_id.php');
             include_once( JAM_CMS_PATH . '/includes/utils/array_flatten.php');
@@ -81,12 +82,12 @@ if( ! class_exists('JamCMS') ) :
             // Admin
             include_once( JAM_CMS_PATH . '/includes/admin/fix_page_query.php');
             include_once( JAM_CMS_PATH . '/includes/admin/whitelist_apis.php');
-            include_once( JAM_CMS_PATH . '/includes/admin/remove_default_post_type.php');
-            include_once( JAM_CMS_PATH . '/includes/admin/add_image_size.php');
-            include_once( JAM_CMS_PATH . '/includes/admin/decapitate_wordpress.php');
+            include_once( JAM_CMS_PATH . '/includes/admin/settings.php');
+            include_once( JAM_CMS_PATH . '/includes/admin/emails.php');
+
+            // TODO: Creating templates via PHP doesn't work anymore, because WpGraphQL is using 'get_post_templates' instead of 'get_page_templates'
             include_once( JAM_CMS_PATH . '/includes/admin/page_templater.php');
             include_once( JAM_CMS_PATH . '/includes/admin/custom_templates.php');
-            include_once( JAM_CMS_PATH . '/includes/admin/emails.php');
 
             // ACF
             include_once( JAM_CMS_PATH . '/includes/acf/generate_acf_fields_recursively.php');
@@ -108,7 +109,6 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/acf/get_option_group_fields.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_flexible_content_sub_blocks.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_menu_picker_field.php');
-            include_once( JAM_CMS_PATH . '/includes/acf/add_post_type_picker_field.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_google_maps_api_key.php');
             
             // Queries
@@ -121,7 +121,6 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/queries/get_menu_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_user_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_users.php');
-            include_once( JAM_CMS_PATH . '/includes/queries/get_data_by_query.php');
 
             // Mutations
             include_once( JAM_CMS_PATH . '/includes/mutations/update_menu.php');
