@@ -17,12 +17,18 @@ function jam_cms_get_site_by_id($site_id = ''){
     }
   }
 
-  // Get custom taxonomies
-  $taxonomies = get_option('cptui_taxonomies') ? get_option('cptui_taxonomies') : [];
+  // Get generic and custom taxonomies
+  $taxonomies = get_taxonomies([], 'objects');
+  $custom_taxonomies = get_option('cptui_taxonomies') ? get_option('cptui_taxonomies') : [];
+  $all_taxonomies = array_merge($taxonomies, $custom_taxonomies);
 
   $formatted_taxonomies = [];
-  foreach($taxonomies as $taxonomy){
-    array_push($formatted_taxonomies, jam_cms_format_taxonomy($taxonomy));
+  foreach($all_taxonomies as $taxonomy){
+    $taxonomy = (object) $taxonomy;
+
+    if ($taxonomy->publicly_queryable && $taxonomy->name != 'post_format') {
+        array_push($formatted_taxonomies, jam_cms_format_taxonomy($taxonomy));
+    }
   }
 
   // Get deployment info
