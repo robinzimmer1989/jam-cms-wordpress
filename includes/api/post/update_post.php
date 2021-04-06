@@ -84,7 +84,8 @@ function jam_cms_api_update_post_callback($data) {
     }
 
     if(array_key_exists('template', $parameters)){
-      update_post_meta( $post_id, '_wp_page_template', $parameters['template'] );
+      // Manually created templates are stores as 'tempate-name.php' but jamCMS is reading 'name' only, so we need to format it differently when storing it in the db.
+      update_post_meta( $post_id, '_wp_page_template', "template-{$parameters['template']}.php" );
     }
 
     if(array_key_exists('templateObject', $parameters)){
@@ -93,10 +94,6 @@ function jam_cms_api_update_post_callback($data) {
       if($templateObject){
         jam_cms_create_template($templateObject);
         jam_cms_upsert_acf_template($templateObject, $post_id);
-
-        // TODO: Add ACF settings field to field group
-        $template_key = jam_cms_get_template_key($post_id);
-        update_option("jam_cms_template_{$template_key}_query", $templateObject->query ? $templateObject->query : '');
       }
     }
 
