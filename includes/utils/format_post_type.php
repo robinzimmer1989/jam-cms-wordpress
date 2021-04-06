@@ -22,8 +22,9 @@ function jam_cms_format_post_type($post_type) {
     'id'          => $post_type->name,
     'slug'        => property_exists($post_type, 'rewrite_slug') ? $post_type->rewrite_slug : '',
     'title'       => $post_type->label,
+    'editable'    => $post_type->name != 'page' && $post_type->name != 'post',
     'posts'       => [
-    'items'       => $formatted_posts
+      'items'       => $formatted_posts,
     ],
   ];
 
