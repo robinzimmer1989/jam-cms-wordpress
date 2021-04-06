@@ -50,7 +50,11 @@ function jam_cms_api_create_post_type_callback($data) {
             'rewrite_slug'          => $slug ? $slug : '/',
             'supports'              => ['title', 'thumbnail'],
             'taxonomies'            => [],
-            'query_var'             => true
+            'query_var'             => true,
+            'show_in_graphql'       => true,
+            'graphql_single_name'   => "{$title}",
+            'graphql_plural_name'   => "{$title}Multiple",
+
         ];
 
         update_option('cptui_post_types', $post_types);
