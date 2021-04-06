@@ -27,9 +27,9 @@ function jam_cms_get_post_by_id($post_id){
     }
 
     $formatted_post['seo'] = [
-      'title'       => $seo_title ? $seo_title[0] : '',
-      'description' => $seo_description ? $seo_description[0] : '',
-      'ogImage'     => $formatted_seo_og_image
+      'title'           => $seo_title ? $seo_title[0] : '',
+      'metaDesc'        => $seo_description ? $seo_description[0] : '',
+      'opengraphImage'  => $formatted_seo_og_image
     ];
 
     // Add revisions

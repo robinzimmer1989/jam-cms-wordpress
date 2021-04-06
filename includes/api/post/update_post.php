@@ -60,16 +60,16 @@ function jam_cms_api_update_post_callback($data) {
           update_post_meta($post_id, '_yoast_wpseo_title', $seo->title);
         }
 
-        if(property_exists($seo, 'description')){
-          update_post_meta($post_id, '_yoast_wpseo_metadesc', $seo->description);
+        if(property_exists($seo, 'metaDesc')){
+          update_post_meta($post_id, '_yoast_wpseo_metadesc', $seo->metaDesc);
         }
 
-        if(property_exists($seo, 'ogImage')){
+        if(property_exists($seo, 'opengraphImage')){
          
-          $url = $seo->ogImage && property_exists($seo->ogImage, 'url') ? $seo->ogImage->url : '';
+          $url = $seo->opengraphImage && property_exists($seo->opengraphImage, 'url') ? $seo->opengraphImage->url : '';
           update_post_meta($post_id, '_yoast_wpseo_opengraph-image', $url);
 
-          $id = $seo->ogImage && property_exists($seo->ogImage, 'id') ? $seo->ogImage->id : '';
+          $id = $seo->opengraphImage && property_exists($seo->opengraphImage, 'id') ? $seo->opengraphImage->id : '';
           update_post_meta($post_id, '_yoast_wpseo_opengraph-image-id', strval($id));
         }
       }      
