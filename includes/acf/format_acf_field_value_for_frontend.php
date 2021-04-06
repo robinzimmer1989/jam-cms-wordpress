@@ -13,7 +13,7 @@
  * @return any $value The formatted value
  */
 
-function jam_cms_format_acf_field_value_for_frontend($field, $value, $mode = 'dev'){
+function jam_cms_format_acf_field_value_for_frontend($field, $value){
   $field = (object) $field;
 
   if(!property_exists($field, 'type')){
@@ -30,25 +30,6 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value, $mode = 'de
     }
 
     $value = jam_cms_get_menu_by_id($value);
-
-  }elseif($type == 'collection'){
-
-    if($mode == 'build'){
-      $post_type_name = $value;
-
-      $posts = get_posts(array(
-        'numberposts' => -1,
-        'post_type' => $post_type_name,
-        'post_status' => ['publish']
-      ));
-    
-      $formatted_posts = [];
-      foreach($posts as $post){
-        array_push($formatted_posts, jam_cms_format_post($post, $mode));
-      }
-
-      $value = $formatted_posts;
-    }
 
   }elseif($type == 'link'){
 
@@ -78,7 +59,7 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value, $mode = 'de
       $j = 0;
       foreach($repeater_item as $key => $repeater_item_value){
         $sub_field = $field->sub_fields[$j];
-        $value[$i][$key] = jam_cms_format_acf_field_value_for_frontend($sub_field, $repeater_item_value, $mode);
+        $value[$i][$key] = jam_cms_format_acf_field_value_for_frontend($sub_field, $repeater_item_value);
         $j++;
       }
 
@@ -87,14 +68,14 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value, $mode = 'de
 
   }elseif($type == 'flexible_content'){
 
-    $value = jam_cms_get_flexible_content_sub_blocks($field, $value, $mode);
+    $value = jam_cms_get_flexible_content_sub_blocks($field, $value);
 
   }elseif($type == 'group'){
 
     // Loop through group sub fields and transform values recursively
     foreach($field->sub_fields as $group_item){
       $key = $group_item['name'];
-      $value[$key] = jam_cms_format_acf_field_value_for_frontend($group_item, $value[$key], $mode);
+      $value[$key] = jam_cms_format_acf_field_value_for_frontend($group_item, $value[$key]);
     }
 
   }elseif($type == 'application'){
@@ -157,13 +138,39 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value, $mode = 'de
 
       array_push($src_set, $value['url'] . ' ' . $value['width'] . 'w');
 
-      $value['childImageSharp'] = [
+      $base64 = 'data:image/jpg;base64,'. base64_encode(file_get_contents($value['sizes']['tiny']));
+
+      $value['localFile']['childImageSharp'] = [
+        // gatsby-image
         'fluid' => [
           'aspectRatio' => $value['height'] / $value['width'],
-          'base64'      => 'data:image/jpg;base64,'. base64_encode(file_get_contents($value['sizes']['tiny'])),
-          'sizes'       => '(max-width: '. $value['width'] .'px) 100vw, '. $value['width'] .'px',
+          'base64'      => $base64,
+          'sizes'       => "(max-width: {$value['width']}px) 100vw, {$value['width']}px",
           'src'         => $value['url'],
           'srcSet'      => implode(',',$src_set)
+        ],
+        // gatsby-plugin-image
+        'gatsbyImageData' => [
+          'height'        => $value['height'],
+          'width'         => $value['width'],
+          'layout'        => 'constrained',
+          'placeholder'   => [
+            'fallback'    => $base64
+          ],
+          'images'        => [
+            'fallback'    => [
+              'sizes'     => "(min-width: {$value['width']}px) {$value['width']}px, 100vw",
+              'src'       => $value['url'],
+              'srcSet'    => implode(',',$src_set),
+            ],
+            'sources'     => [
+              0           => [
+                'sizes'   => "(min-width: {$value['width']}px) {$value['width']}px, 100vw",
+                'srcSet'  => implode(',',$src_set),
+                'type'    => "image/webp"
+              ]
+            ]
+          ]  
         ]
       ];
 
