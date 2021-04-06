@@ -1,5 +1,8 @@
 <?php
 
+// TODO: Add option for this in backend
+
+add_filter('register_post_type_args', 'jam_cms_remove_default_post_type', 0, 2);
 function jam_cms_remove_default_post_type($args, $postType) {
   if ($postType === 'post') {
       $args['public']                = false;
@@ -12,10 +15,10 @@ function jam_cms_remove_default_post_type($args, $postType) {
       $args['exclude_from_search']   = true;
       $args['publicly_queryable']    = false;
       $args['show_in_rest']          = false;
+      $args['show_in_graphql']       = false;
   }
 
   return $args;
 }
-add_filter('register_post_type_args', 'jam_cms_remove_default_post_type', 0, 2);
 
 ?>
