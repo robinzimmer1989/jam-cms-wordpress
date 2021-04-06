@@ -43,11 +43,12 @@ function jam_cms_upsert_acf_template($template, $post_id){
   ]];
 
   if($template->postTypeID == 'page'){
-    array_push($locations, [
-      'param'     => "{$template->postTypeID}_template",
-      'operator'  => '==',
-      'value'     => $template->id,
-    ]);
+    // TODO: This is not possible at the moment due to a WpGraphQL restriction
+    // array_push($locations, [
+    //   'param'     => "{$template->postTypeID}_template",
+    //   'operator'  => '==',
+    //   'value'     => $template->id,
+    // ]);
   }
 
   // Create field group
@@ -72,10 +73,11 @@ function jam_cms_upsert_acf_template($template, $post_id){
       4 => 'slug',
       5 => 'author',
       6 => 'format',
-      7 => 'categories',
       8 => 'tags',
       9 => 'send-trackbacks'
-    ]
+    ],
+    'show_in_graphql'       => true,
+    'graphql_field_name'    => 'acf'
   ];
 
   acf_import_field_group($field_group);
