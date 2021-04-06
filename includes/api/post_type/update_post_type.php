@@ -26,9 +26,11 @@ function jam_cms_api_update_post_type_callback($data) {
 
       if($post_types){
 
-          $post_types[$post_type_name]['label']           = $title;
-          $post_types[$post_type_name]['singular_label']  = $title;
-          $post_types[$post_type_name]['rewrite_slug']    = $slug ? $slug : '/';
+          $post_types[$post_type_name]['label']                = $title;
+          $post_types[$post_type_name]['singular_label']       = $title;
+          $post_types[$post_type_name]['rewrite_slug']         = $slug ? $slug : '/';
+          $post_types[$post_type_name]['graphql_single_name']  = "{$title}";
+          $post_types[$post_type_name]['graphql_plural_name']  = "{$title}Multiple";
 
           update_option('cptui_post_types', $post_types);   
       }
