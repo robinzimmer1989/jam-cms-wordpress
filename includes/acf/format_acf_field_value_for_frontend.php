@@ -140,6 +140,8 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
 
       $base64 = 'data:image/jpg;base64,'. base64_encode(file_get_contents($value['sizes']['tiny']));
 
+      $value['sourceUrl'] = $value['url'];
+
       $value['localFile']['childImageSharp'] = [
         // gatsby-image
         'fluid' => [
