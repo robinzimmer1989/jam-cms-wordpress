@@ -4,19 +4,10 @@
 
 class PageTemplater {
 
-	/**
-	 * A reference to an instance of this class.
-	 */
 	private static $instance;
 
-	/**
-	 * The array of templates that this plugin tracks.
-	 */
 	protected $templates;
 
-	/**
-	 * Returns an instance of this class. 
-	 */
 	public static function get_instance() {
 
 		if ( null == self::$instance ) {
@@ -24,34 +15,16 @@ class PageTemplater {
 		} 
 
 		return self::$instance;
-
 	} 
 
-	/**
-	 * Initializes the plugin by setting filters and administration functions.
-	 */
+
 	private function __construct() {
 
 		$this->templates = array();
 
-
-		// Add a filter to the attributes metabox to inject template into the cache.
-		if ( version_compare( floatval( get_bloginfo( 'version' ) ), '4.7', '<' ) ) {
-
-			// 4.6 and older
-			add_filter(
-				'page_attributes_dropdown_pages_args',
-				array( $this, 'register_project_templates' )
-			);
-
-		} else {
-
-			// Add a filter to the wp 4.7 version attributes metabox
-			add_filter(
-				'theme_page_templates', array( $this, 'add_new_template' )
-			);
-
-		}
+		add_filter(
+			'theme_page_templates', array( $this, 'add_new_template' )
+		);
 
 		// Add a filter to the save post to inject out template into the page cache
 		add_filter(
@@ -92,11 +65,12 @@ class PageTemplater {
 	public function register_project_templates( $atts ) {
 
 		// Create the key used for the themes cache
-		$cache_key = 'page_templates-' . md5( get_theme_root() . '/' . get_stylesheet() );
+		$cache_key = 'post_templates-' . md5( get_theme_root() . '/' . get_stylesheet() );
 
 		// Retrieve the cache list. 
 		// If it doesn't exist, or it's empty prepare an array
-		$templates = wp_get_theme()->get_page_templates();
+		$templates = wp_get_theme()->get_post_templates();
+
 		if ( empty( $templates ) ) {
 			$templates = array();
 		} 
@@ -151,7 +125,7 @@ class PageTemplater {
 	}
 
 	public function acf_page_templates_rules_values( $choices ) {
-		$templates = wp_get_theme()->get_page_templates();
+		$templates = wp_get_theme()->get_post_templates();
 		if ( empty( $templates ) ) {
 			$templates = array();
 		}
