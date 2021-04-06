@@ -12,12 +12,35 @@ function jam_cms_format_taxonomy($taxonomy){
     array_push($formatted_terms, jam_cms_format_term($term));
   }
 
+  if(property_exists($taxonomy, 'rewrite_slug')){ // CPTUI
+    $slug = $taxonomy->rewrite_slug;
+
+  }elseif(property_exists($taxonomy, 'rewrite')){ // WP Default
+    $slug = $taxonomy->rewrite['slug'];
+
+  }else{
+    $slug = '/';
+  }
+
+  if(property_exists($taxonomy, 'object_types')){ // CPTUI
+   $postTypes = $taxonomy->object_types;
+
+  }elseif(property_exists($taxonomy, 'object_type')){ // WP Default
+   $postTypes = $taxonomy->object_type;
+
+  }else{
+   $postTypes = [];
+  }
+
   $formatted_taxonomy = (object) [
-    'id'         => $taxonomy->name,
-    'title'      => $taxonomy->label,
-    'slug'       => property_exists($taxonomy, 'rewrite_slug') ? $taxonomy->rewrite_slug : '',
-    'postTypes'  => $taxonomy->object_types,
-    'terms'      => $formatted_terms
+    'id'                => $taxonomy->name,
+    'title'             => $taxonomy->label,
+    'slug'              => $slug,
+    'postTypes'         => $postTypes,
+    'terms'             => $formatted_terms,
+    'graphqlSingleName' => $taxonomy->graphql_single_name,
+    'graphqlPluralName' => $taxonomy->graphql_plural_name,
+    'editable'          => $taxonomy->name != 'category' && $taxonomy->name != 'post_tag',
   ];
 
   return $formatted_taxonomy;
