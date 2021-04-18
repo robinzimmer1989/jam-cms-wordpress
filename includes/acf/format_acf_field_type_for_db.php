@@ -38,7 +38,8 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
     $field->type == 'date_picker' ||
     $field->type == 'group' ||
     $field->type == 'gallery' ||
-    $field->type == 'google_map'
+    $field->type == 'google_map' ||
+    $field->type == 'color_picker'
   ){
     $args['type'] = $field->type;
 
