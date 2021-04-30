@@ -6,7 +6,7 @@ function jam_cms_api_get_media_items() {
         'methods' => 'POST',
         'callback' => 'jam_cms_api_get_media_items_callback',
         'permission_callback' => function () {
-            return current_user_can( 'read' );
+            return current_user_can( 'edit_posts' );
         }
     ));
 }
