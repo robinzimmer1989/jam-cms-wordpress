@@ -27,8 +27,8 @@ function jam_cms_check_for_missing_plugins(){
     array_push($missing_plugins, 'Custom Post Type UI');
   }
 
-  if(!in_array('jwt-auth/jwt-auth.php', $active_plugins)){
-    array_push($missing_plugins, 'JWT Auth');
+  if(!in_array('wp-graphql-jwt-authentication-0.4.1/wp-graphql-jwt-authentication.php', $active_plugins)){
+    array_push($missing_plugins, 'WPGraphQL JWT Authentication');
   }
 
   if(!in_array('wordpress-seo/wp-seo.php', $active_plugins)){
