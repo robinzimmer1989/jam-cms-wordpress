@@ -138,7 +138,12 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
 
       array_push($src_set, $value['url'] . ' ' . $value['width'] . 'w');
 
-      $base64 = 'data:image/jpg;base64,'. base64_encode(file_get_contents($value['sizes']['tiny']));
+
+      $base64 = base64_encode(file_get_contents($value['sizes']['tiny']));
+      
+      if($base64){
+        $base64 = 'data:image/jpg;base64,'. $base64;
+      }
 
       $value['sourceUrl'] = $value['url'];
 
