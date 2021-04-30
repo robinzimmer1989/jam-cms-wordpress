@@ -1,6 +1,6 @@
 <?php
 
-function jam_cms_get_site_by_id($site_id = ''){
+function jam_cms_get_site_by_id($site_id = 'default'){
 
   // Get generic and custom post types
   $post_types = get_post_types([], 'objects');
@@ -60,7 +60,7 @@ function jam_cms_get_site_by_id($site_id = ''){
   $site_url = get_option('site_url');
 
   $data = array(
-    'id'                    => $site_id ? $site_id : 'default',
+    'id'                    => $site_id,
     'title'                 => get_bloginfo('name'),
     'siteUrl'               => $site_url ? $site_url : '',
     'googleMapsApi'         => $google_maps_api_key ? $google_maps_api_key : '',

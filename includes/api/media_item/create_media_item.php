@@ -11,12 +11,14 @@ function jam_cms_api_create_media_item() {
     ));
 }
 
-function jam_cms_api_create_media_item_callback($parameters) {
+function jam_cms_api_create_media_item_callback($data) {
+    $parameters = $data->get_params();
+
     jam_cms_api_base_check($parameters);
 
-    $site_id    = $parameters->get_param('siteID');
-    $files      = $parameters->get_file_params();
-    $headers    = $parameters->get_headers();
+    $site_id    = $parameters['siteID'];
+    $files      = $data->get_file_params();
+    $headers    = $data->get_headers();
 
     if ( empty( $files ) ) {
         return new WP_Error( 'rest_upload_no_data', __( 'No data supplied' ), array( 'status' => 400 ) );

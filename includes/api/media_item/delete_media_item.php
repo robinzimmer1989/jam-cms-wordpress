@@ -19,8 +19,6 @@ function jam_cms_api_delete_media_item_callback($data) {
     $site_id        = $parameters['siteID'];
     $attachment_id  = $parameters['id'];
 
-    jam_cms_api_base_check($site_id, [$attachment_id]);
-
     wp_delete_attachment($attachment_id, true);
 
     return $attachment_id;

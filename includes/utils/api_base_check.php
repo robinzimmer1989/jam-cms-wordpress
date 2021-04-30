@@ -10,13 +10,15 @@ function jam_cms_api_base_check($parameters, $required_args = []){
 
     $site_id = $parameters['siteID'];
 
-    $site = get_blog_details($site_id);
+    if($site_id != 'default'){
+      $site = get_blog_details($site_id);
 
-    if(!$site){
-      return new WP_Error( 'invalid_site_id', __('Invalid site ID'), array( 'status' => 400 ) );
+      if(!$site){
+        return new WP_Error( 'invalid_site_id', __('Invalid site ID'), array( 'status' => 400 ) );
+      }
+
+      switch_to_blog($site->blog_id);
     }
-
-    switch_to_blog($site->blog_id);
   }
 
   foreach($required_args as $arg){

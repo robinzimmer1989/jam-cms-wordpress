@@ -40,8 +40,6 @@ function jam_cms_api_create_site_callback($data) {
     $api_key = wp_generate_uuid4();
     update_option('deployment_api_key', $api_key);
 
-    jam_cms_api_base_check($site_id);
-
     $data = jam_cms_get_site_by_id($site_id);
 
     return $data;
