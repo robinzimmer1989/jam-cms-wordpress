@@ -26,7 +26,6 @@ function jam_cms_upsert_acf_template($template, $post_id){
     }
   }
 
-
   $field_group_key = 'group_' . $template_key;
   $field_group_id  = jam_cms_get_acf_field_id('acf-field-group', $field_group_key);
 
@@ -35,20 +34,62 @@ function jam_cms_upsert_acf_template($template, $post_id){
   }else {
     $field_group_label = $template->id;
   }
+  
+  // initialize default GraphQL type variables for WPGraphQL ACF plugin version 0.5
+  $graphql_types = [];
+  $map_graphql_types = true;
 
-  $locations = [[
-    'param'     => 'post_type',
-    'operator'  => '==',
-    'value'     => $template->postTypeID,
-  ]];
+  // Generate capitalized template name
+  $template_name = ucfirst($template->postTypeID);
 
-  if($template->postTypeID == 'page'){
-    // TODO: This is not possible at the moment due to a WpGraphQL restriction
-    // array_push($locations, [
-    //   'param'     => "{$template->postTypeID}_template",
-    //   'operator'  => '==',
-    //   'value'     => $template->id,
-    // ]);
+  if($template->id == 'archive'){
+
+    // Archive pages always belong to the post type page
+    $locations = [[
+      'param'     => 'post_type',
+      'operator'  => '==',
+      'value'     => 'page',
+    ]];
+
+    // The postTypeID is the indicator for the template id
+    array_push($locations, [
+      'param'     => "page_template",
+      'operator'  => '==',
+      'value'     => "template-archive-{$template->postTypeID}.php"
+    ]);
+
+    // The template name follow the structure Template_ArchivePost
+    $graphql_types[] = "Template_Archive{$template_name}";
+  
+  }else{
+    // Assign template to post type
+    $locations = [[
+      'param'     => 'post_type',
+      'operator'  => '==',
+      'value'     => $template->postTypeID,
+    ]];
+
+    // At the moment the only post type support for templates is 'page'
+    if($template->postTypeID == 'page'){
+      // If template is page, we need to assign the template to a specific template
+      // This only works for pages at the moment
+      array_push($locations, [
+        'param'     => "page_template",
+        'operator'  => '==',
+        'value'     => $template->id,
+      ]);
+
+      if($template->id == 'default'){
+        // The template name for the default page template is set to 'DefaultTemplate'
+        $graphql_types[] = 'DefaultTemplate';
+      }else{
+        // The template name follows the structure 'Template_[Sidebar]'
+        $graphql_types[] = "Template_Archive{$template_name}";
+      }
+    }else{
+      // Deactivate graphql types for all post types without multiple templates
+      $map_graphql_types = false;
+    }
   }
 
   // Create field group
@@ -76,8 +117,10 @@ function jam_cms_upsert_acf_template($template, $post_id){
       8 => 'tags',
       9 => 'send-trackbacks'
     ],
-    'show_in_graphql'       => true,
-    'graphql_field_name'    => 'acf'
+    'show_in_graphql'                       => true,
+    'graphql_field_name'                    => 'acf',
+    'map_graphql_types_from_location_rules' => $map_graphql_types,
+    'graphql_types'                         => $graphql_types,
   ];
 
   acf_import_field_group($field_group);
