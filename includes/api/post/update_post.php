@@ -14,7 +14,7 @@ function jam_cms_api_update_post() {
 function jam_cms_api_update_post_callback($data) {
     $parameters = $data->get_params();
 
-    jam_cms_api_base_check($parameters, ['id']);
+    jam_cms_api_base_check($parameters, ['id', 'postTypeID']);
 
     $site_id    = $parameters['siteID'];
     $post_id    = $parameters['id'];
@@ -84,8 +84,29 @@ function jam_cms_api_update_post_callback($data) {
     }
 
     if(array_key_exists('template', $parameters)){
-      // Manually created templates are stores as 'tempate-name.php' but jamCMS is reading 'name' only, so we need to format it differently when storing it in the db.
-      update_post_meta( $post_id, '_wp_page_template', "template-{$parameters['template']}.php" );
+      
+      // initialize template key. 
+      // Unfortunatley we need to distinguish different use cases for inbuilt temlates and custom ones.
+      $template_key = '';
+
+      if($parameters['template'] == 'archive'){
+        // The archive template is associated with the template name (always archive) and the post type ID
+        $template_key = "template-archive-{$parameters['postTypeID']}.php";
+
+      }else{
+
+        if($parameters['postTypeID'] == 'page' && $parameters['template'] == 'default'){
+          // The default page template is simply stored as 'default'
+          $template_key = 'default';
+
+        }else{
+          // Manually created templates as well as the inbuilt post template are stores as 'tempate-[name].php'
+          $template_key = "template-{$parameters['template']}.php";
+        }
+
+      }
+
+      update_post_meta( $post_id, '_wp_page_template', $template_key );
     }
 
     if(array_key_exists('templateObject', $parameters)){
