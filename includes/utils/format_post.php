@@ -54,6 +54,7 @@ function jam_cms_format_post($post) {
     'taxonomies'      => $formatted_taxonomies,
     'order'           => $post->menu_order,
     'createdAt'       => $post->post_date,
+    'updatedAt'       => get_the_modified_time('Y-m-d H:m:s', $post)
   ];
 
   return $formatted_post;
