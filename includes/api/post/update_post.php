@@ -19,6 +19,8 @@ function jam_cms_api_update_post_callback($data) {
     $site_id    = $parameters['siteID'];
     $post_id    = $parameters['id'];
 
+    jam_cms_create_revision($post_id); 
+
     $post_data = array(
       'ID' => $post_id
     );
@@ -50,7 +52,8 @@ function jam_cms_api_update_post_callback($data) {
       }
     }
 
-    wp_update_post($post_data);
+    // Update post but prevent hooks to be fired (to avoid empty revisions)
+    wp_update_post($post_data, false, false);
 
     if(array_key_exists('seo', $parameters)){
       $seo = $parameters['seo'] ? json_decode($parameters['seo']) : null;

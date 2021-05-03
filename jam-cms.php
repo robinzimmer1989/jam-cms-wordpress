@@ -78,6 +78,8 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/get_template_key.php');
             include_once( JAM_CMS_PATH . '/includes/utils/create_template.php');
             include_once( JAM_CMS_PATH . '/includes/utils/generate_slug_by_id.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/duplicate_post.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/create_revision.php');
 
             // Admin
             include_once( JAM_CMS_PATH . '/includes/admin/fix_page_query.php');

@@ -5,20 +5,38 @@ function jam_cms_get_post_by_id($post_id){
   $post = get_post($post_id);
 
   if($post){
-    $formatted_post = jam_cms_format_post($post); 
-
+    
     // Add post content
     $fields = get_fields($post_id);
+
+    // If the post is a revision, we have to override postID and post object with the post parent of the revision.
+    // This is because content and title are the only things that are tracked by the WP revisions functions. 
+    // For everything else we gonna use the original post.
+    $revision = null;
+    if($post->post_type == 'revision'){
+      $revision = $post;
+      $post_id = $post->post_parent;
+      $post = get_post($post_id);
+    }
+
+    $formatted_post = jam_cms_format_post($post);
+
+    // Override title and modify date if post is revision
+    if($revision){
+      $formatted_post['title'] = $revision->post_title;
+      $formatted_post['updatedAt'] = $revision->post_date;
+      $formatted_post['revisionID'] = $revision->ID;
+    }
 
     if($fields){
       $formatted_post['content'] = jam_cms_format_fields($fields, $post_id);
     }
 
     // Add SEO
-    $seo_title = get_post_meta($post->ID, '_yoast_wpseo_title');
-    $seo_description = get_post_meta($post->ID, '_yoast_wpseo_metadesc');
+    $seo_title = get_post_meta($post_id, '_yoast_wpseo_title');
+    $seo_description = get_post_meta($post_id, '_yoast_wpseo_metadesc');
     
-    $seo_og_image_id = get_post_meta($post->ID, '_yoast_wpseo_opengraph-image-id');
+    $seo_og_image_id = get_post_meta($post_id, '_yoast_wpseo_opengraph-image-id');
     $formatted_seo_og_image = null;
 
     if($seo_og_image_id && count($seo_og_image_id) > 0){
