@@ -45,6 +45,10 @@ function jam_cms_get_site_by_id($site_id = 'default'){
   }
 
   $last_build = get_option('jam_cms_last_build');
+
+  // Get site created at date based on date of super user (Format: 2021-04-28 00:12:46)
+  $created_at = get_user_option('user_registered', 1);
+  
   $undeployed_changes = get_option('jam_cms_undeployed_changes');
 
   $deployment_api_key = '';
@@ -63,10 +67,11 @@ function jam_cms_get_site_by_id($site_id = 'default'){
     'id'                    => $site_id,
     'title'                 => get_bloginfo('name'),
     'siteUrl'               => $site_url ? $site_url : '',
+    'createdAt'             => $created_at,
     'googleMapsApi'         => $google_maps_api_key ? $google_maps_api_key : '',
     'frontPage'             => intval(get_option( 'page_on_front' )),
     'apiKey'                => $deployment_api_key ? $deployment_api_key : '',
-    'deployment'            => [
+    'deployment' => [
       'lastBuild'           => $last_build,
       'undeployedChanges'   => boolval($undeployed_changes),
       'buildHook'           => $deployment_build_hook,
