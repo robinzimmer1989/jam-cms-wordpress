@@ -86,6 +86,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/admin/whitelist_apis.php');
             include_once( JAM_CMS_PATH . '/includes/admin/settings.php');
             include_once( JAM_CMS_PATH . '/includes/admin/emails.php');
+            include_once( JAM_CMS_PATH . '/includes/admin/settings_page.php');
 
             // TODO: Creating templates via PHP doesn't work anymore, because WpGraphQL is using 'get_post_templates' instead of 'get_page_templates'
             include_once( JAM_CMS_PATH . '/includes/admin/page_templater.php');
