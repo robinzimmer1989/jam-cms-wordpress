@@ -168,6 +168,8 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/user/get_users.php');
             include_once( JAM_CMS_PATH . '/includes/api/user/get_user.php');
             include_once( JAM_CMS_PATH . '/includes/api/user/get_auth_user.php');
+
+            include_once( JAM_CMS_PATH . '/includes/api/sync/sync_fields.php');
             
             // Add actions.
             add_action( 'init', array($this, 'init'), 100 );
