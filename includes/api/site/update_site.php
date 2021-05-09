@@ -33,12 +33,12 @@ function jam_cms_api_update_site_callback($data) {
         }
     }
 
-    if(array_key_exists('globalOptions', $parameters)){
-        $globalOptions = $parameters['globalOptions'];
-        $globalOptions = $globalOptions ? json_decode($globalOptions) : [];
+    if(array_key_exists('themeOptions', $parameters)){
+        $theme_options = $parameters['themeOptions'];
+        $theme_options = $theme_options ? json_decode($theme_options) : [];
 
-        jam_cms_upsert_acf_template_options($globalOptions);
-        jam_cms_update_acf_fields_options($globalOptions);
+        jam_cms_upsert_acf_template_options($theme_options);
+        jam_cms_update_acf_fields_options($theme_options);
     }
     
     if(current_user_can( 'manage_options' )){

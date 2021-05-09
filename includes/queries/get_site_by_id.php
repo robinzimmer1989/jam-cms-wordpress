@@ -73,7 +73,7 @@ function jam_cms_get_site_by_id($site_id = 'default'){
       'badgeImage'          => $deployment_badge_image,
       'badgeLink'           => $deployment_badge_link,      
     ],
-    'globalOptions'         => jam_cms_get_option_group_fields(),
+    'themeOptions'         => jam_cms_get_option_group_fields(),
     'postTypes' => [
       'items'               => $formatted_post_types
     ],
