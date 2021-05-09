@@ -1,8 +1,18 @@
 <?php
 
-function jam_cms_upsert_acf_template($template, $post_id){
+function jam_cms_upsert_acf_template($template){
 
-  $template_key = jam_cms_get_template_key($post_id);
+  $template_key = '';
+
+  if(property_exists($template, 'postTypeID') && property_exists($template, 'id')){
+
+      if($template->id == 'archive'){
+          $template_key = "page-archive-{$template->postTypeID}";
+
+      }else{
+          $template_key = "{$template->postTypeID}-{$template->id}";
+      }
+  }
 
   // Loop through fields and create ACF subfields
   $fields = [];
@@ -10,11 +20,13 @@ function jam_cms_upsert_acf_template($template, $post_id){
     $field = (object) $field;
 
     $field_key = "field_{$field->id}_group_{$template_key}";
+
+    $label = property_exists($field, 'label') ? $field->label : $field->id;
     
     $base_args = [
       'key'   => $field_key,
       'name'  => $field->id,
-      'label' => property_exists($field, 'label') ? $field->label : $field->id
+      'label' => htmlspecialchars($label)
     ];
 
     // Convert JS to ACF type arguments and prevent non supported field types from being added
@@ -30,9 +42,9 @@ function jam_cms_upsert_acf_template($template, $post_id){
   $field_group_id  = jam_cms_get_acf_field_id('acf-field-group', $field_group_key);
 
   if(property_exists($template, 'label')){
-    $field_group_label = $template->label;
+    $field_group_title = $template->label;
   }else {
-    $field_group_label = $template->id;
+    $field_group_title = $template->id;
   }
   
   // initialize default GraphQL type variables for WPGraphQL ACF plugin version 0.5
@@ -96,7 +108,7 @@ function jam_cms_upsert_acf_template($template, $post_id){
   $field_group = [
     'ID'                    => $field_group_id ? $field_group_id : 0,
     'key'                   => $field_group_key,
-    'title'                 => $field_group_label,
+    'title'                 => $field_group_title,
     'fields'                => $fields,
     'location'              => [$locations],
     'active'                => true,

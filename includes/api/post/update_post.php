@@ -117,7 +117,7 @@ function jam_cms_api_update_post_callback($data) {
 
       if($templateObject){
         jam_cms_create_template($templateObject);
-        jam_cms_upsert_acf_template($templateObject, $post_id);
+        jam_cms_upsert_acf_template($templateObject);
       }
     }
 
