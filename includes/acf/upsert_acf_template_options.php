@@ -10,11 +10,13 @@ function jam_cms_upsert_acf_template_options($fields){
     $field = (object) $field;
 
     $field_key = "field_{$field->id}_group_{$template_key}";
+
+    $label = property_exists($field, 'label') ? $field->label : $field->id;
     
     $base_args = [
       'key'   => $field_key,
       'name'  => $field->id,
-      'label' => property_exists($field, 'label') ? $field->label : $field->id
+      'label' => htmlspecialchars($label)
     ];
 
     // Convert JS to ACF type arguments and prevent non supported field types from being added

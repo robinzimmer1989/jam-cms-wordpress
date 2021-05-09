@@ -15,7 +15,7 @@ function jam_cms_get_flexible_content_items_recursively($field){
       $base_args = [
         'id'    => $sub_field->name,
         'type'  => $sub_field->type,
-        'label' => $sub_field->label
+        'label' => htmlspecialchars($sub_field->label)
       ];
       
       $type_args = jam_cms_format_acf_field_type_for_frontend($sub_field, $sub_field->key);
@@ -27,7 +27,7 @@ function jam_cms_get_flexible_content_items_recursively($field){
 
     $item = [
       'id'      => $layout->name,
-      'label'   => $layout->label,
+      'label'   => htmlspecialchars($layout->label),
       'fields'  => $fields
     ];
 

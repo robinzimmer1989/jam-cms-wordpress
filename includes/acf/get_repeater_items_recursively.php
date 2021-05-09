@@ -31,7 +31,7 @@ function jam_cms_get_repeater_items_recursively($field){
     $base_args = [
       'id'    => $sub_field->name,
       'type'  => $sub_field->type,
-      'label' => $sub_field->label
+      'label' => htmlspecialchars($sub_field->label)
     ];
     
     $type_args = jam_cms_format_acf_field_type_for_frontend($sub_field, $sub_field->key);

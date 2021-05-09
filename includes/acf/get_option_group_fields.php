@@ -30,10 +30,12 @@ function jam_cms_get_option_group_fields(){
       // We need to remove the module name in the title
       $field_key = $field['name'];
 
+      $label = $field['label'] ? $field['label'] : $field['name'];
+
       $base_args = [
         'id'      => $field_key,
         'type'    => $field['type'],
-        'label'   => $field['label'] ? $field['label'] : $field['name'],
+        'label'   => htmlspecialchars($label),
         'value'   => jam_cms_format_acf_field_value_for_frontend($field, $value),
       ];
 

@@ -108,7 +108,7 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
 
         $args['layouts']["layout_" . $layout->id] = [
           "key"     => "layout_" . $layout->id . '_' . $field_key,
-          "label"   => $layout->label,
+          "label"   => htmlspecialchars($layout->label),
           "name"    => $layout->id,
           "display" => "block",
           'sub_fields'  => $sub_fields

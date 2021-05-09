@@ -19,13 +19,15 @@ function jam_cms_generate_sub_fields_recursively($items, $field_key){
   foreach($items as $sub_field){
     $sub_field_key = 'field_' . $sub_field->id . '_' . $field_key;
 
+    $label = property_exists($sub_field, 'label') ? $sub_field->label : $sub_field->id;
+
     $base_args = [
       'key'   => $sub_field_key,
       'name'  => $sub_field->id,
-      'label' => property_exists($sub_field, 'label') ? $sub_field->label : $sub_field->id,
+      'label' => htmlspecialchars($label)
     ];
 
-    if(property_exists($sub_field, 'items')){
+    if(property_exists($sub_field, 'items') && $sub_field->type != 'flexible_content'){
       $sub_sub_fields = jam_cms_generate_sub_fields_recursively($sub_field->items, $sub_field_key);
       $base_args['sub_fields'] = $sub_sub_fields;
     }
