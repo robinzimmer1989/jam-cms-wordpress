@@ -2,7 +2,11 @@
 
 function jam_cms_api_base_check($parameters, $required_args = []){
 
-  if(array_key_exists('apiKey', $required_args)){
+  if(in_array('apiKey', $required_args)){
+
+    if(!array_key_exists('apiKey', $parameters)) {
+      return new WP_Error( 'rest_missing_api_key', __( 'Api key missing.' ), array( 'status' => 403 ));
+    }
     
     $api_key = $parameters['apiKey'];
 
@@ -44,5 +48,3 @@ function jam_cms_api_base_check($parameters, $required_args = []){
     }
   }
 }
-
-?>
