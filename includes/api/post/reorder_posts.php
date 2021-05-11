@@ -14,7 +14,11 @@ function jam_cms_api_reorder_posts() {
 function jam_cms_api_reorder_posts_callback($data) {
     $parameters   = $data->get_params();
 
-    jam_cms_api_base_check($parameters, ['postIDs']);
+    $check = jam_cms_api_base_check($parameters, ['postIDs']);
+
+    if(is_wp_error($check)){
+        return $check;
+    }
 
     $site_id      = $parameters['siteID'];
     $post_ids     = $parameters['postIDs'];

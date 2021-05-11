@@ -14,7 +14,11 @@ function jam_cms_api_get_post() {
 function jam_cms_api_get_post_callback($data) {
     $parameters = $data->get_params();
 
-    jam_cms_api_base_check($parameters, ['postID']);
+    $check = jam_cms_api_base_check($parameters, ['postID']);
+
+    if(is_wp_error($check)){
+        return $check;
+    }
 
     $site_id    = $parameters['siteID'];
     $post_id    = $parameters['postID'];

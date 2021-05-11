@@ -14,7 +14,11 @@ function jam_cms_api_create_post() {
 function jam_cms_api_create_post_callback($data) {
     $parameters = $data->get_params();
 
-    jam_cms_api_base_check($parameters, ['title', 'postTypeID']);
+    $check = jam_cms_api_base_check($parameters, ['title', 'postTypeID']);
+
+    if(is_wp_error($check)){
+        return $check;
+    }
 
     $site_id    = $parameters['siteID'];
     $title      = $parameters['title'];

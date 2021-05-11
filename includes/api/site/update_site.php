@@ -14,7 +14,11 @@ function jam_cms_api_update_site() {
 function jam_cms_api_update_site_callback($data) {
     $parameters = $data->get_params();
 
-    jam_cms_api_base_check($parameters);
+    $check = jam_cms_api_base_check($parameters);
+
+    if(is_wp_error($check)){
+        return $check;
+    }
 
     if(array_key_exists('id', $parameters)){
         $site_id = $parameters['id'];

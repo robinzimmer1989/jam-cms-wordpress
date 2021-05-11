@@ -14,7 +14,11 @@ function jam_cms_api_sync_fields() {
 function jam_cms_api_sync_fields_callback($data) {
     $parameters = $data->get_params();
 
-    jam_cms_api_base_check($parameters, ['apiKey']);
+    $check = jam_cms_api_base_check($parameters, ['apiKey']);
+
+    if(is_wp_error($check)){
+        return $check;
+    }
 
     if(array_key_exists('fields', $parameters)){
 

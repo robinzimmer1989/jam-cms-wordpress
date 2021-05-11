@@ -14,7 +14,11 @@ function jam_cms_api_update_media_item() {
 function jam_cms_api_update_media_item_callback($data) {
     $parameters     = $data->get_params();
     
-    jam_cms_api_base_check($parameters, ['id']);
+    $check = jam_cms_api_base_check($parameters, ['id']);
+
+    if(is_wp_error($check)){
+        return $check;
+    }
 
     $site_id        = $parameters['siteID'];
     $attachment_id  = $parameters['id'];

@@ -14,7 +14,11 @@ function jam_cms_api_delete_term() {
 function jam_cms_api_delete_term_callback($data) {
     $parameters   = $data->get_params();
 
-    jam_cms_api_base_check($parameters, ['taxonomyID', 'id']);
+    $check = jam_cms_api_base_check($parameters, ['taxonomyID', 'id']);
+
+    if(is_wp_error($check)){
+        return $check;
+    }
 
     $site_id      = $parameters['siteID'];
     $taxonomy_id  = $parameters['taxonomyID'];

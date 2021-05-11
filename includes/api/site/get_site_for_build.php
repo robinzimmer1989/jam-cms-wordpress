@@ -11,7 +11,11 @@ function jam_cms_api_get_site_for_build() {
 function jam_cms_api_get_site_for_build_callback($data) {
     $parameters = $data->get_params();
   
-    jam_cms_api_base_check($parameters, ['apiKey']);
+    $check = jam_cms_api_base_check($parameters, ['apiKey']);
+
+    if(is_wp_error($check)){
+        return $check;
+    }
 
     $site_id = array_key_exists('siteID', $parameters) ? $parameters['siteID'] : 'default';  
     
