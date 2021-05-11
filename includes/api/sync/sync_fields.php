@@ -20,24 +20,54 @@ function jam_cms_api_sync_fields_callback($data) {
 
         $fields = json_decode($parameters['fields']);
 
+        // Delete all ACF field groups
+        global $wpdb;
+
+        $result = $wpdb->query( 
+            $wpdb->prepare("
+                DELETE posts
+                FROM {$wpdb->prefix}posts posts
+                WHERE posts.post_type = %s OR posts.post_type = %s
+                ",
+                "acf-field-group",
+                "acf-field"
+            ) 
+        );
+
+        // Delete all custom post types
+        update_option('cptui_post_types', []);   
+
         if(property_exists($fields, 'postTypes')){
             foreach ($fields->postTypes as $post_type){
-                foreach ($post_type as $template){
+
+                jam_cms_create_post_type($post_type);
+
+                foreach ($post_type->templates as $template){
                     jam_cms_create_template($template);
                     jam_cms_upsert_acf_template($template);
                 }
             }
         }
 
-        if(property_exists($fields, 'themeOptions')){
+        // Delete all custom taxonomies
+        update_option('cptui_taxonomies', []);   
 
-            $theme_options = $fields->themeOptions;
-
-            jam_cms_upsert_acf_template_options($theme_options);
-            jam_cms_update_acf_fields_options($theme_options);
+        if(property_exists($fields, 'taxonomies')){
+            foreach ($fields->taxonomies as $taxonomy){
+                jam_cms_create_taxonomy($taxonomy);
+            }
         }
 
-        return 'jamCMS: Synced ACF fields successfully to WordPress';
+        if(property_exists($fields, 'themeOptions')){
+            jam_cms_upsert_acf_template_options($fields->themeOptions);
+        }
+
+        // Return site if user is logged in, otherwise success message
+        if(is_user_logged_in()){
+            return jam_cms_get_site_by_id();
+        }else{
+            return 'jamCMS: Synced ACF fields successfully to WordPress';
+        }
     }    
 }
 
