@@ -9,7 +9,11 @@ function jam_cms_format_taxonomy($taxonomy){
 
   $formatted_terms = [];
   foreach($terms as $term){
-    array_push($formatted_terms, jam_cms_format_term($term));
+    $formatted_term = jam_cms_format_term($term);
+
+    if($formatted_term){
+      array_push($formatted_terms, $formatted_term);
+    }
   }
 
   if(property_exists($taxonomy, 'rewrite_slug')){ // CPTUI
