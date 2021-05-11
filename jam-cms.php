@@ -80,6 +80,8 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/generate_slug_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/utils/duplicate_post.php');
             include_once( JAM_CMS_PATH . '/includes/utils/create_revision.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/create_post_type.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/create_taxonomy.php');
 
             // Admin
             include_once( JAM_CMS_PATH . '/includes/admin/fix_page_query.php');
@@ -145,14 +147,6 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/post/delete_post.php');
             include_once( JAM_CMS_PATH . '/includes/api/post/duplicate_post.php');
             include_once( JAM_CMS_PATH . '/includes/api/post/reorder_posts.php');
-
-            include_once( JAM_CMS_PATH . '/includes/api/post_type/create_post_type.php');
-            include_once( JAM_CMS_PATH . '/includes/api/post_type/update_post_type.php');
-            include_once( JAM_CMS_PATH . '/includes/api/post_type/delete_post_type.php');
-
-            include_once( JAM_CMS_PATH . '/includes/api/taxonomy/create_taxonomy.php');
-            include_once( JAM_CMS_PATH . '/includes/api/taxonomy/update_taxonomy.php');
-            include_once( JAM_CMS_PATH . '/includes/api/taxonomy/delete_taxonomy.php');
 
             include_once( JAM_CMS_PATH . '/includes/api/term/create_term.php');
             include_once( JAM_CMS_PATH . '/includes/api/term/update_term.php');
