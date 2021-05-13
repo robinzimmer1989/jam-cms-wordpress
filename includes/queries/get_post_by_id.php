@@ -60,6 +60,7 @@ function jam_cms_get_post_by_id($post_id){
       ]);
     }
     $formatted_post['revisions'] = $formatted_revisions;
+    $formatted_post['revisionsEnabled'] = wp_revisions_enabled($post);
 
     return $formatted_post;
   }
