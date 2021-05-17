@@ -41,6 +41,9 @@ function jam_cms_api_sync_fields_callback($data) {
         // Delete all custom post types
         update_option('cptui_post_types', []);   
 
+        // Delete all WordPress templates
+        update_option('jam-cms-templates', []);
+
         if(property_exists($fields, 'postTypes')){
             foreach ($fields->postTypes as $post_type){
 
