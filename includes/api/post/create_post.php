@@ -12,6 +12,9 @@ function jam_cms_api_create_post() {
 }
 
 function jam_cms_api_create_post_callback($data) {
+
+    global $wpdb;
+
     $parameters = $data->get_params();
 
     $check = jam_cms_api_base_check($parameters, ['title', 'postTypeID']);
@@ -37,14 +40,13 @@ function jam_cms_api_create_post_callback($data) {
     $slug = sanitize_title_with_dashes($title);
     $unique_slug = wp_unique_post_slug( $slug, $post_id, '', $post_type, $parent_id );
 
-    wp_update_post([
-      'ID'          => $post_id,
-      'post_name'   => $unique_slug
-    ]);
+    // We're updating the db directly with the unique slug (vs wp_update_post) to avoid an automatic post revision.
+    $wpdb->update( $wpdb->posts, ['post_name' => $unique_slug], ['ID' => $post_id]);
+    
+    // We need to clear the cache here, otherwise the get_post_by_id function will receive an empty post_name field.
+    clean_post_cache( $post_id );
 
     $data = jam_cms_get_post_by_id($post_id);
 
     return $data;
 }
-
-?>

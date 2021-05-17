@@ -1,6 +1,6 @@
 <?php
 
-function jam_cms_create_revision($post_id){
+function jam_cms_create_revision($post_id, $content){
 
   $post = get_post($post_id);
 
@@ -14,7 +14,13 @@ function jam_cms_create_revision($post_id){
       'post_type'   => 'revision'
     ];
 
-    jam_cms_duplicate_post($post_id, $overrides, true);
+    // Get current content of post
+    $fields = get_fields($post_id);
+    $current_content = (object) jam_cms_format_fields($fields, $post_id);
 
+    // Compare curent and new post content and only create revision when they are different
+    if(json_encode($content, true) != json_encode($current_content, true)){
+      jam_cms_duplicate_post($post_id, $overrides, true);
+    }
   }
 }

@@ -1,8 +1,9 @@
 <?php
 
+// https://rudrastyh.com/wordpress/duplicate-post.html
 function jam_cms_duplicate_post($post_id, $overrides = [], $is_revision = false){
-
-  // https://rudrastyh.com/wordpress/duplicate-post.html
+  
+  global $wpdb;
 
   $post = get_post($post_id);
 
@@ -31,17 +32,17 @@ function jam_cms_duplicate_post($post_id, $overrides = [], $is_revision = false)
 
     $new_post_id = wp_insert_post( $args );
 
-
     // Make sure the post_name / slug is unique
     if(!$is_revision){
 
       // Generate unique postname. We need the post id to do that, so we have to split the process into two steps.
       $unique_slug = wp_unique_post_slug( $post->post_name, $new_post_id, '', $post->post_type, $post->post_parent );
 
-      wp_update_post([
-        'ID'          => $new_post_id,
-        'post_name'   => $unique_slug
-      ]);
+      // We're updating the db directly with the unique slug (vs wp_update_post) to avoid an automatic post revision.
+      $wpdb->update( $wpdb->posts, ['post_name' => $unique_slug], ['ID' => $new_post_id]);
+      
+      // We need to clear the cache here, otherwise the get_post_by_id function will receive an empty post_name field.
+      clean_post_cache( $new_post_id );
     }
 
     $taxonomies = get_object_taxonomies($post->post_type);
@@ -49,8 +50,6 @@ function jam_cms_duplicate_post($post_id, $overrides = [], $is_revision = false)
       $post_terms = wp_get_object_terms($post_id, $taxonomy, array('fields' => 'slugs'));
       wp_set_object_terms($new_post_id, $post_terms, $taxonomy, false);
     }
-
-    global $wpdb;
     
     $post_meta_infos = $wpdb->get_results("SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id=$post_id");
 

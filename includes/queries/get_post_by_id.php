@@ -54,10 +54,14 @@ function jam_cms_get_post_by_id($post_id){
     $revisions =  wp_get_post_revisions($post_id);
     $formatted_revisions = [];
     foreach($revisions as $revision){
-      array_push($formatted_revisions, [
-        'id'      => $revision->ID,
-        'title'   => $revision->post_date
-      ]);
+      // In the create_post API we're updating the post right after inserting. 
+      // This causes a unnecessary revision which will be filtered out here.
+      if($revision->post_date != $post->post_date){
+        array_push($formatted_revisions, [
+          'id'      => $revision->ID,
+          'title'   => $revision->post_date
+        ]);
+      }
     }
     $formatted_post['revisions'] = $formatted_revisions;
     $formatted_post['revisionsEnabled'] = wp_revisions_enabled($post);
