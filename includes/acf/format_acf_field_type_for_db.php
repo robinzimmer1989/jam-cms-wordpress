@@ -94,8 +94,10 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
 
     if($field->type == 'repeater' && property_exists($field, 'items')){
       $args['layout'] = 'block';
-      
-      $sub_fields = jam_cms_generate_sub_fields_recursively($field->items, $field_key);
+
+      $repeater_key = "field_{$field->id}_{$field_key}";
+
+      $sub_fields = jam_cms_generate_sub_fields_recursively($field->items, $repeater_key);
       $args['sub_fields'] = $sub_fields;
     }
 

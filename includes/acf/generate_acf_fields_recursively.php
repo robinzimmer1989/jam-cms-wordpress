@@ -22,12 +22,14 @@ function jam_cms_generate_acf_fields_recursively($field, $value, $key){
     $j = 0;
     foreach($value as $sub_value) {
 
+      $repeater_key = "field_{$field->id}_{$key}";
+
       foreach($field->items as $item){
 
         $item_id = $item->id;
         $item_value = $sub_value->$item_id;
 
-        $prop["row-{$j}"]["field_{$item_id}_{$key}"] = jam_cms_generate_acf_fields_recursively($item, $item_value, $key);
+        $prop["row-{$j}"]["field_{$item_id}_{$repeater_key}"] = jam_cms_generate_acf_fields_recursively($item, $item_value, $repeater_key);
       }
 
       $j++;
