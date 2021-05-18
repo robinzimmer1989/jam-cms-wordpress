@@ -37,8 +37,16 @@ function jam_cms_api_update_post_callback($data) {
     $post_data['post_title'] = $parameters['title'];
   }
 
-  if(array_key_exists('slug', $parameters) && array_key_exists('parentID', $parameters)){
-    $unique_slug = wp_unique_post_slug( $parameters['slug'], $post_id, '', get_post_type($post_id), $parameters['parentID'] );
+  if(array_key_exists('slug', $parameters) && array_key_exists('title', $parameters) && array_key_exists('parentID', $parameters)){
+
+    // Disallow empty slug by using sanitized title as an alternative
+    if($parameters['slug'] == '' || $parameters['slug'] == '/'){
+      $slug = sanitize_title($parameters['title']);
+    }else{
+      $slug = $parameters['slug'];
+    }
+
+    $unique_slug = wp_unique_post_slug( $slug, $post_id, '', get_post_type($post_id), $parameters['parentID'] );
     $post_data['post_name'] = $unique_slug;
   }
 
