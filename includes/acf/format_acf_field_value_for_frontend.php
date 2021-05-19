@@ -116,10 +116,11 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
       return null;
     }
 
-    // Format to dummy Gatsby image
-    $src_set = [];
+    if($value['mime_type'] != 'image/svg+xml'){
 
-    if($type =='image'){
+      // Format to dummy Gatsby image
+      $src_set = [];
+
       if($value['sizes']['thumbnail']){
         array_push($src_set, $value['sizes']['thumbnail'] . ' ' . $value['sizes']['thumbnail-width'] . 'w');
       }
@@ -144,8 +145,6 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
       if($base64){
         $base64 = 'data:image/jpg;base64,'. $base64;
       }
-
-      $value['sourceUrl'] = $value['url'];
 
       $value['localFile']['childImageSharp'] = [
         // gatsby-image
@@ -180,10 +179,12 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
           ]  
         ]
       ];
-
-      // Rename alt attribute
-      $value['altText'] = $value['alt'];
     }
+
+    $value['sourceUrl'] = $value['url'];
+
+    // Rename alt attribute
+    $value['altText'] = $value['alt'];
 
     // Remove unnecessary data
     unset($value['ID']);
