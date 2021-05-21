@@ -49,7 +49,7 @@ function jam_cms_api_deploy_site_callback($data) {
 
     // Update deployment values
     date_default_timezone_set('UTC');
-    $now = date('Y/m/d h:i:s', time());
+    $now = date('Y-m-d H:i:s', time());
 
     update_option('jam_cms_last_build', $now);
     update_option('jam_cms_undeployed_changes', false);

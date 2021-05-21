@@ -70,6 +70,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/format_media_item.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_menu_item.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_user.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/format_action_monitor.php');
             include_once( JAM_CMS_PATH . '/includes/utils/generate_id.php');
             include_once( JAM_CMS_PATH . '/includes/utils/array_flatten.php');
             include_once( JAM_CMS_PATH . '/includes/utils/build_menu_tree.php');
@@ -164,6 +165,8 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/user/get_auth_user.php');
 
             include_once( JAM_CMS_PATH . '/includes/api/sync/sync_fields.php');
+
+            include_once( JAM_CMS_PATH . '/includes/api/get_unpublished_changes.php');
             
             // Add actions.
             add_action( 'init', array($this, 'init'), 100 );
