@@ -85,9 +85,6 @@ function jam_cms_get_site_by_id($site_id = 'default'){
     'taxonomies' => [
       'items'               => $formatted_taxonomies,
     ],
-    'forms' => [
-      'items'               => []
-    ],
     'mediaItems' => [
       'items'               => [],
       'page'                => null
