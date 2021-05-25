@@ -83,6 +83,8 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/create_revision.php');
             include_once( JAM_CMS_PATH . '/includes/utils/create_post_type.php');
             include_once( JAM_CMS_PATH . '/includes/utils/create_taxonomy.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/generate_preview_link.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/generate_preview_key.php');
 
             // Admin
             include_once( JAM_CMS_PATH . '/includes/admin/fix_page_query.php');
@@ -93,6 +95,7 @@ if( ! class_exists('JamCMS') ) :
             // include_once( JAM_CMS_PATH . '/includes/admin/page_templater.php');
             // include_once( JAM_CMS_PATH . '/includes/admin/custom_templates.php');
             include_once( JAM_CMS_PATH . '/includes/admin/enable_svg_uploads.php');
+            include_once( JAM_CMS_PATH . '/includes/admin/preview_button.php');
 
             // ACF
             include_once( JAM_CMS_PATH . '/includes/acf/generate_acf_fields_recursively.php');
@@ -164,8 +167,12 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/user/get_user.php');
             include_once( JAM_CMS_PATH . '/includes/api/user/get_auth_user.php');
 
-            include_once( JAM_CMS_PATH . '/includes/api/sync/sync_fields.php');
+            include_once( JAM_CMS_PATH . '/includes/api/preview/get_site_preview.php');
+            include_once( JAM_CMS_PATH . '/includes/api/preview/get_post_preview.php');
+            include_once( JAM_CMS_PATH . '/includes/api/preview/get_preview_link.php');
 
+            // Misc APIs
+            include_once( JAM_CMS_PATH . '/includes/api/sync/sync_fields.php');
             include_once( JAM_CMS_PATH . '/includes/api/get_unpublished_changes.php');
             
             // Add actions.

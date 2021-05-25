@@ -20,7 +20,8 @@ function jam_cms_create_revision($post_id, $content){
 
     // Compare curent and new post content and only create revision when they are different
     if(json_encode($content, true) != json_encode($current_content, true)){
-      jam_cms_duplicate_post($post_id, $overrides, true);
+      $revision = jam_cms_duplicate_post($post_id, $overrides, true);
+      return $revision;
     }
   }
 }

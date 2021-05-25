@@ -17,13 +17,12 @@ function jam_cms_render_plugin_settings_page() {
     <?php
 }
 
+add_action( 'admin_init', 'jam_cms_register_settings' );
 function jam_cms_register_settings() {
     register_setting( 'jam_cms_plugin_options', 'jam_cms_plugin_options', 'jam_cms_plugin_options_validate' );
     add_settings_section( 'api_settings', 'Settings', 'jam_cms_plugin_section_text', 'jam_cms_plugin' );
     add_settings_field( 'jam_cms_plugin_setting_api_key', 'API Key', 'jam_cms_plugin_setting_api_key', 'jam_cms_plugin', 'api_settings' );
 }
-add_action( 'admin_init', 'jam_cms_register_settings' );
-
 
 function jam_cms_plugin_options_validate( $input ) {
     $newinput['api_key'] = trim( $input['api_key'] );

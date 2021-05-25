@@ -2,11 +2,13 @@
 
 function jam_cms_api_base_check($parameters, $required_args = []){
 
-  if(in_array('apiKey', $required_args)){
-
-    if(!array_key_exists('apiKey', $parameters)) {
-      return new WP_Error( 'rest_missing_api_key', __( 'Api key missing.' ), array( 'status' => 403 ));
+  foreach($required_args as $arg){
+    if(!array_key_exists($arg, $parameters)){
+      return new WP_Error( 'mssing_variable', __( 'Variable ' . $arg . ' is missing' ), array( 'status' => 400 ));
     }
+  }
+
+  if(in_array('apiKey', $required_args)){
     
     $api_key = $parameters['apiKey'];
 
@@ -15,7 +17,6 @@ function jam_cms_api_base_check($parameters, $required_args = []){
     if(
         !isset($api_key_db) ||
         !$api_key_db ||
-        !isset($api_key) ||
         !$api_key || 
         $api_key != $api_key_db
     ){
@@ -23,10 +24,27 @@ function jam_cms_api_base_check($parameters, $required_args = []){
     }
   }
 
-  foreach($required_args as $arg){
-    if(!array_key_exists($arg, $parameters)){
-      return new WP_Error( 'rest_upload_no_data', __( 'No data supplied' ), array( 'status' => 400 ));
+  if(in_array('previewID', $required_args)){
+
+    $preview_keys = get_option('jam-cms-preview-keys');
+
+    if(!$preview_keys){
+      $preview_keys = [];
     }
+
+    $now = time();
+
+    foreach ($preview_keys as $value) {
+      if (
+        $value['id'] === $parameters['previewID'] && 
+        $value['expiry_date'] > $now && 
+        get_post($value['post_id'])
+      ) {
+        return $value['post_id'];
+      }
+    }
+
+    return new WP_Error( 'invalid_preview_id', __( 'Invalid Preview ID' ), array( 'status' => 403 ));
   }
 
   // TODO: Re-enable for true multisite setup
