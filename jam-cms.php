@@ -94,7 +94,6 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/admin/settings_page.php');
             // include_once( JAM_CMS_PATH . '/includes/admin/page_templater.php');
             // include_once( JAM_CMS_PATH . '/includes/admin/custom_templates.php');
-            include_once( JAM_CMS_PATH . '/includes/admin/enable_svg_uploads.php');
             include_once( JAM_CMS_PATH . '/includes/admin/preview_button.php');
 
             // ACF
