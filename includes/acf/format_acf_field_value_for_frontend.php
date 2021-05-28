@@ -116,7 +116,11 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
       return null;
     }
 
-    if($value['mime_type'] != 'image/svg+xml'){
+    if($value['mime_type'] == 'image/svg+xml'){
+
+      $value['svg'] = file_get_contents($value['url']);
+
+    } else {
 
       // Format to dummy Gatsby image
       $src_set = [];
@@ -179,6 +183,9 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
           ]  
         ]
       ];
+
+      // Set svg value to null for non-svg images
+      $value['svg'] = null;
     }
 
     $value['sourceUrl'] = $value['url'];
