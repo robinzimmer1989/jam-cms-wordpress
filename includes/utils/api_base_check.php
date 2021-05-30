@@ -4,7 +4,7 @@ function jam_cms_api_base_check($parameters, $required_args = []){
 
   foreach($required_args as $arg){
     if(!array_key_exists($arg, $parameters)){
-      return new WP_Error( 'mssing_variable', __( 'Variable ' . $arg . ' is missing' ), array( 'status' => 400 ));
+      return new WP_Error( 'missing_parameter', __( 'Parameter ' . $arg . ' is missing' ), array( 'status' => 400 ));
     }
   }
 
