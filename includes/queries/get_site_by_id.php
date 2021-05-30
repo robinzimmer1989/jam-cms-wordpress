@@ -100,6 +100,7 @@ function jam_cms_get_site_by_id($site_id = 'default'){
   if(count($missing_plugins) > 0){
     $data['errors'] = [
       0 => [
+        'id'          => 'missing_plugins',
         'title'       => 'Plugins missing',
         'description' => 'Not all required plugins are installed. Please install the following plugins: ' . implode(', ', $missing_plugins)
       ]
