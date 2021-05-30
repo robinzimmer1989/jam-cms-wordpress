@@ -30,6 +30,11 @@ function jam_cms_api_update_user_callback($data) {
     $user_id    = $parameters['id'];
     $role       = $parameters['role'];
 
+    // Make sure super admin can't be updated
+    if($user_id == 1){
+        return new WP_Error( 'no_update_super_admin', __( 'Can\'t update super admin' ), array( 'status' => 403 ));
+    }
+
     if(is_multisite()){
         $site = get_blog_details($site_id);
         add_user_to_blog($site->blog_id, $user_id, $role);
