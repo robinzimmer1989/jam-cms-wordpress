@@ -70,7 +70,7 @@ function jam_cms_upsert_acf_template($template){
       'value'     => "template-archive-{$template->postTypeID}.php"
     ]);
 
-    // The template name follow the structure Template_ArchivePost
+    // The template name follows the structure Template_ArchivePost
     $graphql_types[] = "Template_Archive{$template_name}";
   
   }else{
