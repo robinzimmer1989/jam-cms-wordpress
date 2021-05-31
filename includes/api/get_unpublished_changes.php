@@ -32,9 +32,7 @@ function jam_cms_api_get_unpublished_changes_callback() {
 
       $formatted_content = json_decode($change->post_content, true);
 
-      if($formatted_content['action_type'] != 'DIFF_SCHEMAS'){
-        array_push($recent_changes, jam_cms_format_action_monitor($change));
-      }
+      array_push($recent_changes, jam_cms_format_action_monitor($change));
     }
   }
 
