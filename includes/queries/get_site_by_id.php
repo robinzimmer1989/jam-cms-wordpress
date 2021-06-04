@@ -88,14 +88,6 @@ function jam_cms_get_site_by_id($site_id = 'default'){
     'taxonomies'  => [
       'items'               => $formatted_taxonomies,
     ],
-    'mediaItems'  => [
-      'items'               => [],
-      'page'                => null
-    ],
-    'users'       => [
-      'items'               => [],
-      'page'                => null
-    ]
   );
 
   $missing_plugins = jam_cms_check_for_missing_plugins();
