@@ -85,6 +85,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/create_taxonomy.php');
             include_once( JAM_CMS_PATH . '/includes/utils/generate_preview_link.php');
             include_once( JAM_CMS_PATH . '/includes/utils/generate_preview_key.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/post_lock.php');
 
             // Admin
             include_once( JAM_CMS_PATH . '/includes/admin/fix_page_query.php');
@@ -169,6 +170,9 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/preview/get_site_preview.php');
             include_once( JAM_CMS_PATH . '/includes/api/preview/get_post_preview.php');
             include_once( JAM_CMS_PATH . '/includes/api/preview/get_preview_link.php');
+
+            include_once( JAM_CMS_PATH . '/includes/api/post_lock/refresh_post_lock.php');
+            include_once( JAM_CMS_PATH . '/includes/api/post_lock/remove_post_lock.php');
 
             // Misc APIs
             include_once( JAM_CMS_PATH . '/includes/api/sync/sync_fields.php');
@@ -266,6 +270,3 @@ if( ! class_exists('JamCMS') ) :
     register_activation_hook( __FILE__, 'jam_cms_activate' );
 
 endif; // class_exists check
-
-
-?>

@@ -25,6 +25,19 @@ function jam_cms_api_update_post_callback($data) {
 
   $site_id = $parameters['siteID'];
   $post_id = $parameters['id'];
+
+  // Check if post can be updated first
+  $lock = get_post_meta($post_id, '_edit_lock', true );
+  $lock = explode( ':', $lock );
+
+  if(isset($lock[1]) && $lock[1] != get_current_user_id()){
+    $user = get_userdata($lock[1]);
+
+    if($user){
+      return new WP_Error( 'post_is_locked', "{$user->user_email} is currently editing" , array( 'status' => 400 ));
+    }
+  }
+
   $content = array_key_exists('content', $parameters) ? json_decode($parameters['content']) : (object) [];
 
   jam_cms_create_revision($post_id, $content); 

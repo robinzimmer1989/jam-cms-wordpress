@@ -53,6 +53,7 @@ function jam_cms_format_post($post) {
     'seo'             => [],
     'taxonomies'      => $formatted_taxonomies,
     'order'           => $post->menu_order,
+    'locked'          => jam_cms_check_post_lock($post->ID),
     'createdAt'       => $post->post_date,
     'updatedAt'       => get_the_modified_time('Y-m-d H:m:s', $post)
   ];
@@ -60,5 +61,3 @@ function jam_cms_format_post($post) {
   return $formatted_post;
   
 }
-
-?>

@@ -20,12 +20,17 @@ function jam_cms_api_get_post_callback($data) {
         return $check;
     }
 
-    $site_id    = $parameters['siteID'];
-    $post_id    = $parameters['postID'];
-        
+    $post_id = $parameters['postID'];
+
+    // Check if post is locked
+    $is_locked = jam_cms_check_post_lock($post_id);
+
+    if(!$is_locked){
+        // Lock post so other users can't edit it at the same time
+        jam_cms_set_post_lock($post_id);
+    }
+
     $post = jam_cms_get_post_by_id($post_id);
 
     return $post;
 }
-
-?>
