@@ -13,5 +13,3 @@ function jam_cms_update_acf_fields($post_id, $fields){
 
   acf_save_post($post_id, $values);
 }
-
-?>
