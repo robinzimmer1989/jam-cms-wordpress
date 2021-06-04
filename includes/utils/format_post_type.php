@@ -31,5 +31,3 @@ function jam_cms_format_post_type($post_type) {
   return $formatted_post_type;
   
 }
-
-?>

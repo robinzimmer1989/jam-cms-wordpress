@@ -71,5 +71,3 @@ function jam_cms_get_post_by_id($post_id){
 
   return new WP_Error( 'post_not_found', __('Post not found'), array( 'status' => 400 ) );
 }
-
-?>
