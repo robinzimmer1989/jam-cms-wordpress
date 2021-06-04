@@ -61,6 +61,8 @@ function jam_cms_get_site_by_id($site_id = 'default'){
     $google_maps_api_key = get_option('jam_cms_google_maps_api_key');
   }
 
+  $editor_options = get_option('jam_cms_editor_options');
+
   $site_url = get_option('site_url');
 
   $data = array(
@@ -71,6 +73,7 @@ function jam_cms_get_site_by_id($site_id = 'default'){
     'googleMapsApi'         => $google_maps_api_key ? $google_maps_api_key : '',
     'frontPage'             => intval(get_option( 'page_on_front' )),
     'apiKey'                => $deployment_api_key ? $deployment_api_key : '',
+    'editorOptions'         => $editor_options ? $editor_options : (object) [],
     'deployment' => [
       'lastBuild'           => $last_build,
       'undeployedChanges'   => boolval($undeployed_changes),
@@ -78,21 +81,21 @@ function jam_cms_get_site_by_id($site_id = 'default'){
       'badgeImage'          => $deployment_badge_image,
       'badgeLink'           => $deployment_badge_link,      
     ],
-    'themeOptions'         => jam_cms_get_option_group_fields(),
-    'postTypes' => [
+    'themeOptions'          => jam_cms_get_option_group_fields(),
+    'postTypes'   => [
       'items'               => $formatted_post_types
     ],
-    'taxonomies' => [
+    'taxonomies'  => [
       'items'               => $formatted_taxonomies,
     ],
-    'mediaItems' => [
+    'mediaItems'  => [
       'items'               => [],
       'page'                => null
     ],
-    'users' => [
+    'users'       => [
       'items'               => [],
       'page'                => null
-    ],
+    ]
   );
 
   $missing_plugins = jam_cms_check_for_missing_plugins();
@@ -109,5 +112,3 @@ function jam_cms_get_site_by_id($site_id = 'default'){
 
   return $data;
 }
-
-?>

@@ -44,6 +44,13 @@ function jam_cms_api_update_site_callback($data) {
         jam_cms_upsert_acf_template_options($theme_options);
         jam_cms_update_acf_fields_options($theme_options);
     }
+
+    if(array_key_exists('editorOptions', $parameters)){
+        $editor_options = $parameters['editorOptions'];
+        $editor_options = $editor_options ? json_decode($editor_options) : [];
+
+        update_option('jam_cms_editor_options', $editor_options);
+    }
     
     if(current_user_can( 'manage_options' )){
 
