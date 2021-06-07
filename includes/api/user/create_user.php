@@ -26,21 +26,27 @@ function jam_cms_api_create_user_callback($data) {
 
     // Check if user already exists
     $user = get_user_by('email', $email);
-    if($user){
-        return new WP_Error( 'user_already_exists', __( 'User already exists' ), array( 'status' => 400 ));
-    }
 
     $password = wp_generate_password();
 
     if(is_multisite()) {
 
-        // We'll use the email for the username as well
-        $user_id = wpmu_create_user( $email, $password, $email );
+        if($user){
+            $user_id = $user->ID;
+        }else{
+            // We'll use the email for the username as well
+            $user_id = wpmu_create_user( $email, $password, $email );
+        }
 
         $site = get_blog_details($site_id);
+
         add_user_to_blog($site->blog_id, $user_id, $role);
 
     }else{
+
+        if($user){
+            return new WP_Error( 'user_already_exists', __( 'User already exists' ), array( 'status' => 400 ));
+        }
 
         $user_id = wp_insert_user([
             'user_login'    => $email,
@@ -54,5 +60,3 @@ function jam_cms_api_create_user_callback($data) {
 
     return $data;
 }
-
-?>
