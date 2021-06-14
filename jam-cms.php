@@ -150,6 +150,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/post/delete_post.php');
             include_once( JAM_CMS_PATH . '/includes/api/post/duplicate_post.php');
             include_once( JAM_CMS_PATH . '/includes/api/post/reorder_posts.php');
+            include_once( JAM_CMS_PATH . '/includes/api/post/take_over_post.php');
             include_once( JAM_CMS_PATH . '/includes/api/post/empty_trash.php');
 
             include_once( JAM_CMS_PATH . '/includes/api/term/create_term.php');

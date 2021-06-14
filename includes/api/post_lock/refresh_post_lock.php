@@ -21,8 +21,12 @@ function jam_cms_api_refresh_post_lock_callback($data) {
     }
 
     $post_id = $parameters['id'];
+    
+    $is_locked = jam_cms_check_post_lock($post_id);
 
-    jam_cms_set_post_lock($post_id);
+    if(!$is_locked){
+        jam_cms_set_post_lock($post_id);
+    }
 
     $post = jam_cms_get_post_by_id($post_id);
 
