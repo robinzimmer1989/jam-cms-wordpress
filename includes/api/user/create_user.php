@@ -38,6 +38,11 @@ function jam_cms_api_create_user_callback($data) {
             $user_id = wpmu_create_user( $email, $password, $email );
         }
 
+        // Use null to get current blog
+        if($site_id == 'default'){
+            $site_id = null;
+        }
+
         $site = get_blog_details($site_id);
 
         add_user_to_blog($site->blog_id, $user_id, $role);
