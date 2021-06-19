@@ -51,10 +51,10 @@ function jam_cms_upsert_acf_template($template){
   $graphql_types = [];
   $map_graphql_types = true;
 
-  // Generate capitalized template name
-  $template_name = ucfirst($template->postTypeID);
-
   if($template->id == 'archive'){
+
+    // Generate capitalized template name
+    $template_name = ucfirst($template->postTypeID);
 
     // Archive pages always belong to the post type page
     $locations = [[
@@ -74,6 +74,10 @@ function jam_cms_upsert_acf_template($template){
     $graphql_types[] = "Template_Archive{$template_name}";
   
   }else{
+
+    // Generate capitalized template name
+    $template_name = ucfirst($template->id);
+
     // Assign template to post type
     $locations = [[
       'param'     => 'post_type',
@@ -83,12 +87,11 @@ function jam_cms_upsert_acf_template($template){
 
     // At the moment the only post type support for templates is 'page'
     if($template->postTypeID == 'page'){
-      // If template is page, we need to assign the template to a specific template
-      // This only works for pages at the moment
+
       array_push($locations, [
         'param'     => "page_template",
         'operator'  => '==',
-        'value'     => $template->id,
+        'value'     => $template->id == 'default' ? 'default' : "template-{$template->id}.php",
       ]);
 
       if($template->id == 'default'){
@@ -96,7 +99,7 @@ function jam_cms_upsert_acf_template($template){
         $graphql_types[] = 'DefaultTemplate';
       }else{
         // The template name follows the structure 'Template_[Sidebar]'
-        $graphql_types[] = "Template_Archive{$template_name}";
+        $graphql_types[] = "Template_{$template_name}";
       }
     }else{
       // Deactivate graphql types for all post types without multiple templates

@@ -18,5 +18,3 @@ function jam_cms_get_template_key($post_id, $prefix = true){
 
   return $prefix ? "{$post_type}-{$template}" : $template;
 }
-
-?>
