@@ -29,7 +29,7 @@ function jam_cms_get_post_by_id($post_id){
     }
 
     if($fields){
-      $formatted_post['content'] = jam_cms_format_fields($fields, $post_id);
+      $formatted_post['content'] = (object) jam_cms_format_fields($fields, $post_id);
     }
 
     // Add SEO
