@@ -90,7 +90,7 @@ class PageTemplater {
 		
 		$templates = array_merge( $templates, $this->templates );
 		foreach( $templates as $key => $value ) {
-			$choices[ $key ] = $value;
+			$choices[ $key ] = ucfirst($value);
 		}
 		
 		return $choices;

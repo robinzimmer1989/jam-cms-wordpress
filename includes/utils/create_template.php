@@ -31,7 +31,7 @@ function jam_cms_create_template($template){
     $jam_cms_templates['page'][$template_name] = "Archive{$post_type_id}";
   }else{
     $template_name = "template-{$template->id}.php";
-    $jam_cms_templates[$template->postTypeID][$template_name] = property_exists($template, 'label') ? $template->label : $template->id;
+    $jam_cms_templates[$template->postTypeID][$template_name] = $template->id;
   }
 
   update_option('jam-cms-templates', $jam_cms_templates);
