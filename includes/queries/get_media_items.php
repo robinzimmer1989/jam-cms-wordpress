@@ -1,12 +1,13 @@
 <?php
 
-function jam_cms_get_media_items($site_id, $limit, $page, $search){
+function jam_cms_get_media_items($site_id, $limit, $page, $search, $allow){
 
   $media_items = get_posts(array(
-    'post_type'   => 'attachment',
-    'numberposts' => $limit,
-    'offset'      => $page * $limit,
-    's'           => $search
+    'post_type'       => 'attachment',
+    'post_mime_type'  => $allow,
+    'numberposts'     => $limit,
+    'offset'          => $page * $limit,
+    's'               => $search
   ));
 
   $formatted_media_items = [];

@@ -9,5 +9,3 @@ function jam_cms_format_media_item($site_id, $media_item) {
 
   return $formatted_media_item;
 }
-
-?>
