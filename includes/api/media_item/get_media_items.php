@@ -21,10 +21,11 @@ function jam_cms_api_get_media_items_callback($data) {
     }
     
     $site_id    = $parameters['siteID'];
-    $page       = $parameters['page'];
-    $limit      = $parameters['limit'];
+    $page       = array_key_exists('page', $parameters) ? $parameters['page'] : 0;
+    $limit      = array_key_exists('limit', $parameters) ? $parameters['limit'] : 10;
+    $search     = array_key_exists('search', $parameters) ? $parameters['search'] : "";
 
-    $data = jam_cms_get_media_items($site_id, $limit, $page);
+    $data = jam_cms_get_media_items($site_id, $limit, $page, $search);
 
     return array(
         'items' => $data,
