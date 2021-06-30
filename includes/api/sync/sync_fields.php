@@ -20,7 +20,11 @@ function jam_cms_api_sync_fields_callback($data) {
         return $check;
     }
 
-    if(array_key_exists('fields', $parameters)){
+    // Check if syncing is enabled before updating the ACF template
+    $settings = get_option("jam_cms_settings");
+    $syncing = is_array($settings) && array_key_exists("disable_syncing", $settings) && $settings['disable_syncing'] == 1 ? false : true;
+
+    if($syncing && array_key_exists('fields', $parameters)){
 
         $fields = json_decode($parameters['fields']);
 
@@ -69,13 +73,22 @@ function jam_cms_api_sync_fields_callback($data) {
             jam_cms_upsert_acf_template_options($fields->themeOptions);
         }
 
-        // Return site if user is logged in, otherwise success message
-        if(is_user_logged_in()){
+        
+    }    
+
+    
+    // When the user creates a new post type while running gatsby develop, jamCMS will display a sync button in the jamCMS backend. 
+    if(is_user_logged_in()){
+        if($syncing){
             return jam_cms_get_site_by_id();
         }else{
-            return 'jamCMS: Synced ACF fields successfully to WordPress';
+            return new WP_Error( 'syncing_disabled', __( 'Syncing has been disabled in the WordPress backend' ), array( 'status' => 400 ));
         }
-    }    
+    }else{
+        if($syncing){
+            return 'jamCMS: Synced ACF fields successfully to WordPress';
+        }else{
+            return 'jamCMS: Syncing has been disabled in the WordPress backend';
+        }
+    }
 }
-
-?>

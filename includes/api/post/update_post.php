@@ -144,7 +144,11 @@ function jam_cms_api_update_post_callback($data) {
     update_post_meta( $post_id, '_wp_page_template', $template_key );
   }
 
-  if(array_key_exists('templateObject', $parameters)){
+  // Check if syncing is enabled before updating the ACF template
+  $settings = get_option("jam_cms_settings");
+  $syncing = is_array($settings) && array_key_exists("disable_syncing", $settings) && $settings['disable_syncing'] == 1 ? false : true;
+
+  if($syncing && array_key_exists('templateObject', $parameters)){
     $templateObject = $parameters['templateObject'] ? json_decode($parameters['templateObject']) : null;
 
     if($templateObject){
@@ -155,6 +159,22 @@ function jam_cms_api_update_post_callback($data) {
 
   if(array_key_exists('content', $parameters)){
     jam_cms_update_acf_fields($post_id, $content);
+
+  }
+  
+  if(array_key_exists('status', $parameters) && $parameters['status'] == 'publish'){
+
+    $post_type = get_post_type($post_id);
+
+    // $monitor = new \WPGatsby\ActionMonitor\Monitors\ActionMonitor();
+    // $monitor->log_action([
+    //    'action_type'          => 'UPDATE',
+    //    'title'                => get_the_title($post_id),
+    //    'graphql_single_name'  => $post_type,
+    //    'graphql_plural_name'  => "{$post_type}Multiple",
+    //    'status'               => 'publish',
+    //    'node_id'              => $post_id,
+    // ]);
   }
 
   update_option('jam_cms_undeployed_changes', true);
