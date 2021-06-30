@@ -68,7 +68,15 @@ function jam_cms_api_update_post_callback($data) {
   }
 
   if(array_key_exists('parentID', $parameters)){
-    $post_data['post_parent'] = $parameters['parentID'];
+
+    if(is_multisite()){
+      $blog_id = get_current_blog_id();
+      $front_page_id = get_blog_option($blog_id, 'page_on_front');
+    }else{
+      $front_page_id = get_option('page_on_front');
+    }
+
+    $post_data['post_parent'] = $front_page_id == $post_id ? 0 : $parameters['parentID'];
   }
 
   if(array_key_exists('taxonomies', $parameters)){
