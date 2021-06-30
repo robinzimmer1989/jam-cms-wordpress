@@ -47,7 +47,7 @@ function jam_cms_api_update_post_callback($data) {
   );
 
   if(array_key_exists('title', $parameters)){
-    $post_data['post_title'] = $parameters['title'];
+    $post_data['post_title'] = $parameters['title'] ? $parameters['title'] : 'No Title';
   }
 
   if(array_key_exists('slug', $parameters) && array_key_exists('title', $parameters) && array_key_exists('parentID', $parameters)){
