@@ -17,6 +17,11 @@ function jam_cms_update_menu($menu_slug, $menu_items){
     }
   }
 
+  // Assign menu automatically to location
+  $locations = get_theme_mod('nav_menu_locations');
+  $locations[$menu_slug] = $menu_id; 
+  set_theme_mod('nav_menu_locations', $locations); 
+
   // Flatten menu items
   $flattened_menu_items = jam_cms_array_flatten($menu_items);
   
@@ -56,11 +61,7 @@ function jam_cms_update_menu($menu_slug, $menu_items){
 
     // Store new menu item id in array
     $menu_item_ids[$item->key] = $menu_item_id;
-
   }
 
   return $menu_id;
 }
-
-
-?>
