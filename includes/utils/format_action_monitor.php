@@ -11,7 +11,7 @@ function jam_cms_format_action_monitor($post){
     $formatted_post = [
       'id'              => $post->ID,
       'title'           => 'Theme Settings',
-      'description'     => 'options',
+      'description'     => 'Options',
       'actionType'      => 'UPDATE'
     ];
 
@@ -20,18 +20,24 @@ function jam_cms_format_action_monitor($post){
     $formatted_post = [
       'id'              => $post->ID,
       'title'           => $post->post_title,
-      'description'     => 'options',
+      'description'     => 'Options',
       'actionType'      => 'UPDATE'
     ];
+
+  }elseif($formatted_content['graphql_single_name'] == 'menuItem'){
+
+    // Exclude menu item changes (menu should be enough)
+    $formatted_post = null;
 
   }else{
 
     $formatted_post = [
       'id'              => $post->ID,
-      'title'           => $post->post_title,
-      'description'     => $formatted_content['graphql_single_name'],
+      'title'           => ucfirst($post->post_title),
+      'description'     => ucfirst($formatted_content['graphql_single_name']),
       'actionType'      => $formatted_content['action_type']
     ];
+    
   }
 
   return $formatted_post;

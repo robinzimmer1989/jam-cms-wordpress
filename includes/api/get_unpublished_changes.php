@@ -30,9 +30,11 @@ function jam_cms_api_get_unpublished_changes_callback() {
   foreach($all_changes as $change){
     if(strtotime($change->post_modified_gmt) > $compare_date){
 
-      $formatted_content = json_decode($change->post_content, true);
+      $formatted_content = jam_cms_format_action_monitor($change);
 
-      array_push($recent_changes, jam_cms_format_action_monitor($change));
+      if($formatted_content){
+        array_push($recent_changes, $formatted_content);
+      }
     }
   }
 
