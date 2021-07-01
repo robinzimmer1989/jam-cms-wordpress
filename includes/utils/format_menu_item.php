@@ -14,5 +14,3 @@ function jam_cms_format_menu_item($menu_item){
   return $new_menu_item;
 
 }
-
-?>

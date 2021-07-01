@@ -124,5 +124,3 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
 
   return $args;
 }
-
-?>
