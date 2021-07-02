@@ -48,5 +48,3 @@ function jam_cms_format_fields($fields, $post_id){
 
   return $formatted_fields;
 }
-
-?>
