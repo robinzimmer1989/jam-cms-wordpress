@@ -38,7 +38,42 @@ function jam_cms_api_update_post_callback($data) {
     }
   }
 
+  // We need to update the template earlier to make sure "jam_cms_get_default_field_values" has access to the current template
+  if(array_key_exists('template', $parameters)){
+    // We need to distinguish different use cases for inbuilt temlates and custom ones.
+    $template_key = '';
+
+    if($parameters['template'] == 'archive'){
+      // The archive template is associated with the template name (always archive) and the post type ID
+      $template_key = "template-archive-{$parameters['postTypeID']}.php";
+
+    }else{
+
+      if($parameters['postTypeID'] == 'page' && $parameters['template'] == 'default'){
+        // The default page template is simply stored as 'default'
+        $template_key = 'default';
+
+      }else{
+        // Manually created templates as well as the inbuilt post template are stores as 'tempate-[name].php'
+        $template_key = "template-{$parameters['template']}.php";
+      }
+    }
+
+    update_post_meta( $post_id, '_wp_page_template', $template_key );
+  }
+
+  // Get content
   $content = array_key_exists('content', $parameters) ? json_decode($parameters['content']) : (object) [];
+
+  // Add default values if no content is provided. We have to do this in case the user switches templates without actually entering content.
+  if($content == new stdClass()){
+    $fields = jam_cms_get_default_field_values($post_id);
+    $formatted_fields = jam_cms_format_fields($fields, $post_id);
+
+    // We need to convert the array to an object (deep)
+    $json = json_encode($formatted_fields);
+    $content = json_decode($json);
+  }
 
   jam_cms_create_revision($post_id, $content); 
 
@@ -126,32 +161,6 @@ function jam_cms_api_update_post_callback($data) {
     }
   }
 
-  if(array_key_exists('template', $parameters)){
-    
-    // initialize template key. 
-    // Unfortunatley we need to distinguish different use cases for inbuilt temlates and custom ones.
-    $template_key = '';
-
-    if($parameters['template'] == 'archive'){
-      // The archive template is associated with the template name (always archive) and the post type ID
-      $template_key = "template-archive-{$parameters['postTypeID']}.php";
-
-    }else{
-
-      if($parameters['postTypeID'] == 'page' && $parameters['template'] == 'default'){
-        // The default page template is simply stored as 'default'
-        $template_key = 'default';
-
-      }else{
-        // Manually created templates as well as the inbuilt post template are stores as 'tempate-[name].php'
-        $template_key = "template-{$parameters['template']}.php";
-      }
-
-    }
-
-    update_post_meta( $post_id, '_wp_page_template', $template_key );
-  }
-
   // Check if syncing is enabled before updating the ACF template
   $settings = get_option("jam_cms_settings");
   $syncing = is_array($settings) && array_key_exists("disable_syncing", $settings) && $settings['disable_syncing'] == 1 ? false : true;
@@ -167,22 +176,6 @@ function jam_cms_api_update_post_callback($data) {
 
   if(array_key_exists('content', $parameters)){
     jam_cms_update_acf_fields($post_id, $content);
-
-  }
-  
-  if(array_key_exists('status', $parameters) && $parameters['status'] == 'publish'){
-
-    $post_type = get_post_type($post_id);
-
-    // $monitor = new \WPGatsby\ActionMonitor\Monitors\ActionMonitor();
-    // $monitor->log_action([
-    //    'action_type'          => 'UPDATE',
-    //    'title'                => get_the_title($post_id),
-    //    'graphql_single_name'  => $post_type,
-    //    'graphql_plural_name'  => "{$post_type}Multiple",
-    //    'status'               => 'publish',
-    //    'node_id'              => $post_id,
-    // ]);
   }
 
   update_option('jam_cms_undeployed_changes', true);
