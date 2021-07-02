@@ -28,6 +28,11 @@ function jam_cms_get_post_by_id($post_id){
       $formatted_post['revisionID'] = $revision->ID;
     }
 
+    // If no fields are found (post hasn't been saved yet or no content changes), we'll generate them manually.
+    if(!$fields){     
+      $fields = jam_cms_get_default_field_values($post_id);
+    }
+
     if($fields){
       $formatted_post['content'] = (object) jam_cms_format_fields($fields, $post_id);
     }
