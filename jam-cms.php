@@ -8,7 +8,7 @@
  * Plugin Name:       jamCMS
  * Plugin URI:        https://github.com/robinzimmer1989/jam-cms-wordpress
  * Description:       A CMS for the JAMStack world. Made for developers.
- * Version:           1.8.3
+ * Version:           1.8.4
  * Author:            Robin Zimmer
  * Author URI:        https://github.com/robinzimmer1989
  * License:           
