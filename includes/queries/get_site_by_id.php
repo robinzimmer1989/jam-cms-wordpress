@@ -56,7 +56,7 @@ function jam_cms_get_site_by_id($site_id = 'default'){
   $settings             = get_option("jam_cms_settings");
   $frontend_url         = is_array($settings) && array_key_exists("frontend_url", $settings) ? $settings['frontend_url'] : '';
   $google_maps_api_key  = is_array($settings) && array_key_exists("google_maps_api_key", $settings) && current_user_can('edit_posts') ? $settings['google_maps_api_key'] : '';
-  $admin_api_key   = is_array($settings) && array_key_exists("admin_api_key", $settings) && current_user_can('manage_options') ? $settings['admin_api_key'] : '';
+  $admin_api_key        = is_array($settings) && array_key_exists("admin_api_key", $settings) && current_user_can('manage_options') ? $settings['admin_api_key'] : '';
 
   $data = array(
     'id'                    => $site_id,

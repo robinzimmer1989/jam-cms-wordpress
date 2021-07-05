@@ -12,10 +12,10 @@ function jam_cms_get_site_for_build_by_id(){
     }
   }
 
-  $data = array(
+  $data = [
     'frontPage'     => intval(get_option( 'page_on_front' )),
     'themeOptions'  => $formatted_options
-  );
+  ];
 
   return $data;
 }
