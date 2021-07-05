@@ -9,7 +9,9 @@ function jam_cms_generate_preview_link($preview_key){
   $home_url = get_home_url();
   $slug = str_replace($home_url, '', $permalink);
 
-  $frontend_url = get_option('site_url');
+  $settings = get_option("jam_cms_settings");
+
+  $frontend_url = is_array($settings) && array_key_exists("frontend_url", $settings) ? $settings['frontend_url'] : '';
 
   // Remove trailing slash if exists
   $frontend_url = rtrim($frontend_url, '/');

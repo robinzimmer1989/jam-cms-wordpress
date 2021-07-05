@@ -51,28 +51,21 @@ function jam_cms_get_site_by_id($site_id = 'default'){
   
   $undeployed_changes = get_option('jam_cms_undeployed_changes');
 
-  $deployment_api_key = '';
-  if(current_user_can('manage_options')){
-    $deployment_api_key = get_option('deployment_api_key');
-  }
-
-  $google_maps_api_key= '';
-  if(current_user_can('edit_posts')){
-    $google_maps_api_key = get_option('jam_cms_google_maps_api_key');
-  }
-
   $editor_options = get_option('jam_cms_editor_options');
 
-  $site_url = get_option('site_url');
+  $settings             = get_option("jam_cms_settings");
+  $frontend_url         = is_array($settings) && array_key_exists("frontend_url", $settings) ? $settings['frontend_url'] : '';
+  $google_maps_api_key  = is_array($settings) && array_key_exists("google_maps_api_key", $settings) && current_user_can('edit_posts') ? $settings['google_maps_api_key'] : '';
+  $admin_api_key   = is_array($settings) && array_key_exists("admin_api_key", $settings) && current_user_can('manage_options') ? $settings['admin_api_key'] : '';
 
   $data = array(
     'id'                    => $site_id,
     'title'                 => get_bloginfo('name'),
-    'siteUrl'               => $site_url ? $site_url : '',
+    'siteUrl'               => $frontend_url,
     'createdAt'             => $created_at,
-    'googleMapsApi'         => $google_maps_api_key ? $google_maps_api_key : '',
-    'frontPage'             => intval(get_option( 'page_on_front' )),
-    'apiKey'                => $deployment_api_key ? $deployment_api_key : '',
+    'googleMapsApi'         => $google_maps_api_key,
+    'frontPage'             => intval(get_option('page_on_front')),
+    'apiKey'                => $admin_api_key,
     'editorOptions'         => $editor_options ? $editor_options : (object) [],
     'deployment' => [
       'lastBuild'           => $last_build,

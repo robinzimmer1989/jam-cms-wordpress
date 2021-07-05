@@ -12,7 +12,8 @@ function jam_cms_api_base_check($parameters, $required_args = []){
     
     $api_key = $parameters['apiKey'];
 
-    $api_key_db = get_option('deployment_api_key');
+    $settings = get_option('jam_cms_settings');
+    $api_key_db = is_array($settings) && array_key_exists("admin_api_key", $settings) ? $settings['admin_api_key'] : '';
 
     if(
         !isset($api_key_db) ||

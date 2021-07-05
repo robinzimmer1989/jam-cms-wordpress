@@ -52,24 +52,27 @@ function jam_cms_api_update_site_callback($data) {
         update_option('jam_cms_editor_options', $editor_options);
     }
     
-    if(current_user_can( 'manage_options' )){
+    if(current_user_can('manage_options')){
+
+        $settings = get_option('jam_cms_settings');
 
         if(array_key_exists('title', $parameters)){
            update_option('blogname', $parameters['title']);
         }
 
         if(array_key_exists('siteUrl', $parameters)){
-            $formatted_site_url = rtrim($parameters['siteUrl'],'/');
-            update_option('site_url', $formatted_site_url);
+            // Remove trailing slash
+            $formatted_site_url = rtrim($parameters['siteUrl'], '/');
+            $settings['frontend_url'] = $formatted_site_url;
          }
 
         if(array_key_exists('googleMapsApi', $parameters)){           
-            update_option('jam_cms_google_maps_api_key', $parameters['googleMapsApi']);
-         }
+            $settings['google_maps_api_key'] = $parameters['googleMapsApi'];
+        }
 
         if(array_key_exists('apiKey', $parameters)){
             $api_key = wp_generate_uuid4();
-            update_option('deployment_api_key', $api_key);
+            $settings['admin_api_key'] = $api_key;
         }
 
         if(array_key_exists('deployment', $parameters)){
@@ -84,6 +87,8 @@ function jam_cms_api_update_site_callback($data) {
 
             update_option('wp_jamstack_deployments', $jamstack_deployment_settings);
         }
+
+        update_option('jam_cms_settings', $settings);
     }
     
     update_option('jam_cms_undeployed_changes', true);
@@ -92,5 +97,3 @@ function jam_cms_api_update_site_callback($data) {
 
     return $data;
 }
-
-?>

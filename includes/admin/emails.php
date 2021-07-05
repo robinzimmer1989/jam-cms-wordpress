@@ -17,9 +17,11 @@ function jam_cms_set_email_content_type(){
 }
 
 add_filter("retrieve_password_message", 'jam_cms_change_password_reset_email', 10, 4);
-function jam_cms_change_password_reset_email($message, $key, $user_login, $user) {	
+function jam_cms_change_password_reset_email($message, $key, $user_login, $user) {
 
-  $site_url = get_option('site_url');
+  $settings = get_option("jam_cms_settings");
+
+  $frontend_url = is_array($settings) && array_key_exists("frontend_url", $settings) ? $settings['frontend_url'] : '';
   $site_name = get_bloginfo('name');
 
   $message = "
@@ -30,7 +32,7 @@ function jam_cms_change_password_reset_email($message, $key, $user_login, $user)
 <p>User email: {$user->user_email}</p>
 <p>If this was an error, please disregard this email and there is no further action needed.</p>
 <p>To reset your password, visit the following address:</p>
-<p>{$site_url}/jam-cms/?action=reset&key={$key}&login={$user->user_login}</p>
+<p>{$frontend_url}/jam-cms/?action=reset&key={$key}&login={$user->user_login}</p>
 <p>Thanks!</p>
 <p>The {$site_name} Team</p>
 </body>
@@ -43,7 +45,9 @@ add_filter( 'wp_new_user_notification_email', 'custom_wp_new_user_notification_e
 function custom_wp_new_user_notification_email( $email, $user, $site_name ) {
 	
 	$key = get_password_reset_key($user);
-	$site_url = get_option('site_url');
+  $settings = get_option("jam_cms_settings");
+
+  $frontend_url = is_array($settings) && array_key_exists("frontend_url", $settings) ? $settings['frontend_url'] : '';
 
   $message = "
 <html>
@@ -51,7 +55,7 @@ function custom_wp_new_user_notification_email( $email, $user, $site_name ) {
 <body>
 <p>Welcome to {$site_name}</p>
 <p>Click on the link below to set your password:</p>
-<p>{$site_url}/jam-cms?action=reset&key={$key}&email={$user->user_login}</p>
+<p>{$frontend_url}/jam-cms?action=reset&key={$key}&email={$user->user_login}</p>
 
 <p>The {$site_name} Team</p>
 </body>

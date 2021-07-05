@@ -37,12 +37,13 @@ function jam_cms_api_create_site_callback($data) {
     switch_to_blog($site->blog_id);
 
     // Create deployment api key
-    $api_key = wp_generate_uuid4();
-    update_option('deployment_api_key', $api_key);
+    $settings = [
+        'admin_api_key' => wp_generate_uuid4()
+    ];
+
+    update_option('jam_cms_settings', $settings);
 
     $data = jam_cms_get_site_by_id($site_id);
 
     return $data;
 }
-
-?>

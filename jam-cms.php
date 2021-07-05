@@ -266,9 +266,14 @@ if( ! class_exists('JamCMS') ) :
         jam_cms_initialize_jam_cms();
 
         // Create deployment api key if doesn't exist yet
-        if(!get_option('deployment_api_key')){        
-            $api_key = wp_generate_uuid4();
-            update_option('deployment_api_key', $api_key);
+        $settings = get_option('jam_cms_settings');
+
+        if(!$settings){
+            $settings = [
+                'admin_api_key' => wp_generate_uuid4()
+            ];
+
+            update_option('jam_cms_settings', $settings);
         }
     }
     
