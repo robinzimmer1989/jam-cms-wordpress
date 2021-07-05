@@ -26,6 +26,9 @@ function jam_cms_api_sync_fields_callback($data) {
 
     if($syncing && array_key_exists('fields', $parameters)){
 
+        // We only support postname permalink structure
+        update_option('permalink_structure', '/%postname%/');
+
         $fields = json_decode($parameters['fields']);
 
         // Delete all ACF field groups
@@ -72,8 +75,6 @@ function jam_cms_api_sync_fields_callback($data) {
         if(property_exists($fields, 'themeOptions')){
             jam_cms_upsert_acf_template_options($fields->themeOptions);
         }
-
-        
     }    
 
     
