@@ -9,5 +9,3 @@ function jam_cms_fix_page_query() {
       $wp_post_types['page']->publicly_queryable = true;
   }
 }
-
-?>

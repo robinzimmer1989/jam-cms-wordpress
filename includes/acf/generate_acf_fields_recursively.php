@@ -75,5 +75,3 @@ function jam_cms_generate_acf_fields_recursively($field, $value, $key){
 
   return $prop;
 }
-
-?>

@@ -59,5 +59,3 @@ function jam_cms_api_deploy_site_callback($data) {
     return $data;
   }
 }
-
-?>

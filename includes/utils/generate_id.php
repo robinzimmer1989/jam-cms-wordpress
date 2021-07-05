@@ -9,5 +9,3 @@ function jam_cms_generate_id($length = 12) {
     }
     return $randomString;
 }
-
-?>

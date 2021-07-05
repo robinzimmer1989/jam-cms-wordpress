@@ -20,5 +20,3 @@ function jam_cms_remove_default_post_type($args, $postType) {
 
   return $args;
 }
-
-?>

@@ -35,5 +35,3 @@ function jam_cms_get_group_items_recursively($field){
 
   return $items;
 }
-
-?>

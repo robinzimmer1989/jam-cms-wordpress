@@ -17,5 +17,3 @@ function jam_cms_get_media_items($site_id, $limit, $page, $search, $allow){
 
   return $formatted_media_items;
 }
-
-?>

@@ -30,7 +30,4 @@ function jam_cms_get_sites_by_user_id($user_id){
   }
 
   return $data;
-
 }
-
-?>

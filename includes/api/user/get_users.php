@@ -31,5 +31,3 @@ function jam_cms_api_get_users_callback($data) {
         'page'  => count($data) == $limit ? $page + 1 : -1
     );
 }
-
-?>

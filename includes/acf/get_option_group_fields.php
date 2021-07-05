@@ -48,8 +48,4 @@ function jam_cms_get_option_group_fields(){
   }
 
   return (object) $formatted_fields;
-  
-  
 }
-
-?>

@@ -12,5 +12,3 @@ function jam_cms_format_user($user) {
   return $formatted_user;
   
 }
-
-?>

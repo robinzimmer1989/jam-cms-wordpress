@@ -11,5 +11,3 @@ function jam_cms_update_acf_fields_options($fields){
 
   acf_save_post("options", $values);
 }
-
-?>

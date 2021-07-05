@@ -66,5 +66,3 @@ function custom_wp_new_user_notification_email( $email, $user, $site_name ) {
 	
   return $email;
 }
-
-?>

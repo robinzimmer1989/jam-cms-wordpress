@@ -27,5 +27,3 @@ function jam_cms_api_duplicate_post_callback($data) {
 
   return $post;
 }
-
-?>

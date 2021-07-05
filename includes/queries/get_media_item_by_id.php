@@ -7,5 +7,3 @@ function jam_cms_get_media_item_by_id($site_id, $media_item_id){
 
   return $formatted_media_item;
 }
-
-?>

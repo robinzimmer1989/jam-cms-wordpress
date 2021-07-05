@@ -22,5 +22,3 @@ function jam_cms_format_term($term){
 
   return $formatted_term;
 }
-
-?>

@@ -43,5 +43,3 @@ function jam_cms_get_repeater_items_recursively($field){
 
   return $items;
 }
-
-?>

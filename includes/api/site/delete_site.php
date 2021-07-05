@@ -24,5 +24,3 @@ function jam_cms_api_delete_site_callback($data) {
 
     // TODO: Needs implementation
 }
-
-?>

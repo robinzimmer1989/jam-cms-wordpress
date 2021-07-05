@@ -56,5 +56,3 @@ function jam_cms_api_update_user_callback($data) {
 
     return $data;
 }
-
-?>

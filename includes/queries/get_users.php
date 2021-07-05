@@ -19,5 +19,3 @@ function jam_cms_get_users($limit = 10, $page = 0){
 
   return $formatted_users;
 }
-
-?>

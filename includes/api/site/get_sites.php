@@ -25,5 +25,3 @@ function jam_cms_api_get_sites_callback($data) {
 
     return $data;
 }
-
-?>

@@ -77,5 +77,3 @@ function jam_cms_api_create_media_item_callback($data) {
 
     return $attachment_id;
 }
-
-?>

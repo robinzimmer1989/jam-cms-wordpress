@@ -213,5 +213,3 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
 
   return $value;
 }
-
-?>

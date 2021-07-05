@@ -32,5 +32,3 @@ function jam_cms_api_delete_post_callback($data) {
       return $data;
     }
 }
-
-?>

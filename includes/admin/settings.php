@@ -10,5 +10,3 @@ add_theme_support( 'post-thumbnails' );
 add_action("template_redirect", function() {
   wp_redirect('/wp-admin');
 });
-
-?>

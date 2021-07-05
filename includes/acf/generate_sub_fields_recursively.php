@@ -42,5 +42,3 @@ function jam_cms_generate_sub_fields_recursively($items, $field_key){
 
   return $sub_fields;
 }
-
-?>

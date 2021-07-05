@@ -46,5 +46,3 @@ function jam_cms_get_flexible_content_sub_blocks($field, $value){
 
   return $formatted_value;
 }
-
-?>

@@ -24,5 +24,3 @@ function jam_cms_array_flatten($element, $index = 1, $parent_id = 0){
 
   return $flat_array;
 }
-
-?>

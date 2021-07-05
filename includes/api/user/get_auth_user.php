@@ -19,5 +19,3 @@ function jam_cms_api_get_auth_user_callback($data) {
 
     return $data;
 }
-
-?>

@@ -31,5 +31,3 @@ function jam_cms_api_reorder_posts_callback($data) {
     
     return true;
 }
-
-?>

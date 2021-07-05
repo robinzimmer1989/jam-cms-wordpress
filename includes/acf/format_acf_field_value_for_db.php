@@ -49,5 +49,3 @@ function jam_cms_format_acf_field_value_for_db($field){
 
   return $value;
 }
-
-?>

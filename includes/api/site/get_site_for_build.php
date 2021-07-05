@@ -23,5 +23,3 @@ function jam_cms_api_get_site_for_build_callback($data) {
     
     return $data;
 }
-
-?>

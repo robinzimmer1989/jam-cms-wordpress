@@ -40,5 +40,3 @@ function jam_cms_api_create_term_callback($data) {
         return $formatted_term;
     }
 }
-
-?>

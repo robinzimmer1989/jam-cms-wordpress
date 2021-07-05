@@ -49,5 +49,3 @@ function jam_cms_format_taxonomy($taxonomy){
 
   return $formatted_taxonomy;
 }
-
-?>

@@ -15,5 +15,3 @@ function jam_cms_api_test() {
 function jam_cms_api_test_callback($data) {
   return null;
 }
-
-?>

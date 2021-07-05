@@ -70,5 +70,3 @@ function jam_cms_upsert_acf_template_options($fields){
 
   acf_import_field_group($field_group);
 }
-
-?>

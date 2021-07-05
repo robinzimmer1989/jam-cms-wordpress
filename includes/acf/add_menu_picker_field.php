@@ -38,5 +38,3 @@ class acf_field_menu_picker extends acf_field {
 }
 
 new acf_field_menu_picker();
-
-?>

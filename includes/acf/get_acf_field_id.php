@@ -22,5 +22,3 @@ function jam_cms_get_acf_field_id($field_type, $key){
       WHERE post_type='$field_type' AND post_name='$key';
   ");
 }
-
-?>

@@ -40,5 +40,3 @@ function jam_cms_api_delete_term_callback($data) {
       return new WP_Error( "term_does_not_exist", __( "Term doesn't exist" ), array( 'status' => 400 ) );
     }
 }
-
-?>

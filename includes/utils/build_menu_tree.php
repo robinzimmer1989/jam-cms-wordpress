@@ -15,5 +15,3 @@ function jam_cms_build_menu_tree(array &$elements, $parentId = 0) {
   }
   return $branch;
 }
-
-?>

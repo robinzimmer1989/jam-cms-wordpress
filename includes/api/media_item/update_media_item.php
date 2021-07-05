@@ -40,5 +40,3 @@ function jam_cms_api_update_media_item_callback($data) {
 
     return $media_item;
 }
-
-?>

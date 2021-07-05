@@ -38,5 +38,3 @@ function jam_cms_get_flexible_content_items_recursively($field){
 
   return $items;
 }
-
-?>

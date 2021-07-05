@@ -18,5 +18,3 @@ add_filter( 'jwt_auth_whitelist', function ( $endpoints ) {
 
   return $array;
 });
-
-?>
