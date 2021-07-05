@@ -37,8 +37,8 @@ function jam_cms_create_taxonomy($taxonomy) {
             'rewrite_slug'          => '/',
             'query_var'             => true,
             'object_types'          => property_exists($taxonomy, 'postTypes') ? $taxonomy->postTypes : [],
-            'graphql_single_name'   => "{$id}",
-            'graphql_plural_name'   => "{$id}Multiple"
+            'graphql_single_name'   => $id,
+            'graphql_plural_name'   => $id
         ];
 
         $options = property_exists($taxonomy, 'options') ? (array) $taxonomy->options : [];

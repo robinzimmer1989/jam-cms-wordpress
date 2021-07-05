@@ -39,9 +39,9 @@ function jam_cms_create_post_type($post_type) {
       'supports'              => ['title', 'thumbnail'],
       'taxonomies'            => [],
       'query_var'             => true,
-      'show_in_graphql'       => true,
-      'graphql_single_name'   => "{$id}",
-      'graphql_plural_name'   => "{$id}Multiple",
+      'show_in_graphql'       => 1,
+      'graphql_single_name'   => $id,
+      'graphql_plural_name'   => $id,
     ];
 
     $options = property_exists($post_type, 'options') ? (array) $post_type->options : [];
