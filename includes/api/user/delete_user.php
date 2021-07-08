@@ -27,8 +27,8 @@ function jam_cms_api_delete_user_callback($data) {
     $data = jam_cms_get_user_by_id($user_id);
 
     if(is_multisite()){
-        $site = get_blog_details($site_id);
-        remove_user_from_blog($user_id, $site->blog_id);
+        $blog_id = get_current_blog_id();
+        remove_user_from_blog($user_id, $blog_id);
 
     }else {
         // We need to load the delete user function separately
