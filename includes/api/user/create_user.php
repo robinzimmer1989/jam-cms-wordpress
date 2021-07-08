@@ -23,6 +23,7 @@ function jam_cms_api_create_user_callback($data) {
     $site_id    = $parameters['siteID'];
     $email      = $parameters['email'];
     $role       = $parameters['role'];
+    $send_email = array_key_exists('sendEmail', $parameters) ? $parameters['sendEmail'] : false;
 
     // Check if user already exists
     $user = get_user_by('email', $email);
@@ -59,6 +60,10 @@ function jam_cms_api_create_user_callback($data) {
             'user_email'    => $email,
             'role'          => $role
         ]);   
+    }
+
+    if($send_email){
+        wp_new_user_notification($user_id, null, 'user');
     }
 
     $data = jam_cms_get_user_by_id($user_id);
