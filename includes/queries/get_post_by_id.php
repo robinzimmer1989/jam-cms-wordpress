@@ -13,6 +13,7 @@ function jam_cms_get_post_by_id($post_id){
     // This is because content and title are the only things that are tracked by the WP revisions functions. 
     // For everything else we gonna use the original post.
     $revision = null;
+
     if($post->post_type == 'revision'){
       $revision = $post;
       $post_id = $post->post_parent;
@@ -56,20 +57,22 @@ function jam_cms_get_post_by_id($post_id){
     ];
 
     // Add revisions
-    $revisions =  wp_get_post_revisions($post_id);
-    $formatted_revisions = [];
-    foreach($revisions as $revision){
-      // In the create_post API we're updating the post right after inserting. 
-      // This causes a unnecessary revision which will be filtered out here.
-      if($revision->post_date != $post->post_date){
-        array_push($formatted_revisions, [
-          'id'      => $revision->ID,
-          'title'   => $revision->post_date
-        ]);
+    if(current_user_can('edit_posts')){
+      $revisions =  wp_get_post_revisions($post_id);
+      $formatted_revisions = [];
+      foreach($revisions as $revision){
+        // In the create_post API we're updating the post right after inserting. 
+        // This causes a unnecessary revision which will be filtered out here.
+        if($revision->post_date != $post->post_date){
+          array_push($formatted_revisions, [
+            'id'      => $revision->ID,
+            'title'   => $revision->post_date
+          ]);
+        }
       }
+      $formatted_post['revisions'] = $formatted_revisions;
+      $formatted_post['revisionsEnabled'] = wp_revisions_enabled($post);
     }
-    $formatted_post['revisions'] = $formatted_revisions;
-    $formatted_post['revisionsEnabled'] = wp_revisions_enabled($post);
 
     return $formatted_post;
   }
