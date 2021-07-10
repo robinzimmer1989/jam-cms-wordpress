@@ -14,7 +14,7 @@ function jam_cms_api_sync_fields() {
 function jam_cms_api_sync_fields_callback($data) {
     $parameters = $data->get_params();
 
-    $check = jam_cms_api_base_check($parameters, ['apiKey']);
+    $check = jam_cms_api_base_check($parameters, ['apiKey', 'fields']);
 
     if(is_wp_error($check)){
         return $check;
@@ -24,7 +24,7 @@ function jam_cms_api_sync_fields_callback($data) {
     $settings = get_option("jam_cms_settings");
     $syncing = is_array($settings) && array_key_exists("disable_syncing", $settings) && $settings['disable_syncing'] == 1 ? false : true;
 
-    if($syncing && array_key_exists('fields', $parameters)){
+    if($syncing){
 
         // We only support postname permalink structure
         update_option('permalink_structure', '/%postname%/');
