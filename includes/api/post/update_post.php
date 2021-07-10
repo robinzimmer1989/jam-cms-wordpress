@@ -99,7 +99,14 @@ function jam_cms_api_update_post_callback($data) {
   }
 
   if(array_key_exists('status', $parameters)){
-    $post_data['post_status'] = $parameters['status'];
+    $status = $parameters['status'];
+
+    // Disallow status of archive to be private due to certain limitations for private GraphQL queries
+    if(array_key_exists('template', $parameters) && $parameters['template'] == 'archive' && $status == 'private'){
+      $status = 'draft';
+    }
+
+    $post_data['post_status'] = $status;
   }
 
   if(array_key_exists('parentID', $parameters)){
