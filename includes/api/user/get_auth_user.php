@@ -6,7 +6,7 @@ function jam_cms_api_get_auth_user() {
         'methods' => 'POST',
         'callback' => 'jam_cms_api_get_auth_user_callback',
         'permission_callback' => function () {
-            return current_user_can('edit_posts');
+            return current_user_can('read');
         }
     ));
 }
