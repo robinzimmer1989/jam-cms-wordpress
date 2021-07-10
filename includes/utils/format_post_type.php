@@ -8,7 +8,7 @@ function jam_cms_format_post_type($post_type) {
   $posts = get_posts([
     'numberposts' => -1,
     'post_type'   => $post_type->name,
-    'post_status' => ['publish', 'draft', 'trash'],
+    'post_status' => ['publish', 'draft', 'private', 'trash'],
     'orderby'     => 'menu_order'
   ]);
 
