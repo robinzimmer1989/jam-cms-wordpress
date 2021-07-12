@@ -42,9 +42,9 @@ function jam_cms_format_taxonomy($taxonomy){
     'slug'              => $slug,
     'postTypes'         => $postTypes,
     'terms'             => $formatted_terms,
-    'graphqlSingleName' => $taxonomy->graphql_single_name,
-    'graphqlPluralName' => $taxonomy->graphql_plural_name,
-    'editable'          => $taxonomy->name != 'category' && $taxonomy->name != 'post_tag',
+    'graphqlSingleName' => property_exists($taxonomy, 'graphql_single_name') ? $taxonomy->graphql_single_name : '',
+    'graphqlPluralName' => property_exists($taxonomy, 'graphql_plural_name') ? $taxonomy->graphql_plural_name : '',
+    'editable'          => $taxonomy->name != 'category' && $taxonomy->name != 'post_tag' && $taxonomy->name != 'product_cat' && $taxonomy->name != 'product_tag',
   ];
 
   return $formatted_taxonomy;
