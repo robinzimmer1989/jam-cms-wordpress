@@ -6,7 +6,7 @@ function jam_cms_api_empty_trash() {
     'methods' => 'POST',
     'callback' => 'jam_cms_api_empty_trash_callback',
     'permission_callback' => function () {
-      return current_user_can( 'empty_trashs' );
+      return current_user_can( 'delete_posts' );
     }
   ));
 }
