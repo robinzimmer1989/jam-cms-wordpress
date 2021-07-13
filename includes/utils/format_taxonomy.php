@@ -19,7 +19,7 @@ function jam_cms_format_taxonomy($taxonomy){
   if(property_exists($taxonomy, 'rewrite_slug')){ // CPTUI
     $slug = $taxonomy->rewrite_slug;
 
-  }elseif(property_exists($taxonomy, 'rewrite')){ // WP Default
+  }elseif(property_exists($taxonomy, 'rewrite') && is_array($taxonomy->rewrite)){ // WP Default
     $slug = $taxonomy->rewrite['slug'];
 
   }else{
