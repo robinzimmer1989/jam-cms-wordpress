@@ -3,7 +3,9 @@
 function jam_cms_format_action_monitor($post){
 
   $formatted_content = json_decode($post->post_content, true);
+  l($formatted_content);
 
+  l($post);
   // Some action types aren't very user friendly,
   // so we mnually gonna change the attributes here if necessary
   if($formatted_content['action_type'] == 'DIFF_SCHEMAS'){  
@@ -28,6 +30,15 @@ function jam_cms_format_action_monitor($post){
 
     // Exclude menu item changes (menu should be enough)
     $formatted_post = null;
+
+  }elseif($formatted_content['graphql_single_name'] == 'mediaItem'){
+
+    $formatted_post = [
+      'id'              => $post->ID,
+      'title'           => $post->post_title ? $post->post_title : $post->post_name,
+      'description'     => 'MediaItem',
+      'actionType'      => $formatted_content['action_type']
+    ];
 
   }else{
 
