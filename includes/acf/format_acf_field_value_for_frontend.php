@@ -223,6 +223,9 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
     // Rename alt attribute
     $value['altText'] = $value['alt'];
 
+    // Rename name to slug
+    $value['slug'] = $value['name'];
+
     // Remove unnecessary data
     unset($value['ID']);
     unset($value['sizes']);
