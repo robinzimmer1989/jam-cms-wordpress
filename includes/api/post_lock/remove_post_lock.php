@@ -26,5 +26,11 @@ function jam_cms_api_remove_post_lock_callback($data) {
 
     $post = jam_cms_get_post_by_id($post_id);
 
+    // In case the post gets deleted before removing the post lock, the application throws an error "Post not found".
+    // But we don't need to inform the editor about this so we gonna return false instead.
+    if(is_wp_error($post)){
+        return false;
+    }
+
     return $post;
 }
