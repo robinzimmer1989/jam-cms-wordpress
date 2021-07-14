@@ -42,9 +42,40 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
       ];
     }
     
+  }elseif($type == 'checkbox'){
+
+    // Change null value to empty array
+    if(!$value){
+      return [];
+    }
+    
+  }elseif($type == 'google_map'){
+
+    if($value){
+
+      // Transform ACF into WpGraphQL schema
+      return [
+        'latitude'      => $value['lat'],
+        'longitude'     => $value['lng'],
+        'streetAddress' => $value['address']
+      ];
+
+    }else{
+
+      return [
+        'latitude'      => null,
+        'longitude'     => null,
+        'streetAddress' => null,
+      ];
+    }
+    
   }elseif($type == 'number'){
 
-    $value = (int) $value;
+    if(!$value){
+      return null;
+    }
+
+    return (int) $value;
 
   }elseif($type == 'repeater'){
 
@@ -117,10 +148,9 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
     }
 
     if($value['mime_type'] == 'image/svg+xml'){
-
       $value['svg'] = file_get_contents($value['url']);
 
-    } else {
+    }elseif(array_key_exists('sizes', $value)){
 
       // Format to dummy Gatsby image
       $src_set = [];
