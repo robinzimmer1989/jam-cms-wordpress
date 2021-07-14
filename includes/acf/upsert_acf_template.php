@@ -49,7 +49,6 @@ function jam_cms_upsert_acf_template($template){
   
   // initialize default GraphQL type variables for WPGraphQL ACF plugin version 0.5
   $graphql_types = [];
-  $map_graphql_types = true;
 
   if($template->id == 'archive'){
 
@@ -101,9 +100,6 @@ function jam_cms_upsert_acf_template($template){
         // The template name follows the structure 'Template_[Sidebar]'
         $graphql_types[] = "Template_{$template_name}";
       }
-    }else{
-      // Deactivate graphql types for all post types without multiple templates
-      $map_graphql_types = false;
     }
   }
 
@@ -134,7 +130,7 @@ function jam_cms_upsert_acf_template($template){
     ],
     'show_in_graphql'                       => true,
     'graphql_field_name'                    => 'acf',
-    'map_graphql_types_from_location_rules' => $map_graphql_types,
+    'map_graphql_types_from_location_rules' => true,
     'graphql_types'                         => $graphql_types,
   ];
 
