@@ -33,6 +33,15 @@ function jam_cms_format_acf_field_value_for_db($field){
 
     $value = $gallery;
   
+  }elseif($field->type == 'google_map'){
+
+    // Transform WPGraphQL to ACF schema
+    $value = [
+      'lat'     => $field->value->latitude,
+      'lng'     => $field->value->longitude,
+      'address' => $field->value->streetAddress
+    ];
+  
   }elseif($field->type == 'menu'){
     $menu_slug = $field->id;
     $menu_items = $field->value;
