@@ -91,7 +91,7 @@ function jam_cms_api_update_post_callback($data) {
     if($parameters['slug'] == '' || $parameters['slug'] == '/'){
       $slug = sanitize_title($parameters['title']);
     }else{
-      $slug = $parameters['slug'];
+      $slug = sanitize_title($parameters['slug']);
     }
 
     $unique_slug = wp_unique_post_slug( $slug, $post_id, '', get_post_type($post_id), $parameters['parentID'] );
