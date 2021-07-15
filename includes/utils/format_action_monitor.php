@@ -3,9 +3,7 @@
 function jam_cms_format_action_monitor($post){
 
   $formatted_content = json_decode($post->post_content, true);
-  l($formatted_content);
 
-  l($post);
   // Some action types aren't very user friendly,
   // so we mnually gonna change the attributes here if necessary
   if($formatted_content['action_type'] == 'DIFF_SCHEMAS'){  
