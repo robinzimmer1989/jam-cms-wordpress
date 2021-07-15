@@ -100,6 +100,9 @@ function jam_cms_upsert_acf_template($template){
         // The template name follows the structure 'Template_[Sidebar]'
         $graphql_types[] = "Template_{$template_name}";
       }
+
+    }else{
+      $graphql_types[] = ucfirst($template->postTypeID);
     }
   }
 
