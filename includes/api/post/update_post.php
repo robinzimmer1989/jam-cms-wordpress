@@ -176,8 +176,8 @@ function jam_cms_api_update_post_callback($data) {
     $templateObject = $parameters['templateObject'] ? json_decode($parameters['templateObject']) : null;
 
     if($templateObject){
-      jam_cms_create_template($templateObject);
-      jam_cms_upsert_acf_template($templateObject);
+      jam_cms_create_template($templateObject, $parameters['postTypeID']);
+      jam_cms_upsert_acf_template($templateObject, $parameters['postTypeID']);
     }
   }
 

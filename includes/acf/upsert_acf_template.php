@@ -1,16 +1,16 @@
 <?php
 
-function jam_cms_upsert_acf_template($template){
+function jam_cms_upsert_acf_template($template, $post_type_id){
 
   $template_key = '';
 
-  if(property_exists($template, 'postTypeID') && property_exists($template, 'id')){
+  if(property_exists($template, 'id') && $post_type_id){
 
       if($template->id == 'archive'){
-          $template_key = "page-archive-{$template->postTypeID}";
+          $template_key = "page-archive-{$post_type_id}";
 
       }else{
-          $template_key = "{$template->postTypeID}-{$template->id}";
+          $template_key = "{$post_type_id}-{$template->id}";
       }
   }
 
@@ -53,7 +53,7 @@ function jam_cms_upsert_acf_template($template){
   if($template->id == 'archive'){
 
     // Generate capitalized template name
-    $template_name = ucfirst($template->postTypeID);
+    $template_name = ucfirst($post_type_id);
 
     // Archive pages always belong to the post type page
     $locations = [[
@@ -66,7 +66,7 @@ function jam_cms_upsert_acf_template($template){
     array_push($locations, [
       'param'     => "page_template",
       'operator'  => '==',
-      'value'     => "template-archive-{$template->postTypeID}.php"
+      'value'     => "template-archive-{$post_type_id}.php"
     ]);
 
     // The template name follows the structure Template_ArchivePost
@@ -81,11 +81,11 @@ function jam_cms_upsert_acf_template($template){
     $locations = [[
       'param'     => 'post_type',
       'operator'  => '==',
-      'value'     => $template->postTypeID,
+      'value'     => $post_type_id,
     ]];
 
     // At the moment the only post type support for templates is 'page'
-    if($template->postTypeID == 'page'){
+    if($post_type_id == 'page'){
 
       array_push($locations, [
         'param'     => "page_template",
@@ -102,7 +102,7 @@ function jam_cms_upsert_acf_template($template){
       }
 
     }else{
-      $graphql_types[] = ucfirst($template->postTypeID);
+      $graphql_types[] = ucfirst($post_type_id);
     }
   }
 

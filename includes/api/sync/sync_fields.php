@@ -53,12 +53,13 @@ function jam_cms_api_sync_fields_callback($data) {
 
         if(property_exists($fields, 'postTypes')){
             foreach ($fields->postTypes as $post_type){
+                if(is_object($post_type) && property_exists($post_type, 'id')){
+                    jam_cms_create_post_type($post_type);
 
-                jam_cms_create_post_type($post_type);
-
-                foreach ($post_type->templates as $template){
-                    jam_cms_create_template($template);
-                    jam_cms_upsert_acf_template($template);
+                    foreach ($post_type->templates as $template){
+                        jam_cms_create_template($template, $post_type->id);
+                        jam_cms_upsert_acf_template($template, $post_type->id);
+                    }
                 }
             }
         }
