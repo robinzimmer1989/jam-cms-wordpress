@@ -38,7 +38,7 @@ function jam_cms_api_update_post_callback($data) {
     }
   }
 
-  // We need to update the template earlier to make sure "jam_cms_get_default_field_values" has access to the current template
+  // We need to update the template early in the process to make sure "jam_cms_get_default_field_values" has access to the current template
   if(array_key_exists('template', $parameters)){
     // We need to distinguish different use cases for inbuilt temlates and custom ones.
     $template_key = '';
@@ -183,6 +183,12 @@ function jam_cms_api_update_post_callback($data) {
 
   if(array_key_exists('content', $parameters)){
     jam_cms_update_acf_fields($post_id, $content);
+  }
+
+  if(array_key_exists('archive', $parameters) && array_key_exists('archivePostType', $parameters) && array_key_exists('archivePostsPerPage', $parameters)){
+    update_post_meta($post_id, 'jam_cms_archive', $parameters['archive']);
+    update_post_meta($post_id, 'jam_cms_archive_post_type', $parameters['archivePostType']);
+    update_post_meta($post_id, 'jam_cms_archive_posts_per_page', $parameters['archivePostsPerPage']);
   }
 
   update_option('jam_cms_undeployed_changes', true);

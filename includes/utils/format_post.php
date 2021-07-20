@@ -40,24 +40,35 @@ function jam_cms_format_post($post) {
     }
   }
 
+  // Archive logic
+  $archive = get_post_meta($post->ID, 'jam_cms_archive', true);
+  $archive_post_type = get_post_meta($post->ID, 'jam_cms_archive_post_type', true);
+  $archive_posts_per_page = get_option('posts_per_page');
+
+  if($archive && $archive_post_type){
+    $archive_posts_per_page = get_post_meta($post->ID, 'jam_cms_archive_posts_per_page', true);
+  }
+
   $formatted_post = [
-    'id'              => $post->ID,
-    'title'           => $post->post_title,
-    'slug'            => $slug,
-    'postTypeID'      => $post->post_type,
-    'parentID'        => $post->post_parent,
-    'status'          => $post->post_status,
-    'featuredImage'   => $formatted_media_item,
-    'template'        => $template,
-    'content'         => (object) [],
-    'seo'             => [],
-    'taxonomies'      => $formatted_taxonomies,
-    'order'           => $post->menu_order,
-    'locked'          => jam_cms_check_post_lock($post->ID),
-    'createdAt'       => $post->post_date,
-    'updatedAt'       => get_the_modified_time('Y-m-d H:m:s', $post)
+    'id'                  => $post->ID,
+    'title'               => $post->post_title,
+    'slug'                => $slug,
+    'postTypeID'          => $post->post_type,
+    'parentID'            => $post->post_parent,
+    'status'              => $post->post_status,
+    'featuredImage'       => $formatted_media_item,
+    'template'            => $template,
+    'content'             => (object) [],
+    'seo'                 => [],
+    'taxonomies'          => $formatted_taxonomies,
+    'order'               => $post->menu_order,
+    'locked'              => jam_cms_check_post_lock($post->ID),
+    'createdAt'           => $post->post_date,
+    'updatedAt'           => get_the_modified_time('Y-m-d H:m:s', $post),
+    'archive'             => $archive === 'true' ? true : false,
+    'archivePostType'     => $archive_post_type,
+    'archivePostsPerPage' => (int) $archive_posts_per_page
   ];
 
   return $formatted_post;
-  
 }

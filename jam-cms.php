@@ -96,6 +96,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/admin/page_templater.php');
             include_once( JAM_CMS_PATH . '/includes/admin/preview_button.php');
             include_once( JAM_CMS_PATH . '/includes/admin/add_svg_field_to_image_query.php');
+            include_once( JAM_CMS_PATH . '/includes/admin/add_archive_fields_to_page_query.php');
             include_once( JAM_CMS_PATH . '/includes/admin/notifications.php');
             include_once( JAM_CMS_PATH . '/includes/admin/register_menu_locations.php');
 

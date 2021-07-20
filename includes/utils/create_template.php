@@ -29,6 +29,7 @@ function jam_cms_create_template($template, $post_type_id){
 
     // The template name follows the structure Template_ArchivePost
     $jam_cms_templates['page'][$template_name] = "Archive{$post_type_id}";
+
   }else{
     $template_name = "template-{$template->id}.php";
     $jam_cms_templates[$post_type_id][$template_name] = $template->id;
