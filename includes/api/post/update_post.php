@@ -149,6 +149,11 @@ function jam_cms_api_update_post_callback($data) {
         update_post_meta($post_id, '_yoast_wpseo_metadesc', $seo->metaDesc);
       }
 
+      if(property_exists($seo, 'metaRobotsNoindex')){
+        $index = $seo->metaRobotsNoindex == 'noindex' ? 1 : 0;
+        update_post_meta($post_id, '_yoast_wpseo_meta-robots-noindex', $index);
+      }
+
       if(property_exists($seo, 'opengraphImage')){
         
         $url = $seo->opengraphImage && property_exists($seo->opengraphImage, 'url') ? $seo->opengraphImage->url : '';
