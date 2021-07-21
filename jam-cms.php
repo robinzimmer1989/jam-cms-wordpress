@@ -171,7 +171,6 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/user/delete_user.php');
             include_once( JAM_CMS_PATH . '/includes/api/user/get_users.php');
             include_once( JAM_CMS_PATH . '/includes/api/user/get_user.php');
-            include_once( JAM_CMS_PATH . '/includes/api/user/get_auth_user.php');
 
             include_once( JAM_CMS_PATH . '/includes/api/preview/get_site_preview.php');
             include_once( JAM_CMS_PATH . '/includes/api/preview/get_post_preview.php');
