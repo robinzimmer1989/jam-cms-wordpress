@@ -19,15 +19,10 @@ function jam_cms_generate_preview_link($preview_key){
   // Full URL
   $url = "{$frontend_url}{$slug}";
 
-  // Drafted posts for example use the post id with a GET parameter.
-  // In this case we have to use an ampersand instead.
-  $delimiter = '?';
+  // Drafted posts for example use the page_id as a GET parameter. In this case we wanna remove it.
+  $url_without_query_string = strtok($url, '?');
 
-  if(strpos ($slug, '?')){
-    $delimiter = '&';
-  }
-
-	$link = $url . "{$delimiter}preview={$preview_key['id']}";
+	$link = $url_without_query_string . "?preview={$preview_key['id']}";
 
   return $link;
 }
