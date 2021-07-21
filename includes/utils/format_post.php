@@ -40,6 +40,12 @@ function jam_cms_format_post($post) {
     }
   }
 
+  // We don't need all SEO information for the site but we wanna display a tag if the post is blocked by search engines.
+  $seo_noindex = get_post_meta($post->ID, '_yoast_wpseo_meta-robots-noindex', true);
+  $seo = [
+    'metaRobotsNoindex' => $seo_noindex && $seo_noindex == 1 ? "noindex" : "index"
+  ];
+
   // Archive logic
   $archive = get_post_meta($post->ID, 'jam_cms_archive', true);
   $archive_post_type = get_post_meta($post->ID, 'jam_cms_archive_post_type', true);
@@ -59,7 +65,7 @@ function jam_cms_format_post($post) {
     'featuredImage'       => $formatted_media_item,
     'template'            => $template,
     'content'             => (object) [],
-    'seo'                 => [],
+    'seo'                 => $seo,
     'taxonomies'          => $formatted_taxonomies,
     'order'               => $post->menu_order,
     'locked'              => jam_cms_check_post_lock($post->ID),
