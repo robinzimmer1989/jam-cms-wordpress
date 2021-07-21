@@ -67,6 +67,7 @@ function jam_cms_get_site_by_id($site_id = 'default'){
     'frontPage'             => intval(get_option('page_on_front')),
     'apiKey'                => $admin_api_key,
     'editorOptions'         => $editor_options ? $editor_options : (object) [],
+    'userRoles'             => jam_cms_get_user_roles(),
     'deployment' => [
       'lastBuild'           => $last_build,
       'undeployedChanges'   => boolval($undeployed_changes),

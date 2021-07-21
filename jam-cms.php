@@ -86,6 +86,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/generate_preview_link.php');
             include_once( JAM_CMS_PATH . '/includes/utils/generate_preview_key.php');
             include_once( JAM_CMS_PATH . '/includes/utils/post_lock.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/get_user_roles.php');
 
             // Admin
             include_once( JAM_CMS_PATH . '/includes/admin/fix_page_query.php');
