@@ -14,7 +14,7 @@ function jam_cms_api_create_term() {
 function jam_cms_api_create_term_callback($data) {
     $parameters = $data->get_params();
 
-    $check = jam_cms_api_base_check($parameters, ['taxonomyID', 'title']);
+    $check = jam_cms_api_base_check($parameters, ['taxonomyID', 'title', 'slug', 'parentID']);
 
     if(is_wp_error($check)){
         return $check;
@@ -25,7 +25,8 @@ function jam_cms_api_create_term_callback($data) {
     $title       = $parameters['title'];
     $slug        = $parameters['slug'];
     $parent_id   = $parameters['parentID'];
-    $description = $parameters['description'];
+    $description = array_key_exists('description', $parameters) ? $parameters['description'] : '';
+    $language    = array_key_exists('language', $parameters) ? $parameters['language'] : '';
 
     $new_term = wp_insert_term($title, $taxonomy_id, [
         'description' => $description,
@@ -33,10 +34,14 @@ function jam_cms_api_create_term_callback($data) {
         'slug'        => $slug 
     ]);
 
-    if($new_term){
-        $term = get_term($new_term['term_id']);
-        $formatted_term = jam_cms_format_term($term);
-
-        return $formatted_term;
+    if(is_wp_error($new_term)){
+        return $new_term;
     }
+
+    pll_set_term_language($new_term['term_id'], $language);
+
+    $term = get_term($new_term['term_id']);
+    $formatted_term = jam_cms_format_term($term);
+
+    return $formatted_term;
 }

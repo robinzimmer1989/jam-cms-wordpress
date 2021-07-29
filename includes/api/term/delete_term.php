@@ -24,17 +24,13 @@ function jam_cms_api_delete_term_callback($data) {
     $taxonomy_id  = $parameters['taxonomyID'];
     $term_id      = $parameters['id'];
 
-    // Get term before deleting it
-    $term = get_term($term_id);
-
     $result = wp_delete_term($term_id, $taxonomy_id);
 
     if($result == 0){
       return new WP_Error( "cannot_delete_term", __( "Can't delete default category" ), array( 'status' => 400 ) );
 
     }elseif($result){
-      $formatted_term = jam_cms_format_term($term);
-      return $formatted_term;
+      return $term_id;
       
     }else{
       return new WP_Error( "term_does_not_exist", __( "Term doesn't exist" ), array( 'status' => 400 ) );

@@ -71,6 +71,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/format_menu_item.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_user.php');
             include_once( JAM_CMS_PATH . '/includes/utils/format_action_monitor.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/format_language.php');
             include_once( JAM_CMS_PATH . '/includes/utils/generate_id.php');
             include_once( JAM_CMS_PATH . '/includes/utils/array_flatten.php');
             include_once( JAM_CMS_PATH . '/includes/utils/build_menu_tree.php');
@@ -80,6 +81,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/create_template.php');
             include_once( JAM_CMS_PATH . '/includes/utils/generate_slug_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/utils/duplicate_post.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/duplicate_term.php');
             include_once( JAM_CMS_PATH . '/includes/utils/create_revision.php');
             include_once( JAM_CMS_PATH . '/includes/utils/create_post_type.php');
             include_once( JAM_CMS_PATH . '/includes/utils/create_taxonomy.php');
@@ -87,6 +89,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/generate_preview_key.php');
             include_once( JAM_CMS_PATH . '/includes/utils/post_lock.php');
             include_once( JAM_CMS_PATH . '/includes/utils/get_user_roles.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/get_languages.php');
 
             // Admin
             include_once( JAM_CMS_PATH . '/includes/admin/fix_page_query.php');
@@ -157,6 +160,8 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/post/reorder_posts.php');
             include_once( JAM_CMS_PATH . '/includes/api/post/take_over_post.php');
             include_once( JAM_CMS_PATH . '/includes/api/post/empty_trash.php');
+            include_once( JAM_CMS_PATH . '/includes/api/post/refresh_post_lock.php');
+            include_once( JAM_CMS_PATH . '/includes/api/post/remove_post_lock.php');
 
             include_once( JAM_CMS_PATH . '/includes/api/term/create_term.php');
             include_once( JAM_CMS_PATH . '/includes/api/term/update_term.php');
@@ -177,8 +182,13 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/preview/get_post_preview.php');
             include_once( JAM_CMS_PATH . '/includes/api/preview/get_preview_link.php');
 
-            include_once( JAM_CMS_PATH . '/includes/api/post_lock/refresh_post_lock.php');
-            include_once( JAM_CMS_PATH . '/includes/api/post_lock/remove_post_lock.php');
+            include_once( JAM_CMS_PATH . '/includes/api/language/translate_post.php');
+            include_once( JAM_CMS_PATH . '/includes/api/language/translate_term.php');
+            include_once( JAM_CMS_PATH . '/includes/api/language/add_language.php');
+            include_once( JAM_CMS_PATH . '/includes/api/language/get_languages.php');
+            include_once( JAM_CMS_PATH . '/includes/api/language/delete_language.php');
+            include_once( JAM_CMS_PATH . '/includes/api/language/update_language.php');
+            include_once( JAM_CMS_PATH . '/includes/api/language/update_language_settings.php');
 
             // Misc APIs
             include_once( JAM_CMS_PATH . '/includes/api/sync/sync_fields.php');

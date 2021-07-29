@@ -70,5 +70,7 @@ function jam_cms_duplicate_post($post_id, $overrides = [], $is_revision = false)
     return $new_post;
     
   }
+
+  return null;
   
 }

@@ -3,9 +3,7 @@
 function jam_cms_format_taxonomy($taxonomy){
   $taxonomy = (object) $taxonomy;
 
-  $terms = get_terms($taxonomy->name, array(
-    'hide_empty' => false,
-  ));
+  $terms = get_terms($taxonomy->name, ['hide_empty' => false]);
 
   $formatted_terms = [];
   foreach($terms as $term){

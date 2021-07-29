@@ -8,17 +8,52 @@ function jam_cms_format_term($term){
   }
 
   $uri = get_term_link($term->term_id);
-  $uri = jam_cms_format_url($uri);
+
+  $formatted_uri = jam_cms_format_url($uri);
 
   $formatted_term = (object) [
+    'taxonomyID'  => $term->taxonomy,
     'id'          => $term->term_id,
     'title'       => $term->name,
     'description' => $term->description,
     'slug'        => $term->slug,
     'parentID'    => $term->parent,
     'count'       => $term->count,
-    'uri'         => $uri
+    'uri'         => $formatted_uri,
   ];
+
+  // Add language information to post
+  if(class_exists('Polylang')){
+
+    $default_language = pll_default_language();
+
+    $supports_translations = pll_is_translated_taxonomy($term->taxonomy);
+
+    // We need to check for a default language here, otherwise pll_the_languages will throw an error.
+    if($default_language && $supports_translations){
+      $term_language = pll_get_term_language($term->term_id);
+
+      $translations = [];
+      $languages = pll_the_languages(['hide_if_empty' => 0, 'raw' => 1]);
+
+      foreach ($languages as $language){
+
+        // Skip own translation
+        if($language['slug'] == $term_language){
+          continue;
+        }
+
+        $translation = pll_get_term($term->term_id, $language['slug']);
+
+        if($translation){
+          $translations[$language['slug']] = $translation;
+        }
+      }
+
+      $formatted_term->language      = $term_language;
+      $formatted_term->translations  = (object) $translations;
+    }
+  }
 
   return $formatted_term;
 }

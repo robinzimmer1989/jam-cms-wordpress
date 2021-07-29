@@ -196,6 +196,10 @@ function jam_cms_api_update_post_callback($data) {
     update_post_meta($post_id, 'jam_cms_archive_posts_per_page', $parameters['archivePostsPerPage']);
   }
 
+  if(function_exists('pll_set_post_language') && array_key_exists('language', $parameters)){
+    pll_set_post_language($post_id, $parameters['language']);
+  }
+
   update_option('jam_cms_undeployed_changes', true);
 
   $data = jam_cms_get_post_by_id($post_id);

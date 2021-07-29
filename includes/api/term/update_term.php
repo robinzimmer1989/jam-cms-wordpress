@@ -35,6 +35,10 @@ function jam_cms_api_update_term_callback($data) {
     'slug'        => $slug 
   ]);
 
+  if(is_wp_error($updated_term)){
+    return $updated_term;
+  }
+
   if($updated_term){
     $term = get_term($updated_term['term_id']);
     $formatted_term = jam_cms_format_term($term);

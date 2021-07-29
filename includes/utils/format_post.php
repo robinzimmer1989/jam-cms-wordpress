@@ -73,8 +73,39 @@ function jam_cms_format_post($post) {
     'updatedAt'           => get_the_modified_time('Y-m-d H:m:s', $post),
     'archive'             => $archive === 'true' ? true : false,
     'archivePostType'     => $archive_post_type,
-    'archivePostsPerPage' => (int) $archive_posts_per_page
+    'archivePostsPerPage' => (int) $archive_posts_per_page,
   ];
+
+  // Add language information to post
+  if(class_exists('Polylang')){
+
+    $default_language = pll_default_language();
+
+    // We need to check for a default language here, otherwise pll_the_languages will throw an error.
+    if($default_language){
+      $post_language = pll_get_post_language($post->ID);
+
+      $translations = [];
+      $languages = pll_the_languages(['hide_if_empty' => 0, 'raw' => 1]);
+
+      foreach ($languages as $language){
+
+        // Skip own translation
+        if($language['slug'] == $post_language){
+          continue;
+        }
+
+        $translation = pll_get_post($post->ID, $language['slug']);
+
+        if($translation){
+          $translations[$language['slug']] = $translation;
+        }
+      }
+
+      $formatted_post['language']     = $post_language;
+      $formatted_post['translations'] = (object) $translations;
+    }
+  }
 
   return $formatted_post;
 }

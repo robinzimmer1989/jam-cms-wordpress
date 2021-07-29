@@ -23,11 +23,22 @@ function jam_cms_api_empty_trash_callback($data) {
   $site_id      = $parameters['siteID'];
   $post_type_id = $parameters['postTypeID'];
 
-  $trashed_posts = get_posts([
+  $query_args = [
     'post_status' => 'trash',
     'numberposts' => -1,
     'post_type'   => $post_type_id
-  ]);
+  ];
+
+  if(
+    class_exists('Polylang') && 
+    array_key_exists('language', $parameters) && 
+    $parameters['language'] &&
+    $parameters['language'] != 'all'
+  ){
+    $query_args['lang'] = $parameters['language'];
+  }
+
+  $trashed_posts = get_posts($query_args);
 
   $formatted_posts = [];
 
