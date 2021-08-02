@@ -30,7 +30,7 @@ function jam_cms_duplicate_post($post_id, $overrides = [], $is_revision = false)
       $args[$key] = $value;
     }
 
-    $new_post_id = wp_insert_post( $args );
+    $new_post_id = wp_insert_post($args);
 
     // Make sure the post_name / slug is unique
     if(!$is_revision){

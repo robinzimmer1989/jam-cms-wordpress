@@ -6,7 +6,7 @@ function jam_cms_get_languages(){
 
   $formatted_languages = [];
 
-  // We need to check for a default language here, otherwise pll_the_languages will throw an error.
+  // We need to check for a default language, otherwise pll_the_languages might throw an error.
   if($default_language){
     $languages = pll_the_languages([
       'show_flags'    => 1,
