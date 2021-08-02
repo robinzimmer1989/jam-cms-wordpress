@@ -12,23 +12,21 @@ function jam_cms_api_delete_post() {
 }
 
 function jam_cms_api_delete_post_callback($data) {
-    $parameters   = $data->get_params();
+  $parameters   = $data->get_params();
 
-    $check = jam_cms_api_base_check($parameters, ['id']);
+  $check = jam_cms_api_base_check($parameters, ['id']);
 
-    if(is_wp_error($check)){
-        return $check;
-    }
+  if(is_wp_error($check)){
+    return $check;
+  }
 
-    $site_id      = $parameters['siteID'];
-    $post_id      = $parameters['id'];
+  $post_id = $parameters['id'];
 
-    // We need to generate the data beforehand, because otherwise it would throw an error 'Post not found'.
-    $data = jam_cms_get_post_by_id($post_id);
+  $post = wp_delete_post($post_id);
 
-    $post = wp_delete_post($post_id);
+  if(is_wp_error($post)){
+    return $post;
+  }
 
-    if($post){
-      return $data;
-    }
+  return $post_id;
 }

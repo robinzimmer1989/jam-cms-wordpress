@@ -40,15 +40,15 @@ function jam_cms_api_empty_trash_callback($data) {
 
   $trashed_posts = get_posts($query_args);
 
-  $formatted_posts = [];
+  $post_ids = [];
 
   foreach($trashed_posts as $post){
     $delete = wp_delete_post($post->ID, true);
 
     if($delete){
-      array_push($formatted_posts, jam_cms_format_post($post));
+      array_push($post_ids, $post->ID);
     }
   }
 
-  return $formatted_posts;
+  return $post_ids;
 }
