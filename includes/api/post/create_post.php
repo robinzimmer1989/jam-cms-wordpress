@@ -26,19 +26,21 @@ function jam_cms_api_create_post_callback($data) {
     $site_id    = $parameters['siteID'];
     $title      = $parameters['title'];
     $post_type  = $parameters['postTypeID'];
-    $parent_id  = $parameters['parentID'];
 
     $post_id = wp_insert_post([
       'post_title'  => $title,
       'post_name'   => '',
       'post_status' => 'draft',
       'post_type'   => $post_type,
-      'post_parent' => $parent_id
     ]);
+
+    if(function_exists('pll_set_post_language') && array_key_exists('language', $parameters)){
+      pll_set_post_language($post_id, $parameters['language']);
+    }
 
     // Generate unique postname. We need the post id to do that, so we have to split the process into two steps.
     $slug = sanitize_title_with_dashes($title);
-    $unique_slug = wp_unique_post_slug( $slug, $post_id, '', $post_type, $parent_id );
+    $unique_slug = wp_unique_post_slug( $slug, $post_id, '', $post_type, 0);
 
     // We're updating the db directly with the unique slug (vs wp_update_post) to avoid an automatic post revision.
     $wpdb->update( $wpdb->posts, ['post_name' => $unique_slug], ['ID' => $post_id]);
