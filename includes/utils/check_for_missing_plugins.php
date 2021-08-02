@@ -19,35 +19,35 @@ function jam_cms_check_for_missing_plugins(){
 
   $missing_plugins = [];
 
-  if(!in_array('wp-graphql/wp-graphql.php', $active_plugins)){
+  if(!jam_cms_array_search_partial($active_plugins, '/wp-graphql.php')){
     array_push($missing_plugins, 'WP GraphQL');
   }
 
-  if(!in_array('wp-gatsby/wp-gatsby.php', $active_plugins)){
+  if(!jam_cms_array_search_partial($active_plugins, '/wp-gatsby.php')){
     array_push($missing_plugins, 'WP Gatsby');
   }
 
-  if(!in_array('advanced-custom-fields-pro/acf.php', $active_plugins)){
+  if(!jam_cms_array_search_partial($active_plugins, '/acf.php')){
     array_push($missing_plugins, 'Advanced Custom Fields PRO');
   }
 
-  if(!in_array('wp-graphql-acf-0.5.2/wp-graphql-acf.php', $active_plugins)){
+  if(!jam_cms_array_search_partial($active_plugins, '/wp-graphql-acf.php')){
     array_push($missing_plugins, 'WPGraphQL for Advanced Custom Fields');
   }
 
-  if(!in_array('custom-post-type-ui/custom-post-type-ui.php', $active_plugins)){
+  if(!jam_cms_array_search_partial($active_plugins, '/custom-post-type-ui.php')){
     array_push($missing_plugins, 'Custom Post Type UI');
   }
 
-  if(!in_array('wp-graphql-jwt-authentication-0.4.1/wp-graphql-jwt-authentication.php', $active_plugins)){
+  if(!jam_cms_array_search_partial($active_plugins, '/wp-graphql-jwt-authentication.php')){
     array_push($missing_plugins, 'WPGraphQL JWT Authentication');
   }
 
-  if(!in_array('wordpress-seo/wp-seo.php', $active_plugins)){
+  if(!jam_cms_array_search_partial($active_plugins, '/wp-seo.php')){
     array_push($missing_plugins, 'Yoast SEO');
   }
 
-  if(!in_array('add-wpgraphql-seo/wp-graphql-yoast-seo.php', $active_plugins)){
+  if(!jam_cms_array_search_partial($active_plugins, '/wp-graphql-yoast-seo.php')){
     array_push($missing_plugins, 'Add WPGraphQL SEO');
   }
 

@@ -62,8 +62,14 @@ function jam_cms_get_site_for_build_by_id(){
     'frontPage'       => intval(get_option( 'page_on_front' )),
     'siteTitle'       => get_bloginfo('name'),
     'themeOptions'    => $formatted_options,
-    'protectedPosts'  => $formatted_post_types
+    'protectedPosts'  => $formatted_post_types,
+    'activePlugins'   => jam_cms_get_relevant_plugins()
   ];
+
+  // Add languages if supported
+  if(class_exists('Polylang')){
+    $data['languages'] = jam_cms_get_languages();
+  }
 
   return $data;
 }
