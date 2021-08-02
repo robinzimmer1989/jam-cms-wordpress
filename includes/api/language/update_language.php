@@ -20,7 +20,24 @@ function jam_cms_api_update_language_callback($data) {
         return $check;
     }
 
-    if(class_exists('PLL_Admin_Model')){
+    if(class_exists('PLL_Admin_Model') && class_exists('PLL_Settings')){
+
+        $predefined_languages = PLL_Settings::get_predefined_languages();
+
+        $flag = '';
+        
+        if(array_key_exists($parameters['locale'], $predefined_languages)){
+            $flag = $predefined_languages[$parameters['locale']]['flag'];
+        }
+
+        $args = [
+            'lang_id'   => $parameters['id'],
+            'slug'      => $parameters['slug'],
+            'name'      => $parameters['name'],
+            'locale'    => $parameters['locale'],
+            'rtl'       => 0,
+            'flag'      => $flag
+        ];
 
         // When adding a language and running the get_languages functions later on, post types and label property values are empty.
         // That's why we need to fetch them here and then override those values in the next step.
@@ -29,15 +46,6 @@ function jam_cms_api_update_language_callback($data) {
         $options = get_option('polylang');
 
         $model = new PLL_Admin_Model($options);
-
-        $args = [
-            'lang_id'   => $parameters['id'],
-            'slug'      => $parameters['slug'],
-            'name'      => $parameters['name'],
-            'locale'    => $parameters['locale'],
-            'rtl'       => 0,
-            'flag'      => $parameters['slug']
-        ];
 
         $result = $model->update_language($args);
 

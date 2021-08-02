@@ -20,11 +20,26 @@ function jam_cms_api_add_language_callback($data) {
         return $check;
     }
 
-    if(class_exists('PLL_Admin_Model')){
+    if(class_exists('PLL_Admin_Model') && class_exists('PLL_Settings')){
+
+        $predefined_languages = PLL_Settings::get_predefined_languages();
+
+        $flag = '';
+        
+        if(array_key_exists($parameters['locale'], $predefined_languages)){
+            $flag = $predefined_languages[$parameters['locale']]['flag'];
+        }
 
         // When adding a language and running the get_languages functions later on, post types and label property values are empty.
         // That's why we need to fetch them here and then override those values in the next step.
         $current_languages = jam_cms_get_languages();
+
+        // Check if language code already exists
+        foreach($current_languages->languages as $language) {
+            if($language['slug'] == $parameters['slug']){
+                return new WP_Error( 'translation_slug_already_exists', __( 'The language code already exists' ), array( 'status' => 400 ) );
+            }
+        }
         
         $options = get_option('polylang');
 
@@ -35,14 +50,14 @@ function jam_cms_api_add_language_callback($data) {
             'name'   => $parameters['name'],
             'locale' => $parameters['locale'],
             'rtl'    => 0,
-            'flag'   => $parameters['slug']
+            'flag'   => $flag
         ];
 
         $result = $model->add_language($args);
 
         if($result){
 
-            $languages = jam_cms_get_languages($default_language);
+            $languages = jam_cms_get_languages();
 
             $default_language = pll_default_language();
             
