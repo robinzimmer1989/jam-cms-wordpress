@@ -43,11 +43,7 @@ function jam_cms_format_acf_field_value_for_db($field){
     ];
   
   }elseif($field->type == 'menu'){
-    $menu_slug = $field->id;
-    $menu_items = $field->value;
-
-    $menu_id = jam_cms_update_menu($menu_slug, $menu_items);
-    $value = $menu_id;
+    $value = jam_cms_update_menu($field->id, $field->value);
   
   }elseif($field->type == 'link'){
     $value = (array) $field->value;

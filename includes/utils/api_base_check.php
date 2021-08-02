@@ -25,6 +25,11 @@ function jam_cms_api_base_check($parameters, $required_args = []){
     }
   }
 
+  // Set global variable so other functions can access it
+  if(array_key_exists('language', $parameters)){
+    $GLOBALS['language'] = $parameters['language'];
+  }
+
   if(in_array('previewID', $required_args)){
 
     $preview_keys = get_option('jam-cms-preview-keys');

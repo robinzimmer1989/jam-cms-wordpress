@@ -1,6 +1,30 @@
 <?php
 
-function jam_cms_update_menu($menu_slug, $menu_items){
+function jam_cms_update_menu($menu_slug, $value){
+
+  // Assign value to menu items
+  $menu_items = $value;
+
+  // Get global language variable (set in API base check)
+  $language = $GLOBALS['language'];
+
+  // Translated menus are stored with an appendix such as ___en, so we manipulate the menu slug in case it's not the default language
+  if(
+    function_exists('pll_default_language') && 
+    $language &&
+    is_object($value) &&
+    property_exists($value, $language)
+  ){
+
+    // Override slug for translated menus
+    if($language !== pll_default_language()){
+      $menu_slug = "{$menu_slug}___{$language}";
+    }
+
+    // Override menu items
+    $menu_items = $value->$language;
+  }
+
   $menu = wp_get_nav_menu_object($menu_slug);
 
   // Create menu if doesn't exist
@@ -61,6 +85,22 @@ function jam_cms_update_menu($menu_slug, $menu_items){
 
     // Store new menu item id in array
     $menu_item_ids[$item->key] = $menu_item_id;
+  }
+
+  // Even though the user might have saved a translated menu, we always wanna return the menu of the default language (if exists)
+  if(
+    function_exists('pll_default_language') && 
+    $language &&
+    $language !== pll_default_language() &&
+    is_object($value) &&
+    property_exists($value, $language)
+  ){
+    $original_menu_slug = explode('___', $menu_slug)[0];
+    $original_menu      = wp_get_nav_menu_object($original_menu_slug);
+
+    if($original_menu){
+      return $original_menu->term_id;
+    }
   }
 
   return $menu_id;

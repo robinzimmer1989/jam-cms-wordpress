@@ -28,8 +28,11 @@ class acf_field_menu_picker extends acf_field {
 					foreach ( $menus as $choice ) {
 						$field['choices'][ $choice->menu_id ] = $choice->term_id;
 						$field['choices'][ $choice->name ] = $choice->name;
-
-						echo '<option  value="' . $field['choices'][ $choice->menu_id ] . '" ' . selected($field_value, $field['choices'][ $choice->menu_id ], false) . ' >' . $field['choices'][ $choice->name ] . '</option>' ;
+						
+						// Prevent rendering translated menus here by checking for '___'
+						if(!strpos($choice->name, '___')){
+							echo '<option  value="' . $field['choices'][ $choice->menu_id ] . '" ' . selected($field_value, $field['choices'][ $choice->menu_id ], false) . ' >' . $field['choices'][ $choice->name ] . '</option>' ;
+						}
 					}
 				}
 		echo '</select>';

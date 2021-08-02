@@ -23,11 +23,6 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
   $type = $field->type;
 
   if($type == 'menu'){
-    
-    // Change null value to empty array
-    if(!$value){
-      return [];
-    }
 
     $value = jam_cms_get_menu_by_id($value);
 
@@ -172,7 +167,6 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
       }
 
       array_push($src_set, $value['url'] . ' ' . $value['width'] . 'w');
-
 
       $base64 = base64_encode(file_get_contents($value['sizes']['tiny']));
       
