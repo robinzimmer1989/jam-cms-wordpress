@@ -2,21 +2,12 @@
 
 function jam_cms_get_languages(){
 
-  $default_language = pll_default_language();
-
   $formatted_languages = [];
 
-  // We need to check for a default language, otherwise pll_the_languages might throw an error.
-  if($default_language){
-    $languages = pll_the_languages([
-      'show_flags'    => 1,
-      'raw'           => 1,
-      'hide_if_empty' => 0
-    ]);
+  $languages = pll_languages_list(['fields' => []]);
 
-    foreach($languages as $language){
-      array_push($formatted_languages, jam_cms_format_language($language));
-    }
+  foreach($languages as $language){
+    array_push($formatted_languages, jam_cms_format_language($language));
   }
   
   $language = get_taxonomy('language');
@@ -50,7 +41,7 @@ function jam_cms_get_languages(){
     'postTypes'         => $formatted_post_types,
     'taxonomies'        => $formatted_taxonomies,
     'languages'         => $formatted_languages,
-    'defaultLanguage'   => $default_language
+    'defaultLanguage'   => pll_default_language()
   ];
 
   return $formatted_taxonomy;

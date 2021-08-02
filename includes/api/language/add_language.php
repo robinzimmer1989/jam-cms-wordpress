@@ -30,8 +30,6 @@ function jam_cms_api_add_language_callback($data) {
             $flag = $predefined_languages[$parameters['locale']]['flag'];
         }
 
-        // When adding a language and running the get_languages functions later on, post types and label property values are empty.
-        // That's why we need to fetch them here and then override those values in the next step.
         $current_languages = jam_cms_get_languages();
 
         // Check if language code already exists
@@ -45,41 +43,27 @@ function jam_cms_api_add_language_callback($data) {
 
         $model = new PLL_Admin_Model($options);
 
-        $args = [
+        $result = $model->add_language([
             'slug'   => $parameters['slug'],
             'name'   => $parameters['name'],
             'locale' => $parameters['locale'],
             'rtl'    => 0,
             'flag'   => $flag
-        ];
-
-        $result = $model->add_language($args);
+        ]);
 
         if($result){
-
             $languages = jam_cms_get_languages();
 
-            $default_language = pll_default_language();
-            
-            // If there is no default language, the user just added the first language and in this case we need to add the data manually,
-            // because the main function 'pll_the_languages' requires a reload in order to get the fresh data.
-            if(!$default_language){
+            if(!$languages->defaultLanguage){
+
+                // Let's automatically set the default language if it doesn't exist yet
+                $options['default_lang'] = $parameters['slug'];
+                update_option('polylang', $options);
+
+                // Override missing default language and title which are unavailable without a refresh
                 $languages->defaultLanguage = $parameters['slug'];
-
-                $term = get_term_by('slug', $parameters['slug'], 'language');
-
-                $languages->languages = [[
-                    'id'      => $term->term_id,
-                    'name'    => $parameters['name'],
-                    'slug'    => $parameters['slug'],
-                    'locale'  => $parameters['locale'],
-                    'flag'    => $parameters['slug'],
-                ]];
+                $languages->title = $current_languages->title;
             }
-
-            // Override empty values to fix bug
-            $languages->title = $current_languages->title;
-            $languages->postTypes = $current_languages->postTypes;
 
             return $languages;
         }

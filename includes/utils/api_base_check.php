@@ -26,8 +26,13 @@ function jam_cms_api_base_check($parameters, $required_args = []){
   }
 
   // Set global variable so other functions can access it
-  if(array_key_exists('language', $parameters)){
-    $GLOBALS['language'] = $parameters['language'];
+  if(function_exists('pll_default_language')){
+
+    if(array_key_exists('language', $parameters) && $parameters['language'] != false){
+      $GLOBALS['language'] = $parameters['language'];
+    }else{
+      $GLOBALS['language'] = pll_default_language();
+    }
   }
 
   if(in_array('previewID', $required_args)){

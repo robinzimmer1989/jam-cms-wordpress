@@ -25,28 +25,25 @@ function jam_cms_format_term($term){
   // Add language information to post
   if(class_exists('Polylang')){
 
-    $default_language = pll_default_language();
-
     $supports_translations = pll_is_translated_taxonomy($term->taxonomy);
 
-    // We need to check for a default language here, otherwise pll_the_languages will throw an error.
-    if($default_language && $supports_translations){
+    if($supports_translations){
       $term_language = pll_get_term_language($term->term_id);
 
       $translations = [];
-      $languages = pll_the_languages(['hide_if_empty' => 0, 'raw' => 1]);
+      $languages = pll_languages_list(['fields' => []]);
 
       foreach ($languages as $language){
 
         // Skip own translation
-        if($language['slug'] == $term_language){
+        if($language->slug == $term_language){
           continue;
         }
 
-        $translation = pll_get_term($term->term_id, $language['slug']);
+        $translation = pll_get_term($term->term_id, $language->slug);
 
         if($translation){
-          $translations[$language['slug']] = $translation;
+          $translations[$language->slug] = $translation;
         }
       }
 

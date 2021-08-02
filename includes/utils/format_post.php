@@ -78,33 +78,27 @@ function jam_cms_format_post($post) {
 
   // Add language information to post
   if(class_exists('Polylang')){
+    $post_language = pll_get_post_language($post->ID);
 
-    $default_language = pll_default_language();
+    $translations = [];
+    $languages = pll_languages_list(['fields' => []]);
 
-    // We need to check for a default language here, otherwise pll_the_languages will throw an error.
-    if($default_language){
-      $post_language = pll_get_post_language($post->ID);
+    foreach ($languages as $language){
 
-      $translations = [];
-      $languages = pll_the_languages(['hide_if_empty' => 0, 'raw' => 1]);
-
-      foreach ($languages as $language){
-
-        // Skip own translation
-        if($language['slug'] == $post_language){
-          continue;
-        }
-
-        $translation = pll_get_post($post->ID, $language['slug']);
-
-        if($translation){
-          $translations[$language['slug']] = $translation;
-        }
+      // Skip own translation
+      if($language->slug == $post_language){
+        continue;
       }
 
-      $formatted_post['language']     = $post_language;
-      $formatted_post['translations'] = (object) $translations;
+      $translation = pll_get_post($post->ID, $language->slug);
+
+      if($translation){
+        $translations[$language->slug] = $translation;
+      }
     }
+
+    $formatted_post['language']     = $post_language;
+    $formatted_post['translations'] = (object) $translations;
   }
 
   return $formatted_post;
