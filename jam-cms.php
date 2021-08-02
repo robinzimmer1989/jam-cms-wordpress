@@ -90,6 +90,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/utils/post_lock.php');
             include_once( JAM_CMS_PATH . '/includes/utils/get_user_roles.php');
             include_once( JAM_CMS_PATH . '/includes/utils/get_languages.php');
+            include_once( JAM_CMS_PATH . '/includes/utils/array_search_partial.php');
 
             // Admin
             include_once( JAM_CMS_PATH . '/includes/admin/fix_page_query.php');
@@ -137,6 +138,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/queries/get_menu_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_user_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_users.php');
+            include_once( JAM_CMS_PATH . '/includes/queries/get_relevant_plugins.php');
 
             // Mutations
             include_once( JAM_CMS_PATH . '/includes/mutations/update_menu.php');
