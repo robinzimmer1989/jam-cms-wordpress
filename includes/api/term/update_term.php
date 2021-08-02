@@ -14,29 +14,25 @@ function jam_cms_api_update_term() {
 function jam_cms_api_update_term_callback($data) {
   $parameters = $data->get_params();
 
-  $check = jam_cms_api_base_check($parameters, ['taxonomyID', 'title', 'id']);
+  $check = jam_cms_api_base_check($parameters, ['taxonomyID', 'id', 'title', 'slug', 'parentID']);
 
   if(is_wp_error($check)){
     return $check;
   }
 
-  $site_id     = $parameters['siteID'];
-  $taxonomy_id = $parameters['taxonomyID'];
-  $id          = $parameters['id'];
-  $title       = $parameters['title'];
-  $slug        = $parameters['slug'];
-  $parent_id   = $parameters['parentID'];
-  $description = $parameters['description'];
-
-  $updated_term = wp_update_term($id, $taxonomy_id, [
-    'name'        => $title,
-    'description' => $description,
-    'parent'      => $parent_id,
-    'slug'        => $slug 
+  $updated_term = wp_update_term($parameters['id'], $parameters['taxonomyID'], [
+    'name'        => $parameters['title'],
+    'parent'      => $parameters['parentID'],
+    'slug'        => $parameters['slug'],
+    'description' => array_key_exists('description', $parameters) ? $parameters['description'] : '',
   ]);
 
   if(is_wp_error($updated_term)){
     return $updated_term;
+  }
+
+  if(array_key_exists('language', $parameters)){
+    pll_set_term_language($updated_term['term_id'], $parameters['language']);
   }
 
   if($updated_term){

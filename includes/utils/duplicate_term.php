@@ -6,15 +6,16 @@ function jam_cms_duplicate_term($term_id, $overrides = [], $is_revision = false)
 
   $term = get_term($term_id);
 
-  if (is_wp_error($term)){
+  if(is_wp_error($term)){
     return $term;
   }
 
   $unique_slug = wp_unique_term_slug($term->slug, $term);
-
-  $new_term = wp_insert_term($unique_slug, $term->taxonomy, [
+  
+  $new_term = wp_insert_term($term->name, $term->taxonomy, [
     'description' => $term->description,
     'parent'      => $term->parent,
+    'slug'        => $unique_slug,
   ]);
 
   if(is_wp_error($new_term)){

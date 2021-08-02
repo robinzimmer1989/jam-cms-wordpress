@@ -27,36 +27,35 @@ function jam_cms_api_translate_term_callback($data) {
   $term_id  = $parameters['id'];
   $language = $parameters['language'];
 
-  // Duplicate post
+  // Duplicate term
   $new_term = jam_cms_duplicate_term($term_id);
 
-  if($new_term){
-
-    // Set language of duplicated post
-    pll_set_term_language($new_term['term_id'], $language);
-
-    $original_term = get_term($term_id);
-
-    // Now that the term has a different language assigned, we can fix the slug which was converted from i.e. "category" to "category-2"
-    $original_slug = $original_term->slug;
-
-    wp_update_term($new_term['term_id'], $new_term['taxonomy'], ['slug' => $original_slug]);
-
-    // Get all translations of original term
-    $translations = pll_get_term_translations($term_id);
-
-    // Update translations with language-id key value pair
-    $translations[$language] = $new_term['term_id'];
-
-    // Save translations
-    pll_save_term_translations($translations);
-
-    // Get fresh term object so translations are accurate
-    $term = get_term($new_term['term_id']);
-    $formatted_term = jam_cms_format_term($term);
-
-    return $formatted_term;
+  if(is_wp_error($new_term)){
+    return $new_term;
   }
 
-  return null;
+  // Set language of duplicated term
+  pll_set_term_language($new_term['term_id'], $language);
+
+  $original_term = get_term($term_id);
+
+  // Now that the term has a different language assigned, we can fix the slug which was converted from i.e. "category" to "category-2"
+  $original_slug = $original_term->slug;
+
+  wp_update_term($new_term['term_id'], $new_term['taxonomy'], ['slug' => $original_slug]);
+
+  // Get all translations of original term
+  $translations = pll_get_term_translations($term_id);
+
+  // Update translations with language-id key value pair
+  $translations[$language] = $new_term['term_id'];
+
+  // Save translations
+  pll_save_term_translations($translations);
+
+  // Get fresh term object so translations are accurate
+  $term = get_term($new_term['term_id']);
+  $formatted_term = jam_cms_format_term($term);
+
+  return $formatted_term;
 }

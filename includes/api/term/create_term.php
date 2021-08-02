@@ -20,25 +20,19 @@ function jam_cms_api_create_term_callback($data) {
         return $check;
     }
 
-    $site_id     = $parameters['siteID'];
-    $taxonomy_id = $parameters['taxonomyID'];
-    $title       = $parameters['title'];
-    $slug        = $parameters['slug'];
-    $parent_id   = $parameters['parentID'];
-    $description = array_key_exists('description', $parameters) ? $parameters['description'] : '';
-    $language    = array_key_exists('language', $parameters) ? $parameters['language'] : '';
-
-    $new_term = wp_insert_term($title, $taxonomy_id, [
-        'description' => $description,
-        'parent'      => $parent_id,
-        'slug'        => $slug 
+    $new_term = wp_insert_term($parameters['title'], $parameters['taxonomyID'], [
+        'parent'      => $parameters['parentID'],
+        'slug'        => $parameters['slug'],
+        'description' => array_key_exists('description', $parameters) ? $parameters['description'] : ''
     ]);
 
     if(is_wp_error($new_term)){
         return $new_term;
     }
 
-    pll_set_term_language($new_term['term_id'], $language);
+    if(array_key_exists('language', $parameters)){
+        pll_set_term_language($new_term['term_id'], $parameters['language']);
+    }
 
     $term = get_term($new_term['term_id']);
     $formatted_term = jam_cms_format_term($term);
