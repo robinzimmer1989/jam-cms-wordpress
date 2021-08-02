@@ -14,7 +14,7 @@ function jam_cms_api_update_language_settings() {
 function jam_cms_api_update_language_settings_callback($data) {
     $parameters = $data->get_params();
 
-    $check = jam_cms_api_base_check($parameters, ['postTypes', 'defaultLanguage']);
+    $check = jam_cms_api_base_check($parameters, ['postTypes', 'taxonomies', 'defaultLanguage']);
 
     if(is_wp_error($check)){
         return $check;
@@ -28,6 +28,7 @@ function jam_cms_api_update_language_settings_callback($data) {
 
     $options['default_lang'] = $parameters['defaultLanguage'];
     $options['post_types']   = json_decode($parameters['postTypes']);
+    $options['taxonomies']   = json_decode($parameters['taxonomies']);
 
     $has_updated = update_option('polylang', $options);
 
