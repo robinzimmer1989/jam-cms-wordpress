@@ -191,6 +191,7 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/api/language/delete_language.php');
             include_once( JAM_CMS_PATH . '/includes/api/language/update_language.php');
             include_once( JAM_CMS_PATH . '/includes/api/language/update_language_settings.php');
+            include_once( JAM_CMS_PATH . '/includes/api/language/set_language_in_mass.php');
 
             // Misc APIs
             include_once( JAM_CMS_PATH . '/includes/api/sync/sync_fields.php');
