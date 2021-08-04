@@ -5,13 +5,15 @@ function jam_cms_check_for_missing_plugins(){
 
   $site_plugins = get_option('active_plugins');
 
-  foreach($site_plugins as $key => $value){
-    array_push($active_plugins, $key);
+  // Site plugins are stored in the format: [0] => classic-editor/classic-editor.php
+  foreach($site_plugins as $value){
+    array_push($active_plugins, $value);
   }
 
   if(is_multisite()){
     $network_plugins = get_site_option('active_sitewide_plugins');
 
+    // Network plugins are stored in the format: [classic-editor/classic-editor.php] => 1627265648
     foreach($network_plugins as $key => $value){
       array_push($active_plugins, $key);
     }
