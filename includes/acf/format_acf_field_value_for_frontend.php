@@ -168,17 +168,11 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
 
       array_push($src_set, $value['url'] . ' ' . $value['width'] . 'w');
 
-      $base64 = base64_encode(file_get_contents($value['sizes']['tiny']));
-      
-      if($base64){
-        $base64 = 'data:image/jpg;base64,'. $base64;
-      }
-
       $value['localFile']['childImageSharp'] = [
         // gatsby-image
         'fluid' => [
           'aspectRatio' => $value['height'] / $value['width'],
-          'base64'      => $base64,
+          'base64'      => '',
           'sizes'       => "(max-width: {$value['width']}px) 100vw, {$value['width']}px",
           'src'         => $value['url'],
           'srcSet'      => implode(',',$src_set)
@@ -189,7 +183,7 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
           'width'         => $value['width'],
           'layout'        => 'constrained',
           'placeholder'   => [
-            'fallback'    => $base64
+            'fallback'    => ''
           ],
           'images'        => [
             'fallback'    => [
@@ -201,7 +195,7 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
               0           => [
                 'sizes'   => "(min-width: {$value['width']}px) {$value['width']}px, 100vw",
                 'srcSet'  => implode(',',$src_set),
-                'type'    => "image/webp"
+                'type'    => "image"
               ]
             ]
           ]  
