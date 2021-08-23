@@ -131,7 +131,6 @@ if( ! class_exists('JamCMS') ) :
             // Queries
             include_once( JAM_CMS_PATH . '/includes/queries/get_site_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_site_for_build_by_id.php');
-            include_once( JAM_CMS_PATH . '/includes/queries/get_sites_by_user_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_post_by_id.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_media_items.php');
             include_once( JAM_CMS_PATH . '/includes/queries/get_media_item_by_id.php');
@@ -146,12 +145,9 @@ if( ! class_exists('JamCMS') ) :
             // APIs
             include_once( JAM_CMS_PATH . '/includes/api/test.php');
 
-            include_once( JAM_CMS_PATH . '/includes/api/site/create_site.php');
             include_once( JAM_CMS_PATH . '/includes/api/site/update_site.php');
             include_once( JAM_CMS_PATH . '/includes/api/site/get_site.php');
             include_once( JAM_CMS_PATH . '/includes/api/site/get_site_for_build.php');
-            include_once( JAM_CMS_PATH . '/includes/api/site/delete_site.php');
-            include_once( JAM_CMS_PATH . '/includes/api/site/get_sites.php');
             include_once( JAM_CMS_PATH . '/includes/api/site/deploy_site.php');
 
             include_once( JAM_CMS_PATH . '/includes/api/post/create_post.php');
@@ -284,7 +280,8 @@ if( ! class_exists('JamCMS') ) :
 
         if(!$settings){
             $settings = [
-                'admin_api_key' => wp_generate_uuid4()
+                'admin_api_key'         => wp_generate_uuid4(),
+                'emails_to_frontend'    => 0
             ];
 
             update_option('jam_cms_settings', $settings);
