@@ -28,7 +28,9 @@ function jam_cms_api_delete_language_callback($data) {
         
         $result = $model->delete_language($parameters['id']);
 
-        return $result;
+        if($result){
+            return intval($parameters['id']);
+        }
     }
 
     return false;

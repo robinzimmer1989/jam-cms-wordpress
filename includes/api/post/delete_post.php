@@ -28,5 +28,5 @@ function jam_cms_api_delete_post_callback($data) {
     return $post;
   }
 
-  return $post_id;
+  return intval($post_id);
 }

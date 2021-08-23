@@ -20,10 +20,9 @@ function jam_cms_api_delete_media_item_callback($data) {
         return $check;
     }
 
-    $site_id        = $parameters['siteID'];
     $attachment_id  = $parameters['id'];
 
     wp_delete_attachment($attachment_id, true);
 
-    return $attachment_id;
+    return intval($attachment_id);
 }

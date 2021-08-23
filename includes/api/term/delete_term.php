@@ -20,7 +20,6 @@ function jam_cms_api_delete_term_callback($data) {
         return $check;
     }
 
-    $site_id      = $parameters['siteID'];
     $taxonomy_id  = $parameters['taxonomyID'];
     $term_id      = $parameters['id'];
 
@@ -30,7 +29,7 @@ function jam_cms_api_delete_term_callback($data) {
       return new WP_Error( "cannot_delete_term", __( "Can't delete default category" ), array( 'status' => 400 ) );
 
     }elseif($result){
-      return $term_id;
+      return intval($term_id);
       
     }else{
       return new WP_Error( "term_does_not_exist", __( "Term doesn't exist" ), array( 'status' => 400 ) );
