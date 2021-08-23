@@ -25,16 +25,18 @@ function jam_cms_get_menu_by_id($menu_id){
 
       $default_language = pll_default_language();
 
+      $menus = [];
+
       // Get original menu in order to get the slug
       $menu = wp_get_nav_menu_object($menu_id);
 
-      $menus = [];
+      if($menu){
+        foreach($languages as $language){
+          // The menu slug is either the default one of the menu or the translated version in i.e. this format ___en
+          $menu_slug = $language->slug == $default_language ? $menu->slug : "{$menu->slug}___{$language->slug}";
 
-      foreach($languages as $language){
-        // The menu slug is either the default one of the menu or the translated version in i.e. this format ___en
-        $menu_slug = $language->slug == $default_language ? $menu->slug : "{$menu->slug}___{$language->slug}";
-
-        $menus[$language->slug] = jam_cms_get_menu_tree($menu_slug);
+          $menus[$language->slug] = jam_cms_get_menu_tree($menu_slug);
+        }
       }
 
       return (object) $menus;
