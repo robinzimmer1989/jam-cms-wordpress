@@ -1,6 +1,6 @@
 <?php
 
-function jam_cms_get_site_by_id($site_id = 'default'){
+function jam_cms_get_site_by_id(){
 
   // Get generic and custom post types
   $post_types = get_post_types([], 'objects');
@@ -50,7 +50,6 @@ function jam_cms_get_site_by_id($site_id = 'default'){
   $frontend_url = is_array($settings) && array_key_exists("frontend_url", $settings) ? $settings['frontend_url'] : '';
 
   $site = array(
-    'id'                    => $site_id,
     'title'                 => get_bloginfo('name'),
     'siteUrl'               => $frontend_url,
     'createdAt'             => $created_at,

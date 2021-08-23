@@ -26,7 +26,6 @@ function jam_cms_api_update_user_callback($data) {
         return $check;
     }
 
-    $site_id    = $parameters['siteID'];
     $user_id    = $parameters['id'];
     $role       = $parameters['role'];
 
@@ -36,7 +35,7 @@ function jam_cms_api_update_user_callback($data) {
     }
 
     if(is_multisite()){
-        $site = get_blog_details($site_id);
+        $site = get_blog_details();
         add_user_to_blog($site->blog_id, $user_id, $role);
 
     }else{

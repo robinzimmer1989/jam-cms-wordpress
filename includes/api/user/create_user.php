@@ -20,7 +20,6 @@ function jam_cms_api_create_user_callback($data) {
         return $check;
     }
 
-    $site_id    = $parameters['siteID'];
     $email      = $parameters['email'];
     $role       = $parameters['role'];
     $send_email = array_key_exists('sendEmail', $parameters) ? $parameters['sendEmail'] : false;
@@ -40,11 +39,8 @@ function jam_cms_api_create_user_callback($data) {
         }
 
         // Use null to get current blog
-        if($site_id == 'default'){
-            $site_id = null;
-        }
 
-        $site = get_blog_details($site_id);
+        $site = get_blog_details();
 
         add_user_to_blog($site->blog_id, $user_id, $role);
 

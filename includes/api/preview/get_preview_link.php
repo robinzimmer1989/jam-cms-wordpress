@@ -14,7 +14,7 @@ function jam_cms_api_get_preview_link() {
 function jam_cms_api_get_preview_link_callback($data) {
   $parameters = $data->get_params();
 
-  $check = jam_cms_api_base_check($parameters, ['siteID', 'postID', 'expiryDate']);
+  $check = jam_cms_api_base_check($parameters, ['postID', 'expiryDate']);
 
   if(is_wp_error($check)){
     return $check;

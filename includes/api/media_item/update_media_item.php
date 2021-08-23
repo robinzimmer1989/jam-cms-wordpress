@@ -20,7 +20,6 @@ function jam_cms_api_update_media_item_callback($data) {
         return $check;
     }
 
-    $site_id        = $parameters['siteID'];
     $attachment_id  = $parameters['id'];
 
     $attachment_meta = array(
@@ -36,7 +35,7 @@ function jam_cms_api_update_media_item_callback($data) {
     
     wp_update_post( $attachment_meta );
 
-    $media_item = jam_cms_get_media_item_by_id($site_id, $attachment_id);
+    $media_item = jam_cms_get_media_item_by_id($attachment_id);
 
     return $media_item;
 }

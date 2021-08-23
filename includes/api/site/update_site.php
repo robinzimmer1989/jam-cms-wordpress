@@ -20,12 +20,6 @@ function jam_cms_api_update_site_callback($data) {
         return $check;
     }
 
-    if(array_key_exists('id', $parameters)){
-        $site_id = $parameters['id'];
-    }else{
-        $site_id = 'default';
-    }
-
     if(array_key_exists('frontPage', $parameters)){
         if(is_multisite()){
             $blog_id = get_current_blog_id();
@@ -93,7 +87,7 @@ function jam_cms_api_update_site_callback($data) {
     
     update_option('jam_cms_undeployed_changes', true);
 
-    $data = jam_cms_get_site_by_id($site_id);
+    $data = jam_cms_get_site_by_id();
 
     return $data;
 }

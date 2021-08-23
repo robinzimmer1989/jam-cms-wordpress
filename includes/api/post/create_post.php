@@ -23,7 +23,6 @@ function jam_cms_api_create_post_callback($data) {
         return $check;
     }
 
-    $site_id    = $parameters['siteID'];
     $title      = $parameters['title'];
     $post_type  = $parameters['postTypeID'];
 

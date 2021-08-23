@@ -20,7 +20,6 @@ function jam_cms_api_create_media_item_callback($data) {
         return $check;
     }
 
-    $site_id    = $parameters['siteID'];
     $files      = $data->get_file_params();
     $headers    = $data->get_headers();
 
@@ -72,7 +71,7 @@ function jam_cms_api_create_media_item_callback($data) {
 
     if($attachment_id){
         $media_item = get_post($attachment_id);
-        return jam_cms_format_media_item($site_id, $media_item);
+        return jam_cms_format_media_item($media_item);
     }
 
     return $attachment_id;

@@ -23,7 +23,6 @@ function jam_cms_api_update_post_callback($data) {
       return $check;
   }
 
-  $site_id = $parameters['siteID'];
   $post_id = $parameters['id'];
 
   // Check if post can be updated first

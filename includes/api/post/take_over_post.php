@@ -20,7 +20,6 @@ function jam_cms_api_take_over_post_callback($data) {
     return $check;
   }
 
-  $site_id      = $parameters['siteID'];
   $post_id      = $parameters['id'];
 
   jam_cms_set_post_lock($post_id);

@@ -20,7 +20,6 @@ function jam_cms_api_empty_trash_callback($data) {
       return $check;
   }
 
-  $site_id      = $parameters['siteID'];
   $post_type_id = $parameters['postTypeID'];
 
   $query_args = [

@@ -19,10 +19,8 @@ function jam_cms_api_get_site_for_build_callback($data) {
     if(is_wp_error($check)){
         return $check;
     }
-
-    $site_id = array_key_exists('siteID', $parameters) ? $parameters['siteID'] : 'default';  
     
-    $data = jam_cms_get_site_for_build_by_id($site_id);
+    $data = jam_cms_get_site_for_build_by_id();
     
     return $data;
 }

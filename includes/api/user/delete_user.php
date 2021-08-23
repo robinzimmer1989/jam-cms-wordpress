@@ -20,7 +20,6 @@ function jam_cms_api_delete_user_callback($data) {
         return $check;
     }
 
-    $site_id    = $parameters['siteID'];
     $user_id    = $parameters['id'];
 
     // We need to generate the user object before deletion

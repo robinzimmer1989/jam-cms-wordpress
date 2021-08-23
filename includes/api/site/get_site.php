@@ -20,9 +20,7 @@ function jam_cms_api_get_site_callback($data) {
         return $check;
     }
 
-    $site_id = $parameters['siteID'];
-
-    $data = jam_cms_get_site_by_id($site_id);
+    $data = jam_cms_get_site_by_id();
 
     return $data;
 }

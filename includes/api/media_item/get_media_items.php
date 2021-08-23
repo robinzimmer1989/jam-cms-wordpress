@@ -20,16 +20,16 @@ function jam_cms_api_get_media_items_callback($data) {
         return $check;
     }
     
-    $site_id = $parameters['siteID'];
     $page    = array_key_exists('page', $parameters) ? $parameters['page'] : 0;
     $limit   = array_key_exists('limit', $parameters) ? $parameters['limit'] : 10;
     $search  = array_key_exists('search', $parameters) ? $parameters['search'] : "";
     $allow   = array_key_exists('allow', $parameters) ? $parameters['allow'] : "";
 
-    $data = jam_cms_get_media_items($site_id, $limit, $page, $search, $allow);
+    $data = jam_cms_get_media_items($limit, $page, $search, $allow);
 
     return array(
-        'items' => $data,
-        'page' => count($data) == $limit ? $page + 1 : -1
+        'items'     => $data,
+        'page'      => count($data) == $limit ? $page + 1 : -1,
+        'search'    => $search
     );
 }

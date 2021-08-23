@@ -14,7 +14,7 @@ function jam_cms_api_get_post_preview() {
 function jam_cms_api_get_post_preview_callback($data) {
   $parameters = $data->get_params();
 
-  $post_id = jam_cms_api_base_check($parameters, ['siteID', 'previewID']);
+  $post_id = jam_cms_api_base_check($parameters, ['previewID']);
 
   if(is_wp_error($post_id)){
     return $post_id;

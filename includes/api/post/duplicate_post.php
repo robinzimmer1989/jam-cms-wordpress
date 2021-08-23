@@ -20,7 +20,6 @@ function jam_cms_api_duplicate_post_callback($data) {
     return $check;
   }
 
-  $site_id      = $parameters['siteID'];
   $post_id      = $parameters['id'];
 
   $post = jam_cms_duplicate_post($post_id);

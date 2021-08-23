@@ -20,8 +20,6 @@ function jam_cms_api_deploy_site_callback($data) {
     return $check;
   }
 
-  $site_id = $parameters['id'];
-
   $jamstack_deployment_settings = get_option('wp_jamstack_deployments');
 
   if($jamstack_deployment_settings){
@@ -54,7 +52,7 @@ function jam_cms_api_deploy_site_callback($data) {
     update_option('jam_cms_last_build', $now);
     update_option('jam_cms_undeployed_changes', false);
 
-    $data = jam_cms_get_site_by_id($site_id);
+    $data = jam_cms_get_site_by_id();
 
     return $data;
   }

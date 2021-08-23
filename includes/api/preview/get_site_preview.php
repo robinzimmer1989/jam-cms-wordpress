@@ -14,15 +14,13 @@ function jam_cms_api_get_site_preview() {
 function jam_cms_api_get_site_preview_callback($data) {
   $parameters = $data->get_params();
 
-  $check = jam_cms_api_base_check($parameters, ['siteID', 'previewID']);
+  $check = jam_cms_api_base_check($parameters, ['previewID']);
 
   if(is_wp_error($check)){
     return $check;
   }
 
-  $site_id = $parameters['siteID'];
-
-  $site = jam_cms_get_site_by_id($site_id);
+  $site = jam_cms_get_site_by_id();
 
   return $site;
 }

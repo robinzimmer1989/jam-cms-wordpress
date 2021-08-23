@@ -20,7 +20,6 @@ function jam_cms_api_get_user_callback($data) {
         return $check;
     }
 
-    $site_id    = $parameters['siteID'];
     $user_id    = $parameters['id'];
 
     $data = jam_cms_get_user_by_id($user_id);

@@ -20,7 +20,6 @@ function jam_cms_api_get_users_callback($data) {
         return $check;
     }
 
-    $site_id    = $parameters['siteID'];
     $page       = $parameters['page'];
     $limit      = $parameters['limit'];
 

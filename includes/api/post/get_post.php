@@ -14,13 +14,13 @@ function jam_cms_api_get_post() {
 function jam_cms_api_get_post_callback($data) {
     $parameters = $data->get_params();
 
-    $check = jam_cms_api_base_check($parameters, ['postID']);
+    $check = jam_cms_api_base_check($parameters, ['id']);
 
     if(is_wp_error($check)){
         return $check;
     }
 
-    $post_id = $parameters['postID'];
+    $post_id = $parameters['id'];
 
     if(current_user_can('edit_posts')){
         // Check if post is locked

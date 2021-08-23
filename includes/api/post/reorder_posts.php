@@ -20,7 +20,6 @@ function jam_cms_api_reorder_posts_callback($data) {
         return $check;
     }
 
-    $site_id      = $parameters['siteID'];
     $post_ids     = $parameters['postIDs'];
 
     global $wpdb;
