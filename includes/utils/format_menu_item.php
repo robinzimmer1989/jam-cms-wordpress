@@ -8,13 +8,13 @@ function jam_cms_format_menu_item($menu_item){
     $url = jam_cms_format_url($menu_item->url);
 
   }else {
-    $post_id = $menu_item->object_id;
+    $post_id = intval($menu_item->object_id);
     $post_type_id = $menu_item->object;
 
     $post = get_post($post_id);
     // Private posts are returning encrypted urls and setting the filter to 'sample' fixes that (see https://developer.wordpress.org/reference/functions/get_sample_permalink/)
     $post->filter = 'sample';
-    $permalink = get_permalink( $post );
+    $permalink = get_permalink($post);
     $url = jam_cms_format_url($permalink);
   }
 
