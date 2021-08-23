@@ -27,10 +27,12 @@ function jam_cms_register_settings() {
     add_settings_section( 'settings', 'Settings', 'jam_cms_plugin_section_text', 'jam_cms_plugin' );
     add_settings_field( 'jam_cms_plugin_setting_frontend_url', 'Frontend URL', 'jam_cms_plugin_setting_frontend_url', 'jam_cms_plugin', 'settings' );
     add_settings_field( 'jam_cms_plugin_setting_google_maps_api_key', 'Google Maps', 'jam_cms_plugin_setting_google_maps_api_key', 'jam_cms_plugin', 'settings' );
+    add_settings_field( 'jam_cms_plugin_setting_emails', 'Emails', 'jam_cms_plugin_setting_emails', 'jam_cms_plugin', 'settings' );
     
     add_settings_section( 'syncing', 'Syncing', 'jam_cms_plugin_section_text', 'jam_cms_plugin' );
     add_settings_field( 'jam_cms_plugin_setting_api_key', 'API Key', 'jam_cms_plugin_setting_api_key', 'jam_cms_plugin', 'syncing' );
     add_settings_field( 'jam_cms_plugin_setting_disable_syncing', 'Syncing', 'jam_cms_plugin_setting_disable_syncing', 'jam_cms_plugin', 'syncing' );
+
 }
 
 function jam_cms_plugin_options_validate( $input ) {
@@ -40,7 +42,8 @@ function jam_cms_plugin_options_validate( $input ) {
     $new_settings = [
         'disable_syncing'       => array_key_exists('disable_syncing', $input) ? $input['disable_syncing'] : 0,
         'frontend_url'          => array_key_exists('frontend_url', $input) ? $input['frontend_url'] : '',
-        'google_maps_api_key'   => array_key_exists('google_maps_api_key', $input) ? $input['google_maps_api_key'] : ''
+        'google_maps_api_key'   => array_key_exists('google_maps_api_key', $input) ? $input['google_maps_api_key'] : '',
+        'emails_to_frontend'    => array_key_exists('emails_to_frontend', $input) ? $input['emails_to_frontend'] : 0,
     ];
 
     $array = array_merge($settings, $new_settings);
@@ -96,12 +99,6 @@ function jam_cms_plugin_setting_api_key() {
     </script>';
 }
 
-function jam_cms_plugin_setting_disable_syncing() {
-    $settings = get_option("jam_cms_settings");
-    $checked = is_array($settings) && array_key_exists("disable_syncing", $settings) && $settings['disable_syncing'] == 1 ? 'checked="checked"' : '';
-    echo '<label><input ' . $checked . ' name="jam_cms_plugin_options[disable_syncing]" type="checkbox" value="1" /> Disable automatic syncing of post types, templates and ACF fields</label>';
-}
-
 function jam_cms_plugin_setting_frontend_url() {
     $settings = get_option("jam_cms_settings");
     $frontend_url = is_array($settings) && array_key_exists("frontend_url", $settings) ? $settings['frontend_url'] : '';
@@ -113,4 +110,16 @@ function jam_cms_plugin_setting_google_maps_api_key() {
     $google_maps_api_key = is_array($settings) && array_key_exists("google_maps_api_key", $settings) ? $settings['google_maps_api_key'] : '';
     echo "<input id='jam_cms_plugin_setting_google_maps_api_key' class='regular-text' name='jam_cms_plugin_options[google_maps_api_key]' type='text' value='" . $google_maps_api_key . "' />";
     echo '<p class="description">Add the Google Maps API key here. This is only necessary if you use the Google Maps field.</p>';
+}
+
+function jam_cms_plugin_setting_disable_syncing() {
+    $settings = get_option("jam_cms_settings");
+    $checked = is_array($settings) && array_key_exists("disable_syncing", $settings) && $settings['disable_syncing'] == 1 ? 'checked="checked"' : '';
+    echo '<label><input ' . $checked . ' name="jam_cms_plugin_options[disable_syncing]" type="checkbox" value="1" /> Disable automatic syncing of post types, templates and ACF fields</label>';
+}
+
+function jam_cms_plugin_setting_emails() {
+    $settings = get_option("jam_cms_settings");
+    $checked = is_array($settings) && array_key_exists("emails_to_frontend", $settings) && $settings['emails_to_frontend'] == 1 ? 'checked="checked"' : '';
+    echo '<label><input ' . $checked . ' name="jam_cms_plugin_options[emails_to_frontend]" type="checkbox" value="1" /> Point users to jamCMS password (re)set page instead of WordPress (requires frontend URL)</label>';
 }
