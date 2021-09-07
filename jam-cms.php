@@ -127,6 +127,8 @@ if( ! class_exists('JamCMS') ) :
             include_once( JAM_CMS_PATH . '/includes/acf/add_menu_picker_field.php');
             include_once( JAM_CMS_PATH . '/includes/acf/add_google_maps_api_key.php');
             include_once( JAM_CMS_PATH . '/includes/acf/get_default_field_values.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/add_acf_field_group_for_menu.php');
+            include_once( JAM_CMS_PATH . '/includes/acf/get_menu_fields_recursively.php');
             
             // Queries
             include_once( JAM_CMS_PATH . '/includes/queries/get_site_by_id.php');

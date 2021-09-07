@@ -23,7 +23,6 @@ function jam_cms_format_acf_field_value_for_frontend($field, $value){
   $type = $field->type;
 
   if($type == 'menu'){
-
     $value = jam_cms_get_menu_by_id($value);
 
   }elseif($type == 'link'){

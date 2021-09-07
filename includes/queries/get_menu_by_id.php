@@ -7,7 +7,12 @@ function jam_cms_get_menu_tree($menu_id){
     return [];
   }
 
-  $menu_tree = jam_cms_build_menu_tree($menu_items);
+  // Translated menus are stored with a language code extention (i.e. headermenu___de). To get the ACF field id we need to trim this extention.
+  $original_menu_id = explode('___', $menu_id)[0];
+
+  $fields = acf_get_fields("group_menu-{$original_menu_id}");
+
+  $menu_tree = jam_cms_build_menu_tree($fields, $menu_items);
 
   return $menu_tree;
 }

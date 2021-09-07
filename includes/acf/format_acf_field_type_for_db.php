@@ -87,6 +87,10 @@ function jam_cms_format_acf_field_type_for_db($field, $field_key = ''){
       $args['choices'] = $choices;
     }
 
+    if($field->type == 'menu' && property_exists($field, 'fields')){
+      jam_cms_add_acf_field_group_for_menu($field);
+    }
+
     if($field->type == 'group' && property_exists($field, 'fields')){
       $sub_fields = jam_cms_generate_sub_fields_recursively($field->fields, $field_key);
       $args['sub_fields'] = $sub_fields;

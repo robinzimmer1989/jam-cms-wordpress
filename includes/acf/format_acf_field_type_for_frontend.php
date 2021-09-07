@@ -53,6 +53,10 @@ function jam_cms_format_acf_field_type_for_frontend($field){
     $args['step'] = $field->step;
   }
 
+   if($field->type == 'menu'){
+    $args['fields'] = jam_cms_get_menu_fields_recursively($field);
+  }
+
   if($field->type == 'group'){
     $args['fields'] = jam_cms_get_group_items_recursively($field);
   }

@@ -1,6 +1,6 @@
 <?php
 
-function jam_cms_format_menu_item($menu_item){
+function jam_cms_format_menu_item($fields, $menu_item){
 
   if($menu_item->object == 'custom'){
     $post_id = null;
@@ -18,7 +18,7 @@ function jam_cms_format_menu_item($menu_item){
     $url = jam_cms_format_url($permalink);
   }
 
-  $new_menu_item = (object) [
+  $new_menu_item = [
     'key'         => $menu_item->ID,
     'postID'      => $post_id,
     'postTypeID'  => $post_type_id,
@@ -27,6 +27,13 @@ function jam_cms_format_menu_item($menu_item){
     'children'    => $menu_item->children ? $menu_item->children : [],
   ];
 
-  return $new_menu_item;
+  // Add ACF field values to menu items
+  if($fields){
+    foreach($fields as $field){
+      $value = get_field($field['name'], $menu_item->ID);
+      $new_menu_item['value'][$field['name']] = jam_cms_format_acf_field_value_for_frontend($field, $value);
+    }
+  }
 
+  return (object) $new_menu_item;
 }
