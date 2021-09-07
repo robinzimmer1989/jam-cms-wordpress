@@ -14,7 +14,7 @@ function jam_cms_api_deploy_site() {
 function jam_cms_api_deploy_site_callback($data) {
   $parameters = $data->get_params();
   
-  $check = jam_cms_api_base_check($parameters, ['id']);
+  $check = jam_cms_api_base_check($parameters);
 
   if(is_wp_error($check)){
     return $check;
