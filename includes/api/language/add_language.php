@@ -55,11 +55,7 @@ function jam_cms_api_add_language_callback($data) {
             $languages = jam_cms_get_languages();
 
             if(!$languages->defaultLanguage){
-
-                // Let's automatically set the default language if it doesn't exist yet
-                $options['default_lang'] = $parameters['slug'];
-                update_option('polylang', $options);
-
+            
                 // Override missing default language and title which are unavailable without a refresh
                 $languages->defaultLanguage = $parameters['slug'];
                 $languages->title = $current_languages->title;
