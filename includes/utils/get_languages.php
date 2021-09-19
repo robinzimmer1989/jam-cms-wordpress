@@ -4,10 +4,12 @@ function jam_cms_get_languages(){
 
   $formatted_languages = [];
 
-  $languages = pll_languages_list(['fields' => []]);
+  if(function_exists('pll_languages_list')){
+    $languages = pll_languages_list(['fields' => []]);
 
-  foreach($languages as $language){
-    array_push($formatted_languages, jam_cms_format_language($language));
+    foreach($languages as $language){
+      array_push($formatted_languages, jam_cms_format_language($language));
+    }
   }
   
   $language = get_taxonomy('language');
